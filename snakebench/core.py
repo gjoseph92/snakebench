@@ -34,16 +34,26 @@ class CommitInfo(NamedTuple):
 
 @pytest.fixture(scope="session")
 def commit_info() -> tuple[str, str, str]:
-    sha, subject, body = (
-        subprocess.run(
-            ["git", "log", "--format=%h%n%s%n%b", "-n", "1", "HEAD"],
-            check=True,
-            capture_output=True,
-            text=True,
-        )
-        .stdout.strip()
-        .split("\n")
-    )
+    # TODO combine into one subprocess call. Just don't want to deal
+    # with parsing delimiters.
+    sha = subprocess.run(
+        ["git", "log", "--format=%h", "-n", "1", "HEAD"],
+        check=True,
+        capture_output=True,
+        text=True,
+    ).stdout.strip()
+    subject = subprocess.run(
+        ["git", "log", "--format=%s", "-n", "1", "HEAD"],
+        check=True,
+        capture_output=True,
+        text=True,
+    ).stdout.strip()
+    body = subprocess.run(
+        ["git", "log", "--format=%b", "-n", "1", "HEAD"],
+        check=True,
+        capture_output=True,
+        text=True,
+    ).stdout.strip()
 
     return CommitInfo(sha, subject, body)
 
