@@ -1,0 +1,30 @@
+repos:
+  - repo: local
+    hooks:
+      - id: pdm-check
+        name: pdm check
+        description: Check that PDM lockfile is up to date
+        entry: pdm install --check --dry-run
+        files: "^pyproject.toml$"
+        language: python
+        language_version: python3
+        pass_filenames: false
+      - id: shed
+        name: shed
+        entry: pdm run shed
+        language: python
+        types: [file]
+        files: .*\.(py|md|rst)
+        args: [--refactor]
+      - id: flake8
+        name: flake8
+        entry: pdm run flake8
+        language: python
+        types: [python]
+        require_serial: true
+      - id: pyright
+        name: pyright
+        entry: pdm run pyright
+        language: node
+        pass_filenames: true
+        types: [python]

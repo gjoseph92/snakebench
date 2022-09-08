@@ -1,0 +1,14 @@
+results-*.json
+results-*.json.lock
+
+.pdm.toml
+
+.DS_Store
+*.swp
+*.pyc
+__pycache__/
+.pytest_cache/
+.ipynb_checkpoints
+.venv
+
+.vscode/
