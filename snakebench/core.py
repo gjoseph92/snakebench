@@ -36,7 +36,7 @@ class CommitInfo(NamedTuple):
 def commit_info() -> tuple[str, str, str]:
     sha, subject, body = (
         subprocess.run(
-            ["git", "log", r"--format=%h\n%s\n%b", "-n", "1", "HEAD"],
+            ["git", "log", "--format=%h%n%s%n%b", "-n", "1", "HEAD"],
             check=True,
             capture_output=True,
             text=True,
