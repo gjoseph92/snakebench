@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <!-- Import Vega & Vega-Lite (does not have to be from CDN) -->
+    <script src="https://cdn.jsdelivr.net/npm/vega@5"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vega-lite@5"></script>
+    <!-- Import vega-embed -->
+    <script src="https://cdn.jsdelivr.net/npm/vega-embed@6"></script>
+</head>
+
+<body>
+
+    <div>
+        <input id="commits" type="text" placeholder="Space-separated commit hashes to compare" style="width: 100%">
+    </div>
+
+    <div id="vis"></div>
+
+    <script type="text/javascript">
+
+        async function main() {
+            const embed = await vegaEmbed('#vis', "viz.vg");
+
+            async function updateData(e) {
+                const shas = e.target.value.trim().split(" ");
+                const urls = shas.map(c => `results-${c}.json`);
+                console.log(urls);
+
+                const responses = await Promise.all(
+                    urls.map(async (url, index) => {
+                        let resp = await fetch(url);
+                        let text = await resp.text();
+                        // Parse newline-delimited JSON
+                        return text.trim().split("\n").map(line => {
+                            datum = JSON.parse(line);
+                            datum._order = index;
+                            return datum
+                        })
+                    })
+                )
+
+                const data = responses.flat(1);
+                console.log(data)
+
+                let changeset = vega.changeset().remove(() => true).insert(data);
+                embed.view
+                    .change('data', changeset)
+                    .resize()
+                    .runAsync();
+            }
+
+            const el = document.querySelector('#commits');
+            el.addEventListener('change', updateData);
+            // TODO no defaults
+            el.value = "3af4f23 6ff22f1";
+            el.dispatchEvent(new Event("change"));
+        }
+        main();
+
+    </script>
+</body>
+
+</html>

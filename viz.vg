@@ -1,0 +1,60 @@
+{
+    "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+    "data": {
+        "name": "data"
+    },
+    "params": [
+        {
+            "name": "metric",
+            "value": "duration",
+            "bind": {
+                "input": "select",
+                "options": [
+                    "duration",
+                    "average_memory",
+                    "peak_memory"
+                ]
+            }
+        },
+        {
+            "name": "units",
+            "expr": "{duration: 's', average_memory: 'GiB', peak_memory: 'GiB'}[metric]"
+        }
+    ],
+    "transform": [
+        {
+            "calculate": "datum[metric]",
+            "as": "value"
+        }
+    ],
+    "mark": "bar",
+    "width": 300,
+    "height": 50,
+    "encoding": {
+        "x": {
+            "field": "value",
+            "type": "quantitative",
+            "axis": {
+                "title": {
+                    "expr": "metric + ' (' + units + ')'"
+                }
+            }
+        },
+        "y": {
+            "field": "commit_subject",
+            "type": "nominal",
+            "sort": {
+                "field": "_order"
+            },
+            "title": null
+        },
+        "facet": {
+            "field": "name",
+            "columns": 2,
+            "type": "nominal",
+            "header": {
+                "title": null
+            }
+        }
+    }
+}
