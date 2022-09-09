@@ -1,5 +1,5 @@
 name: Benchmark
-on: [push]  # TODO only match certain branches
+on: [push] # TODO only match certain branches
 
 jobs:
   benchmark:
@@ -18,17 +18,39 @@ jobs:
           python-version: 3.8 # TODO matrix
           enable-pep582: false
         # TODO pdm lock if necessary, and push commit back to branch with new lockfile
-        # TODO install into virtual environment and cache it
+        # TODO cache virtual env
       - name: Install dependencies
         # Hack, see https://github.com/pdm-project/pdm/discussions/1365#discussioncomment-3581356
+        shell: bash
         run: |
-          VIRTUAL_ENV=$(dirname $(dirname $(which python))) pdm install -dG test
+          pdm venv create
+          eval $(pdm venv activate in-project)
+          pdm use $(which python)
+          pdm install -dG test
+          pdm info
       - name: Run Tests
+        shell: bash
         run: |
           pdm run pytest
-      - name: Upload benchmark results
-        uses: actions/upload-artifact@v3
+      # - name: Upload benchmark results as artifact
+      #   uses: actions/upload-artifact@v3
+      #   if: always()
+      #   with:
+      #     name: results-${{ env.SHORT_SHA }}
+      #     path: results-${{ env.SHORT_SHA }}.json
+      # - name: Set AWS credentials
+      #   uses: aws-actions/configure-aws-credentials@v1
+      #   with:
+      #     aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+      #     aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+      #     aws-region: us-east-2
+
+      - name: Upload benchmark results to bucket
+        shell: bash
         if: always()
-        with:
-          name: results-${{ env.SHORT_SHA }}
-          path: results-${{ env.SHORT_SHA }}.json
+        env:
+          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          AWS_DEFAULT_REGION: us-east-2 # this is needed for boto for some reason
+        run: |
+          aws s3 cp "results-$SHORT_SHA.json" s3://snakebench-public/
