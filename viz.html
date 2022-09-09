@@ -20,11 +20,14 @@
     <script type="text/javascript">
 
         async function main() {
+            // const sha_to_url = (sha) => `results-${sha}.json`;
+            const sha_to_url = (sha) => `https://snakebench-public.s3.us-east-2.amazonaws.com/results-${sha}.json`;
+
             const embed = await vegaEmbed('#vis', "viz.vg");
 
             async function updateData(e) {
                 const shas = e.target.value.trim().split(" ");
-                const urls = shas.map(c => `results-${c}.json`);
+                const urls = shas.map(sha_to_url);
                 console.log(urls);
 
                 const responses = await Promise.all(
@@ -53,7 +56,7 @@
             const el = document.querySelector('#commits');
             el.addEventListener('change', updateData);
             // TODO no defaults
-            el.value = "3af4f23 6ff22f1";
+            el.value = "5c5e3a3";
             el.dispatchEvent(new Event("change"));
         }
         main();
