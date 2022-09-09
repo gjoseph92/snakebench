@@ -1,0 +1,34 @@
+name: Benchmark
+on: [push]  # TODO only match certain branches
+
+jobs:
+  benchmark:
+    name: Benchmark
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+      - name: Add SHORT_SHA
+        run: echo "SHORT_SHA=$(git rev-parse --short HEAD)" >> $GITHUB_ENV
+        shell: bash
+      - name: Set up PDM
+        uses: pdm-project/setup-pdm@v2
+        with:
+          python-version: 3.8 # TODO matrix
+          enable-pep582: false
+        # TODO pdm lock if necessary, and push commit back to branch with new lockfile
+        # TODO install into virtual environment and cache it
+      - name: Install dependencies
+        # Hack, see https://github.com/pdm-project/pdm/discussions/1365#discussioncomment-3581356
+        run: |
+          VIRTUAL_ENV=$(dirname $(dirname $(which python))) pdm install -dG test
+      - name: Run Tests
+        run: |
+          pdm run pytest
+      - name: Upload benchmark results
+        uses: actions/upload-artifact@v3
+        if: always()
+        with:
+          name: results-${{ env.SHORT_SHA }}
+          path: results-${{ env.SHORT_SHA }}.json
