@@ -2,8 +2,8 @@
 # `conftest.py`. So everything that needs to be in scope in `conftest.py` should be
 # exported here.
 
+from .commit_info import commit_info
 from .core import (
-    commit_info,
     pytest_runtest_makereport,
     result_file_lock,
     results_filename,
