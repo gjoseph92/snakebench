@@ -5,6 +5,7 @@ description = ""
 authors = [
     {name = "Gabe Joseph", email = "gabe@coiled.io"},
 ]
+# NOTE: these are dependencies that will actually be installed on the cluster.
 dependencies = [
     "distributed>=2022.9.0",
 ]
@@ -19,10 +20,13 @@ build-backend = "pdm.pep517.api"
 [tool]
 [tool.pdm]
 [tool.pdm.dev-dependencies]
+# NOTE: these are dependencies needed to _run_ the tests.
+# Anything imported in `snakebench` or `tests` should go in here.
 test = [
     "pytest>=7.1.3",
     "msgspec>=0.8.0",
     "filelock>=3.8.0",
+    "sneks-sync>=0.2.0",
 ]
 lint = [
     "pyright>=1.1.270",
