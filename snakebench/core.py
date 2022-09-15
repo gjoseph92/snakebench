@@ -2,12 +2,11 @@ from __future__ import annotations
 
 import os
 
-import msgspec
 import pytest
 from filelock import FileLock
 
 from snakebench.commit_info import CommitInfo
-from snakebench.schema import TestRun
+from snakebench.schema import TestRun, encoder
 
 RESULTS_FILE_BASE = os.environ.get("RESULTS_FILE_BASE", "results")
 
@@ -84,5 +83,5 @@ def test_run_benchmark(
     with result_file_lock:
         # Write newline-delimited JSON
         with open(results_filename, "ab") as f:
-            f.write(msgspec.json.encode(run))
+            f.write(encoder.encode(run))
             f.write(b"\n")

@@ -1,9 +1,10 @@
 from __future__ import annotations
 
 from datetime import datetime
-from typing import Literal
+from typing import Any, Literal
 
 import msgspec
+import numpy as np
 
 Outcome = Literal["passed", "failed", "skipped"]
 
@@ -33,3 +34,13 @@ class TestRun(msgspec.Struct):
     # Memory data
     average_memory: float | None = None
     peak_memory: float | None = None
+
+
+def enc_hook(obj: Any) -> Any:
+    # For convenience, support encoding NumPy scalars
+    if type(obj) in np.ScalarType:
+        return obj.item()
+    raise TypeError(f"Encoding objects of type {type(obj)} is unsupported")
+
+
+encoder = msgspec.json.Encoder(enc_hook=enc_hook)

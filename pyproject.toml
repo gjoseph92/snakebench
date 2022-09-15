@@ -48,7 +48,7 @@ util = [
 reportPrivateImportUsage = false
 # Dask doesn't use types enough to even be able to typecheck these
 exclude = [
-    "tests/benchmarks/**"
+    "tests/**"
 ]
 
 [tool.pytest.ini_options]
