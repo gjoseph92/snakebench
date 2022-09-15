@@ -9,15 +9,15 @@ from snakebench.commit_info import CommitInfo
 
 
 @pytest.fixture(scope="module")
-def _small_client_base(
-    commit_info: CommitInfo,
-    current_module: str,
-) -> Iterator[Client]:
+def cluster_name(commit_info: CommitInfo, current_module: str) -> str:
+    return f"{commit_info.sha}-{current_module.replace('.', '_')}"
+
+
+@pytest.fixture(scope="module")
+def _small_client_base(cluster_name) -> Iterator[Client]:
     "Create a per-module client. Do not use this fixture directly."
     # So coiled logs can be displayed on test failure
     logging.getLogger("coiled").setLevel(logging.INFO)
-
-    cluster_name = f"{commit_info.sha}-{current_module.replace('.', '_')}"
 
     print(f"Creating cluster {cluster_name}...")
     with sneks.get_client(
