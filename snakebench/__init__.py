@@ -7,6 +7,7 @@ from .benchmark_all import benchmark_all
 from .clusters import _small_client_base, small_client
 from .commit_info import commit_info
 from .core import (
+    current_module,
     pytest_runtest_makereport,
     result_file_lock,
     results_filename,
@@ -19,6 +20,7 @@ __all__ = [
     "pytest_runtest_makereport",
     "benchmark_all",
     "commit_info",
+    "current_module",
     "small_client",
     "_small_client_base",
     "results_filename",

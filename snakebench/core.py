@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import os
+from types import ModuleType
 
 import pytest
 from filelock import FileLock
@@ -52,9 +53,18 @@ def pytest_runtest_makereport(item, call):
     setattr(item, "rep_" + rep.when, rep)
 
 
+@pytest.fixture(scope="module")
+def current_module(request: pytest.FixtureRequest) -> str:
+    mod: ModuleType = request.module
+    return mod.__name__
+
+
 @pytest.fixture(scope="function")
 def test_run_benchmark(
-    result_file_lock, results_filename, commit_info: CommitInfo, request
+    result_file_lock,
+    results_filename,
+    commit_info: CommitInfo,
+    request: pytest.FixtureRequest,
 ):
     node = request.node
     run = TestRun(
