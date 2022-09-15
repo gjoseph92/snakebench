@@ -34,9 +34,10 @@ def _small_client_base(
 def small_client(_small_client_base: Client) -> Iterator[Client]:
     "Per-test fixture to get a client."
     assert _small_client_base.cluster
-    # _small_client_base.cluster.scale(10)
+    _small_client_base.cluster.scale(10)
+    print("Waiting for 10")
     _small_client_base.wait_for_workers(10)
-    # _small_client_base.restart()
+    _small_client_base.restart()
 
     print(_small_client_base)
     yield _small_client_base

@@ -2,6 +2,7 @@
 # `conftest.py`. So everything that needs to be in scope in `conftest.py` should be
 # exported here.
 
+from . import utils_test
 from .clusters import _small_client_base, small_client
 from .commit_info import commit_info
 from .core import (
@@ -24,4 +25,5 @@ __all__ = [
     "benchmark_time",
     "auto_benchmark_time",
     "benchmark_memory",
+    "utils_test",
 ]
