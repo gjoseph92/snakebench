@@ -20,7 +20,6 @@ jobs:
         # TODO pdm lock if necessary, and push commit back to branch with new lockfile
         # TODO cache virtual env
       - name: Install dependencies
-        # Hack, see https://github.com/pdm-project/pdm/discussions/1365#discussioncomment-3581356
         shell: bash
         run: |
           pdm venv create
@@ -30,8 +29,10 @@ jobs:
           pdm info
       - name: Run Tests
         shell: bash
+        env:
+          DASK_COILED__TOKEN: ${{ secrets.COILED_BENCHMARK_BOT_TOKEN }}
         run: |
-          pdm run pytest
+          pdm run pytest -n 10 --dist loadscope
       # - name: Upload benchmark results as artifact
       #   uses: actions/upload-artifact@v3
       #   if: always()
