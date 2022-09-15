@@ -27,7 +27,9 @@
 
             async function updateData(e) {
                 const shas = e.target.value.trim().split(" ");
-                const urls = shas.map(sha_to_url);
+                const short_shas = shas.map(commit => commit.slice(0, 7))
+                el.value = short_shas.join(' ')
+                const urls = short_shas.map(sha_to_url);
                 console.log(urls);
 
                 const responses = await Promise.all(
