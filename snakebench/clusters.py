@@ -7,10 +7,16 @@ from distributed.client import Client
 
 from snakebench.commit_info import CommitInfo
 
+N_WORKERS = 10
+
 
 @pytest.fixture(scope="module")
 def cluster_name(commit_info: CommitInfo, current_module: str) -> str:
     return f"{commit_info.sha}-{current_module.replace('.', '_')}"
+
+
+# TODO find some way to generalize this pattern
+# Have a way to create the base and function-scoped fixtures given n_workers and args.
 
 
 @pytest.fixture(scope="module")
@@ -22,7 +28,7 @@ def _small_client_base(cluster_name) -> Iterator[Client]:
     print(f"Creating cluster {cluster_name}...")
     with sneks.get_client(
         name=cluster_name,
-        n_workers=10,
+        n_workers=N_WORKERS,
         worker_vm_types=["t3.large"],  # 2CPU, 8GiB
         scheduler_vm_types=["t3.large"],
         shutdown_on_close=True,
@@ -35,9 +41,9 @@ def _small_client_base(cluster_name) -> Iterator[Client]:
 def small_client(_small_client_base: Client, benchmark_all) -> Iterator[Client]:
     "Per-test fixture to get a client, with automatic benchmarking."
     assert _small_client_base.cluster
-    _small_client_base.cluster.scale(10)
-    print("Waiting for 10 workers")
-    _small_client_base.wait_for_workers(10)
+    _small_client_base.cluster.scale(N_WORKERS)
+    print(f"Waiting for {N_WORKERS} workers")
+    _small_client_base.wait_for_workers(N_WORKERS)
     _small_client_base.restart()
 
     print(_small_client_base)
