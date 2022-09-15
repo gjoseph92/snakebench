@@ -50,3 +50,6 @@ reportPrivateImportUsage = false
 exclude = [
     "tests/benchmarks/**"
 ]
+
+[tool.pytest.ini_options]
+addopts = "-vs"
