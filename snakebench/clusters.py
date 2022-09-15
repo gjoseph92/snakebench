@@ -25,6 +25,7 @@ def _small_client_base(
         n_workers=10,
         worker_vm_types=["t3.large"],  # 2CPU, 8GiB
         scheduler_vm_types=["t3.large"],
+        shutdown_on_close=True,
     ) as client:
         yield client
 
