@@ -54,9 +54,16 @@ def pytest_runtest_makereport(item, call):
 
 
 @pytest.fixture(scope="module")
-def current_module(request: pytest.FixtureRequest) -> str:
+def module_id(commit_info: CommitInfo, request: pytest.FixtureRequest) -> str:
+    "Module-level unique identifier (commit + module name)"
     mod: ModuleType = request.module
-    return mod.__name__
+    return f"{commit_info.sha}-{mod.__name__.replace('.', '_')}"
+
+
+@pytest.fixture
+def test_id(request: pytest.FixtureRequest, module_id) -> str:
+    "Test-level unique identifier (commit + module name + test name)"
+    return f"{module_id}-{request.node.name}"
 
 
 @pytest.fixture(scope="function")

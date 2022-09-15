@@ -5,14 +5,7 @@ import pytest
 import sneks
 from distributed.client import Client
 
-from snakebench.commit_info import CommitInfo
-
 N_WORKERS = 10
-
-
-@pytest.fixture(scope="module")
-def cluster_name(commit_info: CommitInfo, current_module: str) -> str:
-    return f"{commit_info.sha}-{current_module.replace('.', '_')}"
 
 
 # TODO find some way to generalize this pattern
@@ -20,14 +13,14 @@ def cluster_name(commit_info: CommitInfo, current_module: str) -> str:
 
 
 @pytest.fixture(scope="module")
-def _small_client_base(cluster_name) -> Iterator[Client]:
+def _small_client_base(module_id) -> Iterator[Client]:
     "Create a per-module client. Do not use this fixture directly."
     # So coiled logs can be displayed on test failure
     logging.getLogger("coiled").setLevel(logging.INFO)
 
-    print(f"Creating cluster {cluster_name}...")
+    print(f"Creating cluster {module_id}...")
     with sneks.get_client(
-        name=cluster_name,
+        name=module_id,
         n_workers=N_WORKERS,
         worker_vm_types=["t3.large"],  # 2CPU, 8GiB
         scheduler_vm_types=["t3.large"],

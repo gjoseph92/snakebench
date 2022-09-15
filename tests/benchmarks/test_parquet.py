@@ -17,9 +17,9 @@ N_WORKERS = 15
 
 
 @pytest.fixture(scope="module")
-def _parquet_client_base(cluster_name) -> Iterator[Client]:
+def _parquet_client_base(module_id) -> Iterator[Client]:
     with sneks.get_client(
-        name=cluster_name,
+        name=module_id,
         n_workers=N_WORKERS,
         worker_vm_types=["m5.xlarge"],
         scheduler_vm_types=["m5.xlarge"],

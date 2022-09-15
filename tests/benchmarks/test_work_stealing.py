@@ -20,9 +20,9 @@ def test_trivial_workload_should_not_cause_work_stealing(small_client):
     distributed.__version__ == "2022.6.0",
     reason="https://github.com/dask/distributed/issues/6624",
 )
-def test_work_stealing_on_scaling_up(cluster_name, benchmark_all):
+def test_work_stealing_on_scaling_up(test_id, benchmark_all):
     with sneks.get_client(
-        name=cluster_name + "-scaling_up",
+        name=test_id,
         n_workers=1,
         worker_vm_types=["t3.medium"],
         wait_for_workers=True,
@@ -70,10 +70,10 @@ def test_work_stealing_on_inhomogeneous_workload(small_client):
 
 
 def test_work_stealing_on_straggling_worker(
-    cluster_name, upload_cluster_dump, benchmark_all
+    test_id, upload_cluster_dump, benchmark_all
 ):
     with sneks.get_client(
-        name=cluster_name + "-straggling_worker",
+        name=test_id,
         n_workers=10,
         worker_vm_types=["t3.medium"],
         wait_for_workers=True,

@@ -1,7 +1,7 @@
 from coiled import Cluster
 
 
-def test_default_cluster_spinup_time(cluster_name, auto_benchmark_time):
+def test_default_cluster_spinup_time(module_id, auto_benchmark_time):
 
-    with Cluster(name=cluster_name):
+    with Cluster(name=module_id):
         pass
