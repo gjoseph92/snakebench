@@ -2,6 +2,7 @@
 # `conftest.py`. So everything that needs to be in scope in `conftest.py` should be
 # exported here.
 
+from .clusters import _small_client_base, small_client
 from .commit_info import commit_info
 from .core import (
     pytest_runtest_makereport,
@@ -15,6 +16,8 @@ from .time import auto_benchmark_time, benchmark_time
 __all__ = [
     "pytest_runtest_makereport",
     "commit_info",
+    "small_client",
+    "_small_client_base",
     "results_filename",
     "result_file_lock",
     "test_run_benchmark",
