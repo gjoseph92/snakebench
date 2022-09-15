@@ -21,4 +21,4 @@ def benchmark_memory(test_run_benchmark: TestRun):
             test_run_benchmark.average_memory = df[label].mean()
             test_run_benchmark.peak_memory = df[label].max()
 
-    yield _benchmark_memory
+    return _benchmark_memory

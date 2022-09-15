@@ -32,13 +32,14 @@ def _small_client_base(
 
 
 @pytest.fixture
-def small_client(_small_client_base: Client) -> Iterator[Client]:
-    "Per-test fixture to get a client."
+def small_client(_small_client_base: Client, benchmark_all) -> Iterator[Client]:
+    "Per-test fixture to get a client, with automatic benchmarking."
     assert _small_client_base.cluster
     _small_client_base.cluster.scale(10)
-    print("Waiting for 10")
+    print("Waiting for 10 workers")
     _small_client_base.wait_for_workers(10)
     _small_client_base.restart()
 
     print(_small_client_base)
-    yield _small_client_base
+    with benchmark_all(_small_client_base):
+        yield _small_client_base

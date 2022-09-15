@@ -3,6 +3,7 @@
 # exported here.
 
 from . import utils_test
+from .benchmark_all import benchmark_all
 from .clusters import _small_client_base, small_client
 from .commit_info import commit_info
 from .core import (
@@ -16,6 +17,7 @@ from .time import auto_benchmark_time, benchmark_time
 
 __all__ = [
     "pytest_runtest_makereport",
+    "benchmark_all",
     "commit_info",
     "small_client",
     "_small_client_base",
