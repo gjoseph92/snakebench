@@ -6,12 +6,13 @@ from typing import Iterator
 
 import dask.dataframe as dd
 import dask.datasets
-import distributed
 import fsspec
 import pandas
 import pytest
 import sneks
 from distributed.client import Client
+
+from snakebench.utils_test import wait
 
 N_WORKERS = 15
 
@@ -89,23 +90,37 @@ def test_write_wide_data(parquet_client, s3_url):
     ddf.to_parquet(s3_url + "/wide-data/")
 
 
-@pytest.mark.parametrize("kind", ("s3fs", "pandas", "dask"))
-def test_download_throughput(parquet_client, kind):
+def test_download_throughput_s3fs(parquet_client):
     # Test throughput for downloading and parsing a ~500 MB file
     path = (
         "s3://coiled-runtime-ci/ookla-open-data/"
         "type=fixed/year=2022/quarter=1/2022-01-01_performance_fixed_tiles.parquet"
     )
-    if kind == "s3fs":
 
-        def load(path):
-            with fsspec.open(path) as f:
-                f.read()
+    def load(path):
+        with fsspec.open(path) as f:
+            f.read()
 
-        distributed.wait(parquet_client.submit(load, path))
-    elif kind == "pandas":
-        distributed.wait(
-            parquet_client.submit(pandas.read_parquet, path, engine="pyarrow")
-        )
-    elif kind == "dask":
-        distributed.wait(dd.read_parquet(path, engine="pyarrow").persist())
+    wait(parquet_client.submit(load, path), parquet_client, 5 * 60)
+
+
+def test_download_throughput_pandas(parquet_client):
+    # Test throughput for downloading and parsing a ~500 MB file
+    path = (
+        "s3://coiled-runtime-ci/ookla-open-data/"
+        "type=fixed/year=2022/quarter=1/2022-01-01_performance_fixed_tiles.parquet"
+    )
+    wait(
+        parquet_client.submit(pandas.read_parquet, path, engine="pyarrow"),
+        parquet_client,
+        5 * 60,
+    )
+
+
+def test_download_throughput_dask(parquet_client):
+    # Test throughput for downloading and parsing a ~500 MB file
+    path = (
+        "s3://coiled-runtime-ci/ookla-open-data/"
+        "type=fixed/year=2022/quarter=1/2022-01-01_performance_fixed_tiles.parquet"
+    )
+    wait(dd.read_parquet(path, engine="pyarrow").persist(), parquet_client, 5 * 60)
