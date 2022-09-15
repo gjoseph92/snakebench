@@ -23,4 +23,4 @@ def test_benchmark_all(benchmark_all):
         n_workers=2, threads_per_worker=1, processes=False
     ) as client:
         with benchmark_all(client):
-            da.random.random((10_000, 10_000), chunks=1000).sum().compute()
+            da.random.random((1_000, 1_000), chunks=100).sum().compute()
