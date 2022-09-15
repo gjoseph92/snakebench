@@ -18,7 +18,7 @@
         },
         {
             "name": "units",
-            "expr": "{duration: 's', average_memory: 'GiB', peak_memory: 'GiB'}[metric]"
+            "expr": "{duration: 's', average_memory: 'bytes', peak_memory: 'bytes'}[metric]"
         }
     ],
     "transform": [
