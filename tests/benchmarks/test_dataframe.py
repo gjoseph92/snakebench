@@ -39,7 +39,7 @@ def test_dataframe_align(small_client):
     # ~25,488,000 rows x 100 columns, 19.18 GiB total, 354 55.48 MiB partitions
 
     final = (df2 - df).mean()  # will be all NaN, just forcing alignment
-    wait(final, small_client, 10 * 60)
+    wait(final.persist(), small_client, 10 * 60)
 
 
 def test_shuffle(small_client):
@@ -57,4 +57,4 @@ def test_shuffle(small_client):
 
     shuf = df.shuffle(0, shuffle="tasks")
     result = shuf.size
-    wait(result, small_client, 20 * 60)
+    wait(result.persist(), small_client, 20 * 60)

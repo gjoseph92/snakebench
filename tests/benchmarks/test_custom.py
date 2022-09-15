@@ -27,7 +27,7 @@ def test_jobqueue(small_client):
     result = delayed(sum)(tasks)  # just so we have a single object
 
     wait(
-        result,
+        result.persist(),
         small_client,
         max_runtime * 1.15,
     )

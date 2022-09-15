@@ -81,16 +81,15 @@ def scaled_array_shape(
     return final
 
 
-def wait(thing, client, timeout):
-    "Like `distributed.wait(thing.persist())`, but if any tasks fail, raises its error."
-    p = thing.persist()
+def wait(fs, client, timeout):
+    "Like `distributed.wait(fs)`, but if any tasks fail, raises its error."
     try:
-        distributed.wait(p, timeout=timeout)
-        for f in client.futures_of(p):
+        distributed.wait(fs, timeout=timeout)
+        for f in client.futures_of(fs):
             if f.status in ("error", "cancelled"):
                 raise f.exception()
     finally:
-        client.cancel(p)
+        client.cancel(fs)
 
 
 def cluster_memory(client: distributed.Client) -> int:

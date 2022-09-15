@@ -48,7 +48,7 @@ def test_anom_mean(small_client):
     anom = arr.groupby("day") - clim
     anom_mean = anom.mean(dim="time")
 
-    wait(anom_mean, small_client, 10 * 60)
+    wait(anom_mean.persist(), small_client, 10 * 60)
 
 
 def test_basic_sum(small_client):
@@ -65,7 +65,7 @@ def test_basic_sum(small_client):
 
     result = da.sum(data, axis=1)
 
-    wait(result, small_client, 10 * 60)
+    wait(result.persist(), small_client, 10 * 60)
 
 
 @pytest.mark.skip(
@@ -91,7 +91,7 @@ def test_climatic_mean(small_client):
     # arr_clim = array.groupby("init_date.month").mean(dim="init_date")
     arr_clim = array.groupby("init_date").mean(dim="init_date")
 
-    wait(arr_clim, small_client, 15 * 60)
+    wait(arr_clim.persist(), small_client, 15 * 60)
 
 
 def test_vorticity(small_client):
@@ -137,7 +137,7 @@ def test_vorticity(small_client):
     vp = pad_rechunk(v)
     result = dx[..., None] * up - dy[..., None] * vp
 
-    wait(arr_to_devnull(result), small_client, 10 * 60)
+    wait(arr_to_devnull(result).persist(), small_client, 10 * 60)
 
 
 def test_double_diff(small_client):
@@ -152,10 +152,10 @@ def test_double_diff(small_client):
     print_size_info(memory, memory, a, b)
 
     diff = a[1:, 1:] - b[:-1, :-1]
-    wait(arr_to_devnull(diff), small_client, 10 * 60)
+    wait(arr_to_devnull(diff).persist(), small_client, 10 * 60)
 
 
 def test_dot_product(small_client):
     a = da.random.random((24 * 1024, 24 * 1024), chunks="128 MiB")  # 4.5 GiB
     b = (a @ a.T).sum().round(3)
-    wait(b, small_client, 10 * 60)
+    wait(b.persist(), small_client, 10 * 60)
