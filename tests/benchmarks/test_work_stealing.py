@@ -4,9 +4,8 @@ import dask.array as da
 import distributed
 import numpy as np
 import pytest
-from coiled.v2 import Cluster
+import sneks
 from dask import delayed, utils
-from distributed import Client
 from tornado.ioloop import PeriodicCallback
 
 
@@ -21,42 +20,39 @@ def test_trivial_workload_should_not_cause_work_stealing(small_client):
     distributed.__version__ == "2022.6.0",
     reason="https://github.com/dask/distributed/issues/6624",
 )
-def test_work_stealing_on_scaling_up(
-    test_name_uuid, upload_cluster_dump, benchmark_all
-):
-    with Cluster(
-        name=test_name_uuid,
+def test_work_stealing_on_scaling_up(cluster_name, benchmark_all):
+    with sneks.get_client(
+        name=cluster_name + "-scaling_up",
         n_workers=1,
         worker_vm_types=["t3.medium"],
         wait_for_workers=True,
-    ) as cluster:
-        with Client(cluster) as client:
-            with upload_cluster_dump(client, cluster), benchmark_all(client):
-                # Slow task.
-                def func1(chunk):
-                    if sum(chunk.shape) != 0:  # Make initialization fast
-                        time.sleep(5)
-                    return chunk
+    ) as client:
+        with benchmark_all(client):
+            # Slow task.
+            def func1(chunk):
+                if sum(chunk.shape) != 0:  # Make initialization fast
+                    time.sleep(5)
+                return chunk
 
-                def func2(chunk):
-                    return chunk
+            def func2(chunk):
+                return chunk
 
-                data = da.zeros((30, 30, 30), chunks=5)
-                result = data.map_overlap(func1, depth=1, dtype=data.dtype)
-                result = result.map_overlap(func2, depth=1, dtype=data.dtype)
-                future = client.compute(result)
+            data = da.zeros((30, 30, 30), chunks=5)
+            result = data.map_overlap(func1, depth=1, dtype=data.dtype)
+            result = result.map_overlap(func2, depth=1, dtype=data.dtype)
+            future = client.compute(result)
 
-                print("started computation")
+            print("started computation")
 
-                time.sleep(11)
-                # print('scaling to 4 workers')
-                # client.cluster.scale(4)
+            time.sleep(11)
+            # print('scaling to 4 workers')
+            # client.cluster.scale(4)
 
-                time.sleep(5)
-                print("scaling to 20 workers")
-                cluster.scale(20)
+            time.sleep(5)
+            print("scaling to 20 workers")
+            client.cluster.scale(20)
 
-                _ = future.result()
+            _ = future.result()
 
 
 def test_work_stealing_on_inhomogeneous_workload(small_client):
@@ -74,32 +70,31 @@ def test_work_stealing_on_inhomogeneous_workload(small_client):
 
 
 def test_work_stealing_on_straggling_worker(
-    test_name_uuid, upload_cluster_dump, benchmark_all
+    cluster_name, upload_cluster_dump, benchmark_all
 ):
-    with Cluster(
-        name=test_name_uuid,
+    with sneks.get_client(
+        name=cluster_name + "-straggling_worker",
         n_workers=10,
         worker_vm_types=["t3.medium"],
         wait_for_workers=True,
-    ) as cluster:
-        with Client(cluster) as client:
-            with upload_cluster_dump(client, cluster), benchmark_all(client):
+    ) as client:
+        with benchmark_all(client):
 
-                def clog():
-                    time.sleep(1)
+            def clog():
+                time.sleep(1)
 
-                @delayed
-                def slowinc(i, delay):
-                    time.sleep(delay)
-                    return i + 1
+            @delayed
+            def slowinc(i, delay):
+                time.sleep(delay)
+                return i + 1
 
-                def install_clogging_callback(dask_worker):
-                    pc = PeriodicCallback(clog, 1500)
-                    dask_worker.periodic_callbacks["clog"] = pc
-                    pc.start()
+            def install_clogging_callback(dask_worker):
+                pc = PeriodicCallback(clog, 1500)
+                dask_worker.periodic_callbacks["clog"] = pc
+                pc.start()
 
-                straggler = list(client.scheduler_info()["workers"].keys())[0]
-                client.run(install_clogging_callback, workers=[straggler])
-                results = [slowinc(i, delay=1) for i in range(1000)]
-                futs = client.compute(results)
-                client.gather(futs)
+            straggler = list(client.scheduler_info()["workers"].keys())[0]
+            client.run(install_clogging_callback, workers=[straggler])
+            results = [slowinc(i, delay=1) for i in range(1000)]
+            futs = client.compute(results)
+            client.gather(futs)
