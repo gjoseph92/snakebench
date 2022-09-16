@@ -25,7 +25,7 @@ def _small_client_base(module_id) -> Iterator[Client]:
         worker_vm_types=["t3.large"],  # 2CPU, 8GiB
         scheduler_vm_types=["t3.large"],
         shutdown_on_close=True,
-        # environ=dict(DASK_DISTRIBUTED__SCHEDULER__WORKER_SATURATION=1.0),
+        environ=dict(DASK_DISTRIBUTED__SCHEDULER__WORKER_SATURATION="1.0"),
     ) as client:
         yield client
 

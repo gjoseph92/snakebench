@@ -26,6 +26,7 @@ def test_work_stealing_on_scaling_up(test_id, benchmark_all):
         n_workers=1,
         worker_vm_types=["t3.medium"],
         wait_for_workers=True,
+        environ=dict(DASK_DISTRIBUTED__SCHEDULER__WORKER_SATURATION="1.0"),
     ) as client:
         with benchmark_all(client):
             # Slow task.
@@ -77,6 +78,7 @@ def test_work_stealing_on_straggling_worker(
         n_workers=10,
         worker_vm_types=["t3.medium"],
         wait_for_workers=True,
+        environ=dict(DASK_DISTRIBUTED__SCHEDULER__WORKER_SATURATION="1.0"),
     ) as client:
         with benchmark_all(client):
 
