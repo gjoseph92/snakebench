@@ -31,6 +31,9 @@ jobs:
         shell: bash
         env:
           DASK_COILED__TOKEN: ${{ secrets.COILED_BENCHMARK_BOT_TOKEN }}
+          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          AWS_DEFAULT_REGION: us-east-2 # this is needed for boto for some reason
         run: |
           pdm run pytest -n 10 --dist loadscope
       # - name: Upload benchmark results as artifact
