@@ -33,6 +33,9 @@ test = [
     "filelock>=3.8.0",
     "sneks-sync @ git+https://github.com/gjoseph92/sneks.git@a62031cb84329a17bbeb5fecd1eab80d32822aef",
     "pytest-xdist>=2.5.0",
+    # Coiled needs this for `pkg_resources`, which is sometimes---but not always, i.e. on GitHub---a site package.
+    # We shouldn't have to put it explicitly; that's an upstream bug.
+    "setuptools>=65.3.0",
 ]
 lint = [
     "pyright>=1.1.270",
