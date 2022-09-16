@@ -1,0 +1,84 @@
+{
+    "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+    "data": {
+        "name": "data"
+    },
+    "params": [
+        {
+            "name": "metric",
+            "value": "duration",
+            "bind": {
+                "input": "select",
+                "options": [
+                    "duration",
+                    "average_memory",
+                    "peak_memory"
+                ]
+            }
+        },
+        {
+            "name": "units",
+            "expr": "{duration: 's', average_memory: 'bytes', peak_memory: 'bytes'}[metric]"
+        }
+    ],
+    "transform": [
+        {
+            "calculate": "datum[metric]",
+            "as": "value"
+        }
+    ],
+    "facet": {
+        "field": "name",
+        "type": "nominal",
+        "header": {
+            "title": null
+        }
+    },
+    "resolve": {
+        "axis": {
+            "x": "independent"
+        }
+    },
+    "columns": 4,
+    "spec": {
+        "width": 300,
+        "height": 30,
+        "encoding": {
+            "y": {
+                "field": "commit_subject",
+                "type": "nominal",
+                "sort": {
+                    "field": "_order"
+                },
+                "title": null
+            }
+        },
+        "layer": [
+            {
+                "mark": "bar",
+                "encoding": {
+                    "x": {
+                        "field": "value",
+                        "type": "quantitative",
+                        "axis": {
+                            "title": {
+                                "expr": "metric + ' (' + units + ')'"
+                            }
+                        },
+                        "aggregate": "mean"
+                    }
+                }
+            },
+            {
+                "mark": "tick",
+                "encoding": {
+                    "x": {
+                        "field": "value",
+                        "type": "quantitative"
+                    },
+                    "color": {"value": "#e45755"}
+                }
+            }
+        ]
+    }
+}

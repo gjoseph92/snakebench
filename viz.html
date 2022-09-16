@@ -14,8 +14,15 @@
     <div>
         <input id="commits" type="text" placeholder="Space-separated commit hashes to compare" style="width: 100%">
     </div>
+    <fieldset>
+        <input type="radio" name="vizType" id="selAll" value="allTests">
+        <label for="selAll">All tests</label>
+        <input type="radio" name="vizType" id="selAB" value="AB">
+        <label for="selAB">Comparison to first commit</label>
+    </fieldset>
 
-    <div id="vis"></div>
+    <div class="viz" id="AB"></div>
+    <div class="viz" id="allTests"></div>
 
     <script type="text/javascript">
 
@@ -23,12 +30,30 @@
             // const sha_to_url = (sha) => `results-${sha}.json`;
             const sha_to_url = (sha) => `https://snakebench-public.s3.us-east-2.amazonaws.com/results-${sha}.json`;
 
-            const embed = await vegaEmbed('#vis', "viz.vg");
+            // Set up radio button nav
+            document.querySelectorAll("input[name='vizType']").forEach(
+                el => el.addEventListener('change', (e) => {
+                    console.log(e);
+                    e.target.checked = true;
+                    const showID = e.target.value;
+                    document.querySelectorAll("div.viz").forEach(
+                        el => el.style.display = el.id === showID ? "" : 'none'
+                    )
+                })
+            );
+            document.querySelector("input[name='vizType']").dispatchEvent(new Event("change"));
+
+            const embeds = await Promise.all(
+                [
+                    vegaEmbed('#AB', "AB.vg"),
+                    vegaEmbed('#allTests', "allTests.vg"),
+                ]
+            )
 
             async function updateData(e) {
                 const shas = e.target.value.trim().split(" ");
                 const short_shas = shas.map(commit => commit.slice(0, 7))
-                el.value = short_shas.join(' ')
+                commitsInput.value = short_shas.join(' ')
                 const urls = short_shas.map(sha_to_url);
                 console.log(urls);
 
@@ -51,19 +76,21 @@
                 console.log(data)
 
                 let changeset = vega.changeset().remove(() => true).insert(data);
-                embed.view
-                    .change('data', changeset)
-                    .resize()
-                    .runAsync();
+                embeds.forEach(embed => {
+                    embed.view
+                        .change('data', changeset)
+                        .resize()
+                        .runAsync();
+                })
             }
 
-            const el = document.querySelector('#commits');
-            el.addEventListener('change', updateData);
+            const commitsInput = document.querySelector('#commits');
+            commitsInput.addEventListener('change', updateData);
 
-            const lastUsed = window.localStorage.getItem("last_short_shas");
-            if (lastUsed) {
-                el.value = lastUsed;
-                el.dispatchEvent(new Event("change"));
+            const lastCommits = window.localStorage.getItem("last_short_shas");
+            if (lastCommits) {
+                commitsInput.value = lastCommits;
+                commitsInput.dispatchEvent(new Event("change"));
             }
         }
         main();
