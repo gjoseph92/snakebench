@@ -50,7 +50,7 @@
         },
         "facet": {
             "field": "name",
-            "columns": 2,
+            "columns": 4,
             "type": "nominal",
             "header": {
                 "title": null
