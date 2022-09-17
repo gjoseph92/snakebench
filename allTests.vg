@@ -51,6 +51,9 @@
                     "field": "_order"
                 },
                 "title": null
+            },
+            "color": {
+                "field": "commit_subject"
             }
         },
         "layer": [
