@@ -1,7 +1,7 @@
 {
     "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
     "data": {
-        "name": "data"
+        "url": "http://localhost:8080/results-test.json"
     },
     "params": [
         {
@@ -27,34 +27,105 @@
             "as": "value"
         }
     ],
-    "mark": "bar",
-    "width": 300,
-    "height": 50,
-    "encoding": {
-        "x": {
-            "field": "value",
-            "type": "quantitative",
-            "axis": {
-                "title": {
-                    "expr": "metric + ' (' + units + ')'"
+    "width": 1000,
+    "resolve": {
+        "scale": {
+            "x": "independent"
+        },
+        "axis": {
+            "x": "independent"
+        }
+    },
+    "layer": [
+        {
+            "transform": [
+                {
+                    "filter": {
+                        "field": "commit_subject",
+                        "equal": "add setuptools dep so coiled can run"
+                    }
+                },
+                {
+                    "aggregate": [
+                        {
+                            "field": "value",
+                            "as": "meanValue",
+                            "op": "mean"
+                        }
+                    ],
+                    "groupby": [
+                        "name"
+                    ]
+                }
+            ],
+            "params": [
+                {
+                    "name": "baseline",
+                    "select": {
+                        "type": "interval"
+                    },
+                    "value": {
+                        "x": [
+                            0,
+                            10000
+                        ],
+                        "y": [
+                            "test_anom_mean",
+                            "test_write_wide_data"
+                        ]
+                    }
+                }
+            ],
+            "mark": "point",
+            "encoding": {
+                "x": {
+                    "field": "meanValue",
+                    "type": "quantitative",
+                    "axis": null
+                },
+                "y": {
+                    "field": "name"
+                },
+                "color": {
+                    "field": "commit_subject"
                 }
             }
         },
-        "y": {
-            "field": "commit_subject",
-            "type": "nominal",
-            "sort": {
-                "field": "_order"
-            },
-            "title": null
-        },
-        "facet": {
-            "field": "name",
-            "columns": 4,
-            "type": "nominal",
-            "header": {
-                "title": null
+        {
+            "transform": [
+                {
+                    "lookup": "name",
+                    "from": {
+                        "param": "baseline",
+                        "key": "name"
+                    }
+                },
+                {
+                    "calculate": "warn(datum).value / datum.baseline",
+                    "as": "relative_value"
+                }
+            ],
+            "mark": "tick",
+            "encoding": {
+                "x": {
+                    "field": "relative_value"
+                },
+                "y": {
+                    "field": "name",
+                    "type": "nominal",
+                    "sort": "-x"
+                },
+                "yOffset": {
+                    "field": "commit_subject"
+                },
+                "color": {
+                    "condition": {
+                        "param": "baseline",
+                        "field": "commit_subject"
+                    },
+                    "value": "grey"
+                }
             }
         }
-    }
+    ]
 }
