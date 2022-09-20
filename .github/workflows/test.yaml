@@ -51,7 +51,7 @@ jobs:
         uses: actions/upload-artifact@v3
         if: always()
         with:
-          name: results
+          name: results-${{ matrix.repeat }}
           path: results-${{ env.SHORT_SHA }}.json
     outputs:
       short_sha: ${{ steps.short-sha.outputs.short_sha }}
@@ -66,10 +66,6 @@ jobs:
       group: upload-${{ github.sha }}
       cancel-in-progress: false
     steps:
-      - name: Download results artifact
-        uses: actions/download-artifact@v3
-        with:
-          name: results
       - name: Install AWS CLI
         # Install AWS CLI when running locally with `act`, since its smaller images don't have AWS installed.
         # On normal GitHub actions, AWS is already installed on the runners.
@@ -80,21 +76,24 @@ jobs:
           unzip awscliv2.zip
           sudo ./aws/install
           aws --version
+      - name: Download results artifacts
+        uses: actions/download-artifact@v3
       - name: Combine and upload benchmark results to bucket
         shell: bash
         env:
           AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
           AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           AWS_DEFAULT_REGION: us-east-2 # this is needed for boto for some reason
-        # Download any existing results for this commit, concatenate, and re-upload.
+        # Download any existing results for this commit, concatenate results from all artifacts onto it, and re-upload.
         # When we switch to sqlite, this will be basically the same.
         run: |
-          results=( results-*.json )
-          FILENAME="${results[0]}"
-          if aws s3 cp "s3://snakebench-public/$FILENAME" results-prev.json ; then
-              echo "$(wc -l < results-prev.json) previous results for $FILENAME found"
-              mv $FILENAME results-new.json
-              mv results-prev.json $FILENAME
-              cat results-new.json >> "$FILENAME"
-          fi
+          results=( results-*/results-*.json )
+          FILENAME=$(basename "${results[0]}")
+
+          aws s3 cp "s3://snakebench-public/$FILENAME" . || touch $FILENAME
+          echo "$(wc -l < $FILENAME) previous results for $FILENAME found"
+
+          cat "${results[@]}" >> "$FILENAME"
+          echo "Uploading $(wc -l < $FILENAME) results for $FILENAME"
+
           aws s3 cp "$FILENAME" s3://snakebench-public/
