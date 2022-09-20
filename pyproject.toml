@@ -31,7 +31,7 @@ test = [
     "pytest>=7.1.3",
     "msgspec>=0.8.0",
     "filelock>=3.8.0",
-    "sneks-sync @ git+https://github.com/gjoseph92/sneks.git@a62031cb84329a17bbeb5fecd1eab80d32822aef",
+    "sneks-sync @ git+https://github.com/gjoseph92/sneks.git@d4f8255592b894d4a6d9110ec60e907770da9673",
     "pytest-xdist>=2.5.0",
     # Coiled needs this for `pkg_resources`, which is sometimes---but not always, i.e. on GitHub---a site package.
     # We shouldn't have to put it explicitly; that's an upstream bug.
