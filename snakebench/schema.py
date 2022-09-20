@@ -21,6 +21,8 @@ class TestRun(msgspec.Struct):
     teardown_outcome: Outcome | None = None
 
     ci_run_url: str | None = None
+    ci_run_id: str | None = None
+    ci_run_attempt: str | None = None
     # dask_version: str | None = None
     # distributed_version: str | None = None
     # python_version: str | None = None

@@ -24,6 +24,10 @@ if os.environ.get("GITHUB_SERVER_URL"):
 else:
     WORKFLOW_URL = None
 
+# Set in test.yml
+RUN_ID = os.environ.get("GITHUB_RUN_ID", "0")
+RUN_ATTEMPT = os.environ.get("GITHUB_RUN_ATTEMPT", "0")
+
 
 @pytest.fixture(scope="session")
 def results_filename(commit_info: CommitInfo):
@@ -55,14 +59,15 @@ def pytest_runtest_makereport(item, call):
 
 @pytest.fixture(scope="module")
 def module_id(commit_info: CommitInfo, request: pytest.FixtureRequest) -> str:
-    "Module-level unique identifier (commit + module name)"
+    "Module-level unique identifier (commit + run ID + run attempt + module name)"
     mod: ModuleType = request.module
-    return f"{commit_info.sha}-{mod.__name__.replace('.', '_')}"
+    parts = [commit_info.sha, RUN_ID, RUN_ATTEMPT, mod.__name__.replace(".", "_")]
+    return "-".join(parts)
 
 
 @pytest.fixture
 def test_id(request: pytest.FixtureRequest, module_id) -> str:
-    "Test-level unique identifier (commit + module name + test name)"
+    "Test-level unique identifier (commit + run ID + run attempt + module name + test name)"
     return f"{module_id}-{request.node.name}"
 
 
@@ -80,6 +85,8 @@ def test_run_benchmark(
         commit_subject=commit_info.subject,
         commit_body=commit_info.body,
         ci_run_url=WORKFLOW_URL,
+        ci_run_id=RUN_ID,
+        ci_run_attempt=RUN_ATTEMPT,
         # session_id=testrun_uid,
         # originalname=node.originalname,
         # path=str(node.path.relative_to(TEST_DIR)),
