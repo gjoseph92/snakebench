@@ -8,6 +8,8 @@ import sneks
 from dask import delayed, utils
 from tornado.ioloop import PeriodicCallback
 
+from snakebench.clusters import CLUSTER_KWARGS
+
 
 def test_trivial_workload_should_not_cause_work_stealing(small_client):
     root = delayed(lambda n: "x" * n)(utils.parse_bytes("1MiB"), dask_key_name="root")
@@ -22,11 +24,7 @@ def test_trivial_workload_should_not_cause_work_stealing(small_client):
 )
 def test_work_stealing_on_scaling_up(test_id, benchmark_all):
     with sneks.get_client(
-        name=test_id,
-        n_workers=1,
-        worker_vm_types=["t3.medium"],
-        wait_for_workers=True,
-        environ=dict(DASK_DISTRIBUTED__SCHEDULER__WORKER_SATURATION="1.0"),
+        name=test_id, n_workers=1, worker_vm_types=["t3.medium"], **CLUSTER_KWARGS
     ) as client:
         with benchmark_all(client):
             # Slow task.
@@ -74,11 +72,7 @@ def test_work_stealing_on_straggling_worker(
     test_id, upload_cluster_dump, benchmark_all
 ):
     with sneks.get_client(
-        name=test_id,
-        n_workers=10,
-        worker_vm_types=["t3.medium"],
-        wait_for_workers=True,
-        environ=dict(DASK_DISTRIBUTED__SCHEDULER__WORKER_SATURATION="1.0"),
+        name=test_id, n_workers=10, worker_vm_types=["t3.medium"], **CLUSTER_KWARGS
     ) as client:
         with benchmark_all(client):
 

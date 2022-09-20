@@ -8,6 +8,13 @@ from distributed.client import Client
 N_WORKERS = 10
 
 
+CLUSTER_KWARGS = dict(
+    account="dask-engineering",
+    shutdown_on_close=True,
+    environ=dict(DASK_DISTRIBUTED__SCHEDULER__WORKER_SATURATION="1.0"),
+)
+
+
 # TODO find some way to generalize this pattern
 # Have a way to create the base and function-scoped fixtures given n_workers and args.
 
@@ -24,8 +31,7 @@ def _small_client_base(module_id) -> Iterator[Client]:
         n_workers=N_WORKERS,
         worker_vm_types=["t3.large"],  # 2CPU, 8GiB
         scheduler_vm_types=["t3.large"],
-        shutdown_on_close=True,
-        environ=dict(DASK_DISTRIBUTED__SCHEDULER__WORKER_SATURATION="1.0"),
+        **CLUSTER_KWARGS,
     ) as client:
         yield client
 

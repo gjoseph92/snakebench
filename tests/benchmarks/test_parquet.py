@@ -12,6 +12,7 @@ import pytest
 import sneks
 from distributed.client import Client
 
+from snakebench.clusters import CLUSTER_KWARGS
 from snakebench.utils_test import wait
 
 N_WORKERS = 15
@@ -24,7 +25,7 @@ def _parquet_client_base(module_id) -> Iterator[Client]:
         n_workers=N_WORKERS,
         worker_vm_types=["m5.xlarge"],
         scheduler_vm_types=["m5.xlarge"],
-        environ=dict(DASK_DISTRIBUTED__SCHEDULER__WORKER_SATURATION="1.0"),
+        **CLUSTER_KWARGS,
     ) as client:
         yield client
 
