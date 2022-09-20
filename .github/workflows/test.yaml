@@ -10,8 +10,12 @@ jobs:
         with:
           fetch-depth: 0
       - name: Add SHORT_SHA
-        run: echo "SHORT_SHA=$(git rev-parse --short HEAD)" >> $GITHUB_ENV
+        id: short-sha
         shell: bash
+        run: |
+          SHORT_SHA="$(git rev-parse --short HEAD)"
+          echo "SHORT_SHA=$SHORT_SHA" >> "$GITHUB_ENV"
+          echo "::set-output name=short_sha::$SHORT_SHA"
       - name: Set up PDM
         uses: pdm-project/setup-pdm@v2
         with:
@@ -37,26 +41,56 @@ jobs:
           GITHUB_RUN_ID: ${{ github.run_id }}
           GITHUB_RUN_ATTEMPT: ${{ github.run_attempt }}
         run: |
-          pdm run pytest -n 10 --dist loadscope
-      # - name: Upload benchmark results as artifact
-      #   uses: actions/upload-artifact@v3
-      #   if: always()
-      #   with:
-      #     name: results-${{ env.SHORT_SHA }}
-      #     path: results-${{ env.SHORT_SHA }}.json
-      # - name: Set AWS credentials
-      #   uses: aws-actions/configure-aws-credentials@v1
-      #   with:
-      #     aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
-      #     aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-      #     aws-region: us-east-2
-
-      - name: Upload benchmark results to bucket
-        shell: bash
+          # pdm run pytest -n 10 --dist loadscope
+          pdm run pytest tests/test_test.py
+      - name: Upload benchmark results as artifact
+        uses: actions/upload-artifact@v3
         if: always()
+        with:
+          name: results
+          path: results-${{ env.SHORT_SHA }}.json
+    outputs:
+      short_sha: ${{ steps.short-sha.outputs.short_sha }}
+
+  # Use a separate job for uploading JSON results to S3, so we can ensure only one runs at once.
+  upload-results:
+    name: Upload results
+    runs-on: ubuntu-latest
+    needs: ["benchmark"]
+    if: always()
+    concurrency:
+      group: upload-${{ github.sha }}
+      cancel-in-progress: false
+    steps:
+      - name: Download results artifact
+        uses: actions/download-artifact@v3
+        with:
+          name: results
+      - name: Install AWS CLI
+        # Install AWS CLI when running locally with `act`, since its smaller images don't have AWS installed.
+        # On normal GitHub actions, AWS is already installed on the runners.
+        if: ${{ env.ACT }}
+        shell: bash
+        run: |
+          curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "awscliv2.zip"
+          unzip awscliv2.zip
+          sudo ./aws/install
+          aws --version
+      - name: Combine and upload benchmark results to bucket
+        shell: bash
         env:
           AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
           AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           AWS_DEFAULT_REGION: us-east-2 # this is needed for boto for some reason
+        # Download any existing results for this commit, concatenate, and re-upload.
+        # When we switch to sqlite, this will be basically the same.
         run: |
-          aws s3 cp "results-$SHORT_SHA.json" s3://snakebench-public/
+          results=( results-*.json )
+          FILENAME="${results[0]}"
+          if aws s3 cp "s3://snakebench-public/$FILENAME" results-prev.json ; then
+              echo "$(wc -l < results-prev.json) previous results for $FILENAME found"
+              mv $FILENAME results-new.json
+              mv results-prev.json $FILENAME
+              cat results-new.json >> "$FILENAME"
+          fi
+          aws s3 cp "$FILENAME" s3://snakebench-public/
