@@ -84,6 +84,7 @@ def test_run_benchmark(
         commit=commit_info.sha,
         commit_subject=commit_info.subject,
         commit_body=commit_info.body,
+        branch=commit_info.branch,
         ci_run_url=WORKFLOW_URL,
         ci_run_id=RUN_ID,
         ci_run_attempt=RUN_ATTEMPT,

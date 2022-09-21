@@ -14,6 +14,7 @@ class TestRun(msgspec.Struct):
     commit: str
     commit_subject: str
     commit_body: str
+    branch: str
     # path: str
 
     setup_outcome: Outcome | None = None
