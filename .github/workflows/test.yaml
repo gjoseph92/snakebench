@@ -28,7 +28,7 @@ jobs:
           enable-pep582: false
       - name: PDM lock
         shell: bash
-        run: pdm lock -dG test
+        run: pdm lock
       - name: Commit updated lockfile
         id: auto-commit
         uses: stefanzweifel/git-auto-commit-action@v4
