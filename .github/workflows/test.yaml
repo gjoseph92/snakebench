@@ -1,16 +1,51 @@
 name: Benchmark
 on:
   push:
-    branches:
-      - "main"
-      - "bench/**"
     paths:
       - "**.py"
+      - "pyproject.toml"
+      - "pdm.lock"
 
 jobs:
+  # Check PDM lockfile is up to date. If not, update it, push a commit back to the branch, and fail the workflow.
+  # The new commit will trigger a new workflow run.
+  lock:
+    name: Lock dependencies
+    runs-on: ubuntu-latest
+    concurrency:
+      group: lock-${{ github.ref_name }}
+      cancel-in-progress: true
+    steps:
+      - uses: actions/checkout@v3
+        with:
+          # NOTE: access token is necessary to make the new commit trigger a new workflow run; see
+          # https://github.com/marketplace/actions/git-auto-commit#commits-made-by-this-action-do-not-trigger-new-workflow-runs
+          token: ${{ secrets.GH_ACCESS_TOKEN }}
+      - name: Set up PDM
+        uses: pdm-project/setup-pdm@v2
+        with:
+          python-version: 3.8  # Must match version on `benchmark` job
+          enable-pep582: false
+      - name: PDM lock
+        shell: bash
+        run: pdm lock -dG test
+      - name: Commit updated lockfile
+        id: auto-commit
+        uses: stefanzweifel/git-auto-commit-action@v4
+        with:
+          commit_message: "Update lockfile"
+          file_pattern: "pdm.lock"
+      - name: Halt if out of date
+        if: steps.auto-commit.outputs.changes_detected == 'true'
+        uses: actions/github-script@v3
+        with:
+          script: |
+              core.setFailed('PDM lockfile was out of date. Newly locked file pushed in ${{ steps.auto-commit.outputs.changes_detected.commit_hash }}.')
+
   benchmark:
     name: Benchmark
     runs-on: ubuntu-latest
+    needs: [lock]
     strategy:
       max-parallel: 2
       fail-fast: false
@@ -30,7 +65,7 @@ jobs:
       - name: Set up PDM
         uses: pdm-project/setup-pdm@v2
         with:
-          python-version: 3.8 # TODO matrix
+          python-version: 3.8 # Must match version on `lock` job
           enable-pep582: false
         # TODO pdm lock if necessary, and push commit back to branch with new lockfile
         # TODO cache virtual env
