@@ -43,6 +43,9 @@ def small_client(_small_client_base: Client, benchmark_all) -> Iterator[Client]:
     print(f"Waiting for {N_WORKERS} workers")
     _small_client_base.wait_for_workers(N_WORKERS)
     _small_client_base.restart()
+    print(
+        f"Using cluster {_small_client_base.cluster.name!r}. Dashboard: {_small_client_base.dashboard_link}"
+    )
 
     print(_small_client_base)
     with benchmark_all(_small_client_base):

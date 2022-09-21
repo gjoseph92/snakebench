@@ -37,6 +37,9 @@ def parquet_client(_parquet_client_base: Client, benchmark_all) -> Iterator[Clie
     print(f"Waiting for {N_WORKERS} workers")
     _parquet_client_base.wait_for_workers(N_WORKERS)
     _parquet_client_base.restart()
+    print(
+        f"Using cluster {_parquet_client_base.cluster.name!r}. Dashboard: {_parquet_client_base.dashboard_link}"
+    )
 
     print(_parquet_client_base)
     with benchmark_all(_parquet_client_base):
