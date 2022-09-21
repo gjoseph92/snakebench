@@ -1,5 +1,9 @@
 name: Benchmark
-on: [push] # TODO only match certain branches
+on:
+  push:
+    branches:
+      - "main"
+      - "bench/**"
 
 jobs:
   benchmark:
