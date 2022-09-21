@@ -33,7 +33,7 @@ jobs:
           # pdm venv create
           # eval $(pdm venv activate in-project)
           # pdm use $(which python)
-          pdm lock --check || pdm lock -v
+          pdm install --check --dry-run || pdm lock -v
       - name: Commit updated lockfile
         id: auto-commit
         uses: stefanzweifel/git-auto-commit-action@v4
