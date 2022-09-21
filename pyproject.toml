@@ -41,6 +41,7 @@ lint = [
     "pyright>=1.1.270",
     "shed>=0.10.2",
     "flake8>=5.0.4",
+    "pre-commit>=2.20.0",
 ]
 util = [
     "ipython>=8.5.0",
