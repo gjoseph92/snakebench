@@ -4,6 +4,8 @@ on:
     branches:
       - "main"
       - "bench/**"
+    paths:
+      - "**.py"
 
 jobs:
   benchmark:
