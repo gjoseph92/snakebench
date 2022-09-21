@@ -16,6 +16,9 @@ CLUSTER_KWARGS = dict(
     account="dask-engineering",
     wait_for_workers=True,
     shutdown_on_close=True,
+    environ=dict(
+        DASK_DISTRIBUTED__SCHEDULER__WORKER_SATURATION="1.5",
+    ),
 )
 
 
