@@ -50,7 +50,7 @@ jobs:
       max-parallel: 2
       fail-fast: false
       matrix:
-        repeat: [1]
+        repeat: [1, 2]
     steps:
       - uses: actions/checkout@v3
         with:
@@ -87,7 +87,8 @@ jobs:
           GITHUB_RUN_ID: ${{ github.run_id }}
           GITHUB_RUN_ATTEMPT: ${{ github.run_attempt }}
         run: |
-          pdm run pytest -n 10 --dist loadscope
+          pdm run pytest tests/test_test.py
+          # pdm run pytest -n 10 --dist loadscope
       - name: Upload benchmark results as artifact
         uses: actions/upload-artifact@v3
         if: always()
