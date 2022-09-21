@@ -25,6 +25,7 @@ else:
     WORKFLOW_URL = None
 
 # Set in test.yml
+MATRIX_ID = os.environ.get("MATRIX_ID", "0")
 RUN_ID = os.environ.get("GITHUB_RUN_ID", "0")
 RUN_ATTEMPT = os.environ.get("GITHUB_RUN_ATTEMPT", "0")
 
@@ -59,15 +60,21 @@ def pytest_runtest_makereport(item, call):
 
 @pytest.fixture(scope="module")
 def module_id(commit_info: CommitInfo, request: pytest.FixtureRequest) -> str:
-    "Module-level unique identifier (commit + run ID + run attempt + module name)"
+    "Module-level unique identifier (commit + run ID + run attempt + matrix ID + module name)"
     mod: ModuleType = request.module
-    parts = [commit_info.sha, RUN_ID, RUN_ATTEMPT, mod.__name__.replace(".", "_")]
+    parts = [
+        commit_info.sha,
+        RUN_ID,
+        RUN_ATTEMPT,
+        MATRIX_ID,
+        mod.__name__.replace(".", "_"),
+    ]
     return "-".join(parts)
 
 
 @pytest.fixture
 def test_id(request: pytest.FixtureRequest, module_id) -> str:
-    "Test-level unique identifier (commit + run ID + run attempt + module name + test name)"
+    "Test-level unique identifier (commit + run ID + run attempt + matrix ID + module name + test name)"
     return f"{module_id}-{request.node.name}"
 
 

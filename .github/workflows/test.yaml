@@ -14,12 +14,12 @@ jobs:
         with:
           fetch-depth: 0
       - name: Add SHORT_SHA
-        id: short-sha
         shell: bash
-        run: |
-          SHORT_SHA="$(git rev-parse --short HEAD)"
-          echo "SHORT_SHA=$SHORT_SHA" >> "$GITHUB_ENV"
-          echo "::set-output name=short_sha::$SHORT_SHA"
+        run: echo "SHORT_SHA=$(git rev-parse --short HEAD)" >> "$GITHUB_ENV"
+      - name: Add MATRIX_ID
+        shell: bash
+        # Ensure this will uniquely identify each job per matrix; used in cluster name
+        run: echo "MATRIX_ID=${{ matrix.repeat }}" >> "$GITHUB_ENV"
       - name: Set up PDM
         uses: pdm-project/setup-pdm@v2
         with:
