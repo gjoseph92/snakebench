@@ -11,7 +11,6 @@ N_WORKERS = 10
 CLUSTER_KWARGS = dict(
     account="dask-engineering",
     shutdown_on_close=True,
-    environ=dict(DASK_DISTRIBUTED__SCHEDULER__WORKER_SATURATION="1.0"),
 )
 
 
