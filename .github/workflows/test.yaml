@@ -6,7 +6,7 @@ jobs:
     name: Benchmark
     runs-on: ubuntu-latest
     strategy:
-      max-parallel: 10
+      max-parallel: 2
       matrix:
         repeat: [1, 2, 3, 4]
     steps:
