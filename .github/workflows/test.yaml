@@ -5,6 +5,7 @@ on:
       - "**.py"
       - "pyproject.toml"
       - "pdm.lock"
+      - ".github/workflows/test.yaml"
 
 jobs:
   # Check PDM lockfile is up to date. If not, update it, push a commit back to the branch, and fail the workflow.
