@@ -30,6 +30,7 @@ jobs:
       - name: PDM lock
         shell: bash
         run: |
+          git config --global url."https://${{ secrets.ACCESS_TOKEN }}@github.com".insteadOf "https://github.com"
           pdm venv create
           eval $(pdm venv activate in-project)
           pdm use $(which python)
