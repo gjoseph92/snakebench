@@ -68,9 +68,7 @@ def test_work_stealing_on_inhomogeneous_workload(small_client):
     small_client.gather(futs)
 
 
-def test_work_stealing_on_straggling_worker(
-    test_id, upload_cluster_dump, benchmark_all
-):
+def test_work_stealing_on_straggling_worker(test_id, benchmark_all):
     with sneks.get_client(
         name=test_id, n_workers=10, worker_vm_types=["t3.medium"], **CLUSTER_KWARGS
     ) as client:
