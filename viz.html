@@ -15,10 +15,10 @@
         <input id="commits" type="text" placeholder="Space-separated commit hashes to compare" style="width: 100%">
     </div>
     <fieldset>
+        <!-- <input type="radio" name="vizType" id="selAB" value="AB">
+        <label for="selAB">Comparison to first commit</label> -->
         <input type="radio" name="vizType" id="selAll" value="allTests">
         <label for="selAll">All tests</label>
-        <input type="radio" name="vizType" id="selAB" value="AB">
-        <label for="selAB">Comparison to first commit</label>
     </fieldset>
 
     <div class="viz" id="AB"></div>
@@ -45,7 +45,7 @@
 
             const embeds = await Promise.all(
                 [
-                    vegaEmbed('#AB', "AB.vg"),
+                    // vegaEmbed('#AB', "AB.vg"),
                     vegaEmbed('#allTests', "allTests.vg"),
                 ]
             )
