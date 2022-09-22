@@ -6,7 +6,7 @@ Snakebench is _commit-based_: each case to benchmark is a separate commit. If yo
 
 When you push a commit, the benchmarks run, and the results are written to storage (currently [S3](https://s3.console.aws.amazon.com/s3/buckets/snakebench-public?region=us-east-2&tab=objects)). If you run benchmarks for the same commit multiple times, they are _appended_ (not overwritten).
 
-Then you can compare results between arbitrary commits in the browser: https://gjoseph92.github.io/snakebench, https://observablehq.com/d/0d3821b704cca804. The browser fetches per-commit results from S3 as needed and visualizes them.
+Then you can compare results between arbitrary commits in the browser: https://gjoseph92.github.io/snakebench, https://observablehq.com/@gjoseph92/snakebench. The browser fetches per-commit results from S3 as needed and visualizes them.
 
 Dependencies are managed using the [PDM package manager](https://pdm.fming.dev/latest/). This ensures deterministic, reproducible environments everywhere (dev machines, GitHub actions, the dask clusters themselves). (We use PDM because it [supports overrides](https://pdm.fming.dev/latest/usage/dependency/#solve-the-locking-failure), [unlike Poetry](https://github.com/python-poetry/poetry/issues/697), which are necessary to install dask forks. Plus, it locks faster.)
 
@@ -75,7 +75,7 @@ If you pull down commits that change dependencies, or check out a different bran
 1. Make the change you want to try, commit, push.
 1. Repeat for each case.
 1. When the [actions](https://github.com/gjoseph92/snakebench/actions/workflows/test.yaml) are done, enter those commit hashes into the visualization tools.
-    * Currently https://gjoseph92.github.io/snakebench and https://observablehq.com/d/0d3821b704cca804 are prototypes, but they will be consolidated and refined soon.
+    * Currently https://gjoseph92.github.io/snakebench and https://observablehq.com/@gjoseph92/snakebench are prototypes, but they will be consolidated and refined soon.
     * Having to enter commit hashes by hand is temporary. We'll use the GitHub API to list branches and their commits for you.
 1. Push new commits to those branches as necessary, make new branches, and so on. You can always compare between any commit hashes.
 
