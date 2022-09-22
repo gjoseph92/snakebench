@@ -14,8 +14,6 @@ To compare across different packages being installed, you simply push commits wi
 
 Packages are currently synced using [sneks](https://github.com/gjoseph92/sneks), but this will change once Coiled's package sync [supports it](https://github.com/coiled/platform/issues/94#issuecomment-1252567131).
 
----
-
 ## Design and motivation
 
 There are two primary design decisions in snakebench:
@@ -54,20 +52,6 @@ Examples of things you could compare via the snakebench framework:
 1. `pdm install --dev`
 1. `eval $(pdm venv activate)` to activate the virtual environment. If using an IDE, set `.venv/bin/python` as your Python interpreter.
 1. `pre-commit install` (pre-commit is installed automatically in the virtual environment as a dev dependency)
-
-## Dependencies
-
-Refer to the [PDM docs](https://pdm.fming.dev/latest/usage/dependency/) for specific usage. In general, `pyproject.toml` defines the packages we _want_ installed. `pdm.lock` defines everything that _will_ be installed (including transitive deps). You can edit `pyproject.toml`, then run `pdm lock`. You should never edit (and probably never look at) `pdm.lock`.
-
-The easiest way to add dependencies is `pdm add`.
-
-_Only dependencies that actually need to be installed on the cluster should go in the main `dependencies` section._ Packages just needed for testing (like `pytest`) or convenience (like `jupyterlab`) should be added as [dev dependencies](https://pdm.fming.dev/latest/usage/dependency/#add-development-only-dependencies). Use `pdm add -dG <group name>`, or add them to `pyproject.toml` in the `[tool.pdm.dev-dependencies]` section.
-
-The `test` group, along will all prod dependencies, will be installed on GitHub actions in order to run tests. Only the prod dependencies will actually be installed on clusters (significantly speeding up cluster startup time).
-
-Pre-commit will verify that the lockfile is up to date before each commit. If you've changed `pyproject.toml`, run `pdm sync --dev` to update it. (The one exception is below.)
-
-If you pull down commits that change dependencies, or check out a different branch, run `pdm sync --dev --clean` to install the new dependencies (and remove any old ones).
 
 ## Creating cases to compare
 
@@ -112,6 +96,20 @@ An override might look like:
 dask = "git+https://github.com/dask/dask.git@<commit-sha>"
 distributed = "git+https://github.com/<your-username>/distributed.git@<your-fork-sha>"
 ```
+
+## Dependencies
+
+Refer to the [PDM docs](https://pdm.fming.dev/latest/usage/dependency/) for specific usage. In general, `pyproject.toml` defines the packages we _want_ installed. `pdm.lock` defines everything that _will_ be installed (including transitive deps). You can edit `pyproject.toml`, then run `pdm lock`. You should never edit (and probably never look at) `pdm.lock`.
+
+The easiest way to add dependencies is `pdm add`.
+
+_Only dependencies that actually need to be installed on the cluster should go in the main `dependencies` section._ Packages just needed for testing (like `pytest`) or convenience (like `jupyterlab`) should be added as [dev dependencies](https://pdm.fming.dev/latest/usage/dependency/#add-development-only-dependencies). Use `pdm add -dG <group name>`, or add them to `pyproject.toml` in the `[tool.pdm.dev-dependencies]` section.
+
+The `test` group, along will all prod dependencies, will be installed on GitHub actions in order to run tests. Only the prod dependencies will actually be installed on clusters (significantly speeding up cluster startup time).
+
+Pre-commit will verify that the lockfile is up to date before each commit. If you've changed `pyproject.toml`, run `pdm sync --dev` to update it. (The one exception is below.)
+
+If you pull down commits that change dependencies, or check out a different branch, run `pdm sync --dev --clean` to install the new dependencies (and remove any old ones).
 
 ## Local development
 
