@@ -25,6 +25,10 @@
         {
             "calculate": "datum[metric]",
             "as": "value"
+        },
+        {
+            "calculate": "peek(split(datum.branch, '/'))",
+            "as": "branch"
         }
     ],
     "facet": {
@@ -42,10 +46,10 @@
     "columns": 4,
     "spec": {
         "width": 300,
-        "height": 30,
+        "height": 40,
         "encoding": {
             "y": {
-                "field": "commit_subject",
+                "field": "branch",
                 "type": "nominal",
                 "sort": {
                     "field": "_order"
@@ -53,7 +57,10 @@
                 "title": null
             },
             "color": {
-                "field": "commit_subject"
+                "field": "branch",
+                "sort": {
+                    "field": "_order"
+                }
             }
         },
         "layer": [
