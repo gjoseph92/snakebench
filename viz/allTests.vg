@@ -41,6 +41,9 @@
     "resolve": {
         "axis": {
             "x": "independent"
+        },
+        "scale": {
+            "x": "independent"
         }
     },
     "columns": 4,
