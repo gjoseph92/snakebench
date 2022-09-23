@@ -1081,8 +1081,8 @@ name = "sneks-sync"
 version = "0.2.0"
 requires_python = ">=3.8,<4.0"
 git = "https://github.com/gjoseph92/sneks.git"
-ref = "2934749dc9d546c34175eb0469f35e024e5108de"
-revision = "2934749dc9d546c34175eb0469f35e024e5108de"
+ref = "40eb113203857abd146417bf005951d68416c55e"
+revision = "40eb113203857abd146417bf005951d68416c55e"
 summary = "Launch a Dask cluster from a virtual environment"
 dependencies = [
     "cloudpickle<3.0.0,>=2.1.0",
@@ -1278,7 +1278,7 @@ summary = "Backport of pathlib-compatible object wrapper for zip files"
 
 [metadata]
 lock_version = "4.0"
-content_hash = "sha256:0fff35c49f1dd8cbf77651dac21a818b3ef972606005c147bddb3d25a1d42185"
+content_hash = "sha256:84ba12cb11aa4ee6ec29d503c2c660e74afe1d91693eb79145b35c72e1cef940"
 
 [metadata.files]
 "aiobotocore 2.4.0" = [
