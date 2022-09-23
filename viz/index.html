@@ -46,7 +46,7 @@
             const embeds = await Promise.all(
                 [
                     // vegaEmbed('#AB', "AB.vg"),
-                    vegaEmbed('#allTests', "allTests.vg"),
+                    vegaEmbed('#allTests', "allTests.vg", {renderer: 'svg'}),
                 ]
             )
 
