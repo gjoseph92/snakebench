@@ -78,7 +78,7 @@
                                 "expr": "metric + ' (' + units + ')'"
                             }
                         },
-                        "aggregate": "mean"
+                        "aggregate": "ci1"
                     }
                 }
             },
