@@ -89,7 +89,7 @@
                         "field": "value",
                         "type": "quantitative"
                     },
-                    "color": {"value": "#e45755"}
+                    "color": {"value": "#000000"}
                 }
             }
         ]
