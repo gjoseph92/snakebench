@@ -1,3 +1,9 @@
+"""
+This file is ignored in CI.
+
+It's just useful for local development while working on new snakebench features.
+"""
+
 import time
 
 import dask.array as da
