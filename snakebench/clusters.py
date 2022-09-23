@@ -10,6 +10,7 @@ N_WORKERS = 10
 
 CLUSTER_KWARGS = dict(
     account="dask-engineering",
+    wait_for_workers=True,
     shutdown_on_close=True,
 )
 
