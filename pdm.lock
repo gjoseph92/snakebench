@@ -311,11 +311,11 @@ summary = "Distribution utilities"
 
 [[package]]
 name = "distributed"
-version = "2022.7.1+121.ga61f0286"
+version = "2022.7.1+121.g0c4c8f6b"
 requires_python = ">=3.8"
 git = "https://github.com/gjoseph92/distributed.git"
-ref = "a61f02862dee4083c0df704403ba7cbf799c3cbe"
-revision = "a61f02862dee4083c0df704403ba7cbf799c3cbe"
+ref = "0c4c8f6bd40443c9cf11ce8edd118b818b2433f0"
+revision = "0c4c8f6bd40443c9cf11ce8edd118b818b2433f0"
 summary = "Distributed scheduler for Dask"
 dependencies = [
     "click>=6.6",
@@ -1081,8 +1081,8 @@ name = "sneks-sync"
 version = "0.2.0"
 requires_python = ">=3.8,<4.0"
 git = "https://github.com/gjoseph92/sneks.git"
-ref = "2934749dc9d546c34175eb0469f35e024e5108de"
-revision = "2934749dc9d546c34175eb0469f35e024e5108de"
+ref = "40eb113203857abd146417bf005951d68416c55e"
+revision = "40eb113203857abd146417bf005951d68416c55e"
 summary = "Launch a Dask cluster from a virtual environment"
 dependencies = [
     "cloudpickle<3.0.0,>=2.1.0",
@@ -1278,7 +1278,7 @@ summary = "Backport of pathlib-compatible object wrapper for zip files"
 
 [metadata]
 lock_version = "4.0"
-content_hash = "sha256:0fff35c49f1dd8cbf77651dac21a818b3ef972606005c147bddb3d25a1d42185"
+content_hash = "sha256:a6831813012d38ddfdd09eb849fda4b3f82d3f14569322a800ac894db21f1b4e"
 
 [metadata.files]
 "aiobotocore 2.4.0" = [
