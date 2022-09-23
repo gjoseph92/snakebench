@@ -6,6 +6,9 @@ import dask.dataframe as dd
 import pandas as pd
 import pytest
 
+# Skip for now; slow and not that useful with small dataset
+pytestmark = pytest.mark.skip
+
 
 @pytest.fixture(
     scope="module",
