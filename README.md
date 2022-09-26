@@ -55,12 +55,12 @@ Examples of things you could compare via the snakebench framework:
 
 ## Creating cases to compare
 
-1. Make a branch for the case you want to run, named `bench/<title>`.
+1. Make a branch for the case you want to run, named `bench/<comparison>/<title>`.
 1. Make the change you want to try, commit, push.
 1. Repeat for each case.
 1. When the [actions](https://github.com/gjoseph92/snakebench/actions/workflows/test.yaml) are done, enter those commit hashes into the visualization tools.
-    * Currently https://gjoseph92.github.io/snakebench and https://observablehq.com/@gjoseph92/snakebench are prototypes, but they will be consolidated and refined soon.
-    * Having to enter commit hashes by hand is temporary. We'll use the GitHub API to list branches and their commits for you.
+    * Currently https://observablehq.com/@gjoseph92/snakebench is a prototype. A more formal version may be consolidated and refined soon.
+    * Having to enter commit hashes by hand is temporary. We'll eventually use the GitHub API to list branches and their commits for you.
 1. Push new commits to those branches as necessary, make new branches, and so on. You can always compare between any commit hashes.
 
 ### Comparing different dependencies
@@ -72,13 +72,13 @@ For convenience, you can just push changes `pyproject.toml` without locking. Sna
 So a typical workflow might look like:
 
 ```bash
-$ git checkout -b bench/pyarrow-old main
+$ git checkout -b bench/pyarrow-versions/pyarrow-old main
 $ pdm add pyarrow@8.0.0  # or, much faster, manually edit `pyproject.toml` and change the `pyarrow` version there, to skip locking
 $ git add .
 $ git commit -m "pyarrow 8"  # if you manually edited `pyproject.toml`, add `--no-verify`: pre-commit will complain the lockfile is out of date
 $ git push
 
-$ git checkout -b bench/pyarrow-new main
+$ git checkout -b bench/pyarrow-versions/pyarrow-new main
 $ pdm add pyarrow@9.0.0  # again, editing `pyproject.toml` is faster
 $ git add .
 $ git commit -m "pyarrow 9"  # again, add `--no-verify`
