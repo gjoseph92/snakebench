@@ -4,7 +4,7 @@
 
 from . import utils_test
 from .benchmark_all import benchmark_all
-from .clusters import _small_client_base, small_client
+from .clusters import _small_client_base, setup_test_run_from_client, small_client
 from .commit_info import commit_info
 from .core import (
     module_id,
@@ -29,6 +29,7 @@ __all__ = [
     "test_run_benchmark",
     "module_id",
     "test_id",
+    "setup_test_run_from_client",
     "s3_url",
     "benchmark_time",
     "auto_benchmark_time",

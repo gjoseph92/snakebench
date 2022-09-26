@@ -13,7 +13,6 @@ import sneks
 from distributed.client import Client
 
 from snakebench.clusters import CLUSTER_KWARGS, setup_test_run_from_client
-from snakebench.schema import TestRun
 from snakebench.utils_test import wait
 
 N_WORKERS = 15
@@ -33,7 +32,7 @@ def _parquet_client_base(module_id) -> Iterator[Client]:
 
 @pytest.fixture
 def parquet_client(
-    _parquet_client_base: Client, test_run_benchmark: TestRun, benchmark_all
+    _parquet_client_base: Client, test_run_benchmark, benchmark_all
 ) -> Iterator[Client]:
     cluster = _parquet_client_base.cluster
     assert cluster

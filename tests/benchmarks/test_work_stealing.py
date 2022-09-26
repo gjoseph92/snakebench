@@ -9,7 +9,6 @@ from dask import delayed, utils
 from tornado.ioloop import PeriodicCallback
 
 from snakebench.clusters import CLUSTER_KWARGS, setup_test_run_from_client
-from snakebench.schema import TestRun
 
 
 def test_trivial_workload_should_not_cause_work_stealing(small_client):
@@ -23,9 +22,7 @@ def test_trivial_workload_should_not_cause_work_stealing(small_client):
     distributed.__version__ == "2022.6.0",
     reason="https://github.com/dask/distributed/issues/6624",
 )
-def test_work_stealing_on_scaling_up(
-    test_id, test_run_benchmark: TestRun, benchmark_all
-):
+def test_work_stealing_on_scaling_up(test_id, test_run_benchmark, benchmark_all):
     with sneks.get_client(
         name=test_id, n_workers=1, worker_vm_types=["t3.medium"], **CLUSTER_KWARGS
     ) as client:
@@ -72,9 +69,7 @@ def test_work_stealing_on_inhomogeneous_workload(small_client):
     small_client.gather(futs)
 
 
-def test_work_stealing_on_straggling_worker(
-    test_id, test_run_benchmark: TestRun, benchmark_all
-):
+def test_work_stealing_on_straggling_worker(test_id, test_run_benchmark, benchmark_all):
     with sneks.get_client(
         name=test_id, n_workers=10, worker_vm_types=["t3.medium"], **CLUSTER_KWARGS
     ) as client:
