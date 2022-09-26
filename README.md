@@ -33,7 +33,7 @@ This also separates the concept of a "case" from the idea of a "comparison", fur
 * Compare before and after your fix
 * Realize your fix was bad, and go back to comparing before your fix, instantly
 * Remove a case from comparison, instantly
-* Change the baseline or oder of comparison, instantly
+* Change the baseline or order of comparison, instantly
 * Compare a few cases, realize you need to add another, and add it without re-running any of the others
 * Compare existing cases somebody already ran
 
