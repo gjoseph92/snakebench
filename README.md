@@ -97,6 +97,20 @@ dask = "git+https://github.com/dask/dask.git@<commit-sha>"
 distributed = "git+https://github.com/<your-username>/distributed.git@<your-fork-sha>"
 ```
 
+## Applying changes to multiple branches
+
+With many similar branches around, applying changes one-by-one can be tedious. The [`for-each-branch.sh`](/blob/main/for-each-branch.sh) utility makes this easier:
+
+```bash
+$ ./for-each-branch.sh bench/pyarrow-versions git push
+$ ./for-each-branch.sh bench/pyarrow-versions 'git cherry-pick abcd1234 || git cherry-pick --abort'  # || abort handles case when commit is already there
+$ ./for-each-branch.sh bench/pyarrow-versions git checkout -b '$branch-v2'  # `$branch` is substituted with current branch. Use single quotes!
+```
+
+See the script for the variables you can substitute.
+
+Eventually, this will be expanded to make it easy to substitute variables into patches, so you can map over an array of options to easily set up many test cases.
+
 ## Dependencies
 
 Refer to the [PDM docs](https://pdm.fming.dev/latest/usage/dependency/) for specific usage. In general, `pyproject.toml` defines the packages we _want_ installed. `pdm.lock` defines everything that _will_ be installed (including transitive deps). You can edit `pyproject.toml`, then run `pdm lock`. You should never edit (and probably never look at) `pdm.lock`.
