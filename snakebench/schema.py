@@ -38,6 +38,14 @@ class TestRun(msgspec.Struct):
     average_memory: float | None = None
     peak_memory: float | None = None
 
+    # Cluster data
+    cluster_id: int | None = None
+    worker_vm_type: str | None = None
+    scheduler_vm_type: str | None = None
+    n_workers: int | None = None
+    n_threads: int | None = None
+    cluster_memory: int | None = None
+
 
 def enc_hook(obj: Any) -> Any:
     # For convenience, support encoding NumPy scalars

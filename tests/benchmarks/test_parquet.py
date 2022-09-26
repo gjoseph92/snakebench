@@ -12,7 +12,8 @@ import pytest
 import sneks
 from distributed.client import Client
 
-from snakebench.clusters import CLUSTER_KWARGS
+from snakebench.clusters import CLUSTER_KWARGS, setup_test_run_from_client
+from snakebench.schema import TestRun
 from snakebench.utils_test import wait
 
 N_WORKERS = 15
@@ -31,17 +32,22 @@ def _parquet_client_base(module_id) -> Iterator[Client]:
 
 
 @pytest.fixture
-def parquet_client(_parquet_client_base: Client, benchmark_all) -> Iterator[Client]:
-    assert _parquet_client_base.cluster
-    _parquet_client_base.cluster.scale(N_WORKERS)
+def parquet_client(
+    _parquet_client_base: Client, test_run_benchmark: TestRun, benchmark_all
+) -> Iterator[Client]:
+    cluster = _parquet_client_base.cluster
+    assert cluster
+
+    cluster.scale(N_WORKERS)
     print(f"Waiting for {N_WORKERS} workers")
     _parquet_client_base.wait_for_workers(N_WORKERS)
     _parquet_client_base.restart()
     print(
-        f"Using cluster {_parquet_client_base.cluster.name!r}. Dashboard: {_parquet_client_base.dashboard_link}"
+        f"Using cluster {cluster.name!r}. Dashboard: {_parquet_client_base.dashboard_link}"
     )
 
     print(_parquet_client_base)
+    setup_test_run_from_client(_parquet_client_base, test_run_benchmark)
     with benchmark_all(_parquet_client_base):
         yield _parquet_client_base
 

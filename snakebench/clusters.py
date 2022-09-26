@@ -1,9 +1,13 @@
 import logging
-from typing import Iterator
+from typing import Iterator, cast
 
 import pytest
 import sneks
+from coiled import Cluster
 from distributed.client import Client
+
+from snakebench.schema import TestRun
+from snakebench.utils_test import cluster_memory
 
 N_WORKERS = 10
 
@@ -36,18 +40,42 @@ def _small_client_base(module_id) -> Iterator[Client]:
         yield client
 
 
+def setup_test_run_from_client(client: Client, test_run_benchmark: TestRun) -> None:
+    cluster = cast(Cluster, client.cluster)
+    assert isinstance(cluster, Cluster)
+
+    test_run_benchmark.cluster_id = cluster.cluster_id
+
+    assert isinstance(vms := cluster.worker_vm_types, list) and len(vms) == 1
+    test_run_benchmark.worker_vm_type = vms[0]
+
+    assert isinstance(vms := cluster.scheduler_vm_types, list) and len(vms) == 1
+    test_run_benchmark.scheduler_vm_type = vms[0]
+
+    info = client.scheduler_info()
+    test_run_benchmark.n_workers = len(info["workers"])
+    test_run_benchmark.n_threads = sum(w["nthreads"] for w in info["workers"].values())
+
+    test_run_benchmark.cluster_memory = cluster_memory(client)
+
+
 @pytest.fixture
-def small_client(_small_client_base: Client, benchmark_all) -> Iterator[Client]:
+def small_client(
+    _small_client_base: Client, test_run_benchmark: TestRun, benchmark_all
+) -> Iterator[Client]:
     "Per-test fixture to get a client, with automatic benchmarking."
-    assert _small_client_base.cluster
-    _small_client_base.cluster.scale(N_WORKERS)
+    cluster = cast(Cluster, _small_client_base.cluster)
+    assert isinstance(cluster, Cluster)
+
+    cluster.scale(N_WORKERS)
     print(f"Waiting for {N_WORKERS} workers")
     _small_client_base.wait_for_workers(N_WORKERS)
     _small_client_base.restart()
     print(
-        f"Using cluster {_small_client_base.cluster.name!r}. Dashboard: {_small_client_base.dashboard_link}"
+        f"Using cluster {cluster.name!r}. Dashboard: {_small_client_base.dashboard_link}"
     )
 
     print(_small_client_base)
+    setup_test_run_from_client(_small_client_base, test_run_benchmark)
     with benchmark_all(_small_client_base):
         yield _small_client_base
