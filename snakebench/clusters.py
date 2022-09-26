@@ -46,11 +46,15 @@ def setup_test_run_from_client(client: Client, test_run_benchmark: TestRun) -> N
 
     test_run_benchmark.cluster_id = cluster.cluster_id
 
-    assert isinstance(vms := cluster.worker_vm_types, list) and len(vms) == 1
-    test_run_benchmark.worker_vm_type = vms[0]
+    vms = cluster.worker_vm_types
+    if vms is not None:
+        assert isinstance(vms, list) and len(vms) == 1, vms
+        test_run_benchmark.worker_vm_type = vms[0]
 
-    assert isinstance(vms := cluster.scheduler_vm_types, list) and len(vms) == 1
-    test_run_benchmark.scheduler_vm_type = vms[0]
+    vms = cluster.scheduler_vm_types
+    if vms is not None:
+        assert isinstance(vms, list) and len(vms) == 1, vms
+        test_run_benchmark.scheduler_vm_type = vms[0]
 
     info = client.scheduler_info()
     test_run_benchmark.n_workers = len(info["workers"])
