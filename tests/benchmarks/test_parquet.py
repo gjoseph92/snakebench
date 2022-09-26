@@ -17,6 +17,8 @@ from snakebench.utils_test import wait
 
 N_WORKERS = 15
 
+pytestmark = pytest.mark.skip
+
 
 @pytest.fixture(scope="module")
 def _parquet_client_base(module_id) -> Iterator[Client]:
