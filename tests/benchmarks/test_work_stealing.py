@@ -10,6 +10,8 @@ from tornado.ioloop import PeriodicCallback
 
 from snakebench.clusters import CLUSTER_KWARGS, setup_test_run_from_client
 
+pytestmark = pytest.mark.skip
+
 
 def test_trivial_workload_should_not_cause_work_stealing(small_client):
     root = delayed(lambda n: "x" * n)(utils.parse_bytes("1MiB"), dask_key_name="root")
