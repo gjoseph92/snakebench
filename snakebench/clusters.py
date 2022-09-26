@@ -9,7 +9,7 @@ from distributed.client import Client
 from snakebench.schema import TestRun
 from snakebench.utils_test import cluster_memory
 
-N_WORKERS = 10
+N_WORKERS = 5
 
 
 CLUSTER_KWARGS = dict(
@@ -36,7 +36,7 @@ def _small_client_base(module_id) -> Iterator[Client]:
     with sneks.get_client(
         name=module_id,
         n_workers=N_WORKERS,
-        worker_vm_types=["t3.large"],  # 2CPU, 8GiB
+        worker_vm_types=["t3.xlarge"],  # 4CPU, 16GiB
         scheduler_vm_types=["t3.large"],
         **CLUSTER_KWARGS,
     ) as client:
