@@ -1,7 +1,7 @@
 from dask.sizeof import sizeof
-from dask.utils import format_bytes
+from dask.utils import format_bytes, parse_bytes
 
-from snakebench.utils_test import cluster_memory, timeseries_of_size, wait
+from snakebench.utils_test import timeseries_of_size, wait
 
 
 def print_dataframe_info(df):
@@ -16,7 +16,7 @@ def print_dataframe_info(df):
 
 
 def test_dataframe_align(small_client):
-    memory = cluster_memory(small_client)  # 76.66 GiB
+    memory = parse_bytes("76.66 GiB")
 
     df = timeseries_of_size(
         memory // 2,
@@ -43,7 +43,7 @@ def test_dataframe_align(small_client):
 
 
 def test_shuffle(small_client):
-    memory = cluster_memory(small_client)  # 76.66 GiB
+    memory = parse_bytes("76.66 GiB")
 
     df = timeseries_of_size(
         memory // 4,
