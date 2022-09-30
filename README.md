@@ -127,6 +127,12 @@ If you pull down commits that change dependencies, or check out a different bran
 
 ## Local development
 
+## Running clusters locally
+
+The `--local` flag to pytest will create local dask clusters auto-sized to your machine, instead of Coiled clusters. *This only applies to the `small_client` fixture at the moment; tests that create their own Coiled clusters will still do so.*
+
+Tests that use utilities like `timeseries_of_size` and `scaled_array_shape` to scale their data size to the cluster should work locally with no modification. Tests with fixed, large data sizes may be not run well locally.
+
 ### Driving tests locally
 
 You can easily drive tests from your machine, without needing GitHub actions to run them for you.
