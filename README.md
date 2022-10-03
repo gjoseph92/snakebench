@@ -125,6 +125,10 @@ Pre-commit will verify that the lockfile is up to date before each commit. If yo
 
 If you pull down commits that change dependencies, or check out a different branch, run `pdm sync --dev --clean` to install the new dependencies (and remove any old ones).
 
+## Skipping CI
+
+Commit messages containing `[skip ci]` will not run benchmarks.
+
 ## Local development
 
 ## Running clusters locally
