@@ -7,8 +7,8 @@ authors = [
 ]
 # NOTE: these are dependencies that will actually be installed on the cluster.
 dependencies = [
-    "distributed>=2022.9.0",
-    "dask[complete]>=2022.9.0",
+    "distributed==2022.9.1",
+    "dask[complete]==2022.9.1",
     "pyarrow>=9.0.0",
     "bokeh>=2.4.3",
     "s3fs>=2022.8.2",
@@ -47,6 +47,8 @@ util = [
     "ipython>=8.5.0",
 ]
 
+[tool.pdm.overrides]
+distributed = "git+https://github.com/gjoseph92/distributed.git@172bbc43648c467d2bb77940d4559f06d5d6deb4"
 
 [tool.pyright]
 # Dask and distributed doesn't use `__all__` so pyright thinks nothing is properly exported
