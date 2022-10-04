@@ -259,7 +259,7 @@ summary = "Python parser for the CommonMark Markdown spec"
 
 [[package]]
 name = "dask"
-version = "2022.9.1"
+version = "2022.9.2"
 requires_python = ">=3.8"
 summary = "Parallel PyData with Task Scheduling"
 dependencies = [
@@ -273,14 +273,14 @@ dependencies = [
 
 [[package]]
 name = "dask"
-version = "2022.9.1"
+version = "2022.9.2"
 extras = ["complete"]
 requires_python = ">=3.8"
 summary = "Parallel PyData with Task Scheduling"
 dependencies = [
     "bokeh>=2.4.2",
-    "dask==2022.9.1",
-    "distributed==2022.9.1",
+    "dask==2022.9.2",
+    "distributed==2022.9.2",
     "jinja2",
     "numpy>=1.18",
     "pandas>=1.0",
@@ -320,7 +320,7 @@ summary = "Distributed scheduler for Dask"
 dependencies = [
     "click>=6.6",
     "cloudpickle>=1.5.0",
-    "dask==2022.9.1",
+    "dask==2022.9.2",
     "jinja2",
     "locket>=1.0.0",
     "msgpack>=0.6.0",
@@ -1573,9 +1573,9 @@ content_hash = "sha256:f4c987ebfa620e097bc7e3805e2342734026cb89e855e78a0cd8c65d4
     {url = "https://files.pythonhosted.org/packages/60/48/a60f593447e8f0894ebb7f6e6c1f25dafc5e89c5879fdc9360ae93ff83f0/commonmark-0.9.1.tar.gz", hash = "sha256:452f9dc859be7f06631ddcb328b6919c67984aca654e5fefb3914d54691aed60"},
     {url = "https://files.pythonhosted.org/packages/b1/92/dfd892312d822f36c55366118b95d914e5f16de11044a27cf10a7d71bbbf/commonmark-0.9.1-py2.py3-none-any.whl", hash = "sha256:da2f38c92590f83de410ba1a3cbceafbc74fee9def35f9251ba9a971d6d66fd9"},
 ]
-"dask 2022.9.1" = [
-    {url = "https://files.pythonhosted.org/packages/8f/db/a8854bb3df98786cf12b551f8fc2a320f2ee90fee19864253254008f38b1/dask-2022.9.1.tar.gz", hash = "sha256:d2f94ed0db1e79eccee86422c91b5398ec8f515e328f132a8c55358478578221"},
-    {url = "https://files.pythonhosted.org/packages/c9/72/91824b1d5c4a9594b2a2909139839b16b3782538002ee22a8a3087907c45/dask-2022.9.1-py3-none-any.whl", hash = "sha256:bdb72c14cc497a069ad8cd9b3902b98bcc725f8f18ce4526c95177bde3fb1fdd"},
+"dask 2022.9.2" = [
+    {url = "https://files.pythonhosted.org/packages/37/09/3c6047dc0d6fabe9f5fc5d5347d79eb72a9a10fa7b798518aa90569895f0/dask-2022.9.2.tar.gz", hash = "sha256:2e214f97af5195ce08f4a3be198b2fca2de709c23e06966bfa3298851ac91507"},
+    {url = "https://files.pythonhosted.org/packages/59/11/03d8cdb285db33d08c4688850d619f8151c2ce23012100ff398f9dbd35d1/dask-2022.9.2-py3-none-any.whl", hash = "sha256:42ee25ade79a1af006b57f0eabe207edfddc1eee23b075e77306a31990541351"},
 ]
 "debugpy 1.6.3" = [
     {url = "https://files.pythonhosted.org/packages/0d/54/3449fc5750a8780335ec86797d12294eb05409092ebf4539d513958eabc4/debugpy-1.6.3-cp38-cp38-win_amd64.whl", hash = "sha256:86d784b72c5411c833af1cd45b83d80c252b77c3bfdb43db17c441d772f4c734"},

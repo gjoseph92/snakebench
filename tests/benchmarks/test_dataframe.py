@@ -15,6 +15,23 @@ def print_dataframe_info(df):
     )
 
 
+def test_basic_df_mean(small_client):
+    memory = parse_bytes("76.66 GiB")
+
+    df = timeseries_of_size(
+        memory * 2,
+        start="2020-01-01",
+        freq="1200ms",
+        partition_freq="24h",
+        dtypes={i: float for i in range(1_000)},
+    )
+    print_dataframe_info(df)
+    # ~20,592,000 rows x 1000 columns, 153.58 GiB total, 286 549.87 MiB partitions
+
+    result = df.sum(split_every=None)  # see https://github.com/dask/dask/issues/9450
+    wait(result.persist(), small_client, 5 * 60)
+
+
 def test_dataframe_align(small_client):
     memory = parse_bytes("76.66 GiB")
 
