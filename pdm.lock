@@ -259,7 +259,7 @@ summary = "Python parser for the CommonMark Markdown spec"
 
 [[package]]
 name = "dask"
-version = "2022.9.1"
+version = "2022.9.2"
 requires_python = ">=3.8"
 summary = "Parallel PyData with Task Scheduling"
 dependencies = [
@@ -273,14 +273,14 @@ dependencies = [
 
 [[package]]
 name = "dask"
-version = "2022.9.1"
+version = "2022.9.2"
 extras = ["complete"]
 requires_python = ">=3.8"
 summary = "Parallel PyData with Task Scheduling"
 dependencies = [
     "bokeh>=2.4.2",
-    "dask==2022.9.1",
-    "distributed==2022.9.1",
+    "dask==2022.9.2",
+    "distributed==2022.9.2",
     "jinja2",
     "numpy>=1.18",
     "pandas>=1.0",
@@ -311,13 +311,13 @@ summary = "Distribution utilities"
 
 [[package]]
 name = "distributed"
-version = "2022.9.1"
+version = "2022.9.2"
 requires_python = ">=3.8"
 summary = "Distributed scheduler for Dask"
 dependencies = [
     "click>=6.6",
     "cloudpickle>=1.5.0",
-    "dask==2022.9.1",
+    "dask==2022.9.2",
     "jinja2",
     "locket>=1.0.0",
     "msgpack>=0.6.0",
@@ -1577,9 +1577,9 @@ content_hash = "sha256:8864c44d7d53a7142cdecbf62d5cc40797f6c2662869e0dcc73c98bf2
     {url = "https://files.pythonhosted.org/packages/60/48/a60f593447e8f0894ebb7f6e6c1f25dafc5e89c5879fdc9360ae93ff83f0/commonmark-0.9.1.tar.gz", hash = "sha256:452f9dc859be7f06631ddcb328b6919c67984aca654e5fefb3914d54691aed60"},
     {url = "https://files.pythonhosted.org/packages/b1/92/dfd892312d822f36c55366118b95d914e5f16de11044a27cf10a7d71bbbf/commonmark-0.9.1-py2.py3-none-any.whl", hash = "sha256:da2f38c92590f83de410ba1a3cbceafbc74fee9def35f9251ba9a971d6d66fd9"},
 ]
-"dask 2022.9.1" = [
-    {url = "https://files.pythonhosted.org/packages/8f/db/a8854bb3df98786cf12b551f8fc2a320f2ee90fee19864253254008f38b1/dask-2022.9.1.tar.gz", hash = "sha256:d2f94ed0db1e79eccee86422c91b5398ec8f515e328f132a8c55358478578221"},
-    {url = "https://files.pythonhosted.org/packages/c9/72/91824b1d5c4a9594b2a2909139839b16b3782538002ee22a8a3087907c45/dask-2022.9.1-py3-none-any.whl", hash = "sha256:bdb72c14cc497a069ad8cd9b3902b98bcc725f8f18ce4526c95177bde3fb1fdd"},
+"dask 2022.9.2" = [
+    {url = "https://files.pythonhosted.org/packages/37/09/3c6047dc0d6fabe9f5fc5d5347d79eb72a9a10fa7b798518aa90569895f0/dask-2022.9.2.tar.gz", hash = "sha256:2e214f97af5195ce08f4a3be198b2fca2de709c23e06966bfa3298851ac91507"},
+    {url = "https://files.pythonhosted.org/packages/59/11/03d8cdb285db33d08c4688850d619f8151c2ce23012100ff398f9dbd35d1/dask-2022.9.2-py3-none-any.whl", hash = "sha256:42ee25ade79a1af006b57f0eabe207edfddc1eee23b075e77306a31990541351"},
 ]
 "debugpy 1.6.3" = [
     {url = "https://files.pythonhosted.org/packages/0d/54/3449fc5750a8780335ec86797d12294eb05409092ebf4539d513958eabc4/debugpy-1.6.3-cp38-cp38-win_amd64.whl", hash = "sha256:86d784b72c5411c833af1cd45b83d80c252b77c3bfdb43db17c441d772f4c734"},
@@ -1613,9 +1613,9 @@ content_hash = "sha256:8864c44d7d53a7142cdecbf62d5cc40797f6c2662869e0dcc73c98bf2
     {url = "https://files.pythonhosted.org/packages/58/07/815476ae605bcc5f95c87a62b95e74a1bce0878bc7a3119bc2bf4178f175/distlib-0.3.6.tar.gz", hash = "sha256:14bad2d9b04d3a36127ac97f30b12a19268f211063d8f8ee4f47108896e11b46"},
     {url = "https://files.pythonhosted.org/packages/76/cb/6bbd2b10170ed991cf64e8c8b85e01f2fb38f95d1bc77617569e0b0b26ac/distlib-0.3.6-py2.py3-none-any.whl", hash = "sha256:f35c4b692542ca110de7ef0bea44d73981caeb34ca0b9b6b2e6d7790dda8f80e"},
 ]
-"distributed 2022.9.1" = [
-    {url = "https://files.pythonhosted.org/packages/24/65/54e92675a8cfe785824e4bdf3d7a6627570965f57502da392ca784ad31d6/distributed-2022.9.1-py3-none-any.whl", hash = "sha256:87dee1b859ee01e360c0286a8adbe0331cf38d3de44acc9cf0518c3de48ae8a5"},
-    {url = "https://files.pythonhosted.org/packages/e0/dc/5d2116c835e45139dc7b61c951ced8ef9afd16d4e8a5db0da51e923e8304/distributed-2022.9.1.tar.gz", hash = "sha256:ba98f54e2a51861bee972ba15f86df6d04966abf66ed7bb7988b22e3c1be7b01"},
+"distributed 2022.9.2" = [
+    {url = "https://files.pythonhosted.org/packages/14/c6/fd0f8cd857e7a9759d1bc500763320256c97e5345b94d9f26b3f9c6cb7f3/distributed-2022.9.2.tar.gz", hash = "sha256:910627092a79ba105a80a7e1ea53ccc184ed3cbccd217943940a871515624d0b"},
+    {url = "https://files.pythonhosted.org/packages/a7/3a/746f3bb8fe3cd7707014388b1593b6e1827d1707ebc61e9f45c03ad59710/distributed-2022.9.2-py3-none-any.whl", hash = "sha256:63d14e99013b83f5a40a3f82bc449639833abd35438a3d350dbe9f13776fa0a6"},
 ]
 "entrypoints 0.4" = [
     {url = "https://files.pythonhosted.org/packages/35/a8/365059bbcd4572cbc41de17fd5b682be5868b218c3c5479071865cab9078/entrypoints-0.4-py3-none-any.whl", hash = "sha256:f174b5ff827504fd3cd97cc3f8649f3693f51538c7e4bdf3ef002c8429d42f9f"},
