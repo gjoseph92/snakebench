@@ -27,6 +27,8 @@ def test_large_map_first_work(small_client):
         return
 
 
+@pytest.mark.skip("fails due to previous test")
+# FIXME the `assert not self.tasks` in `Scheduler.restart` fails after the previous test.
 def test_memory_efficient(small_client):
     """
     We hope that we pipeline xs->ys->zs without keeping all of the xs in memory
