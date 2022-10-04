@@ -48,7 +48,7 @@ util = [
 ]
 
 [tool.pdm.overrides]
-distributed = "git+https://github.com/gjoseph92/distributed.git@172bbc43648c467d2bb77940d4559f06d5d6deb4"
+distributed = "git+https://github.com/gjoseph92/distributed.git@0922e5c293474e89acac16623fd1741013e30453"
 
 [tool.pyright]
 # Dask and distributed doesn't use `__all__` so pyright thinks nothing is properly exported

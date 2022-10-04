@@ -259,7 +259,7 @@ summary = "Python parser for the CommonMark Markdown spec"
 
 [[package]]
 name = "dask"
-version = "2022.9.2"
+version = "2022.9.1"
 requires_python = ">=3.8"
 summary = "Parallel PyData with Task Scheduling"
 dependencies = [
@@ -273,14 +273,14 @@ dependencies = [
 
 [[package]]
 name = "dask"
-version = "2022.9.2"
+version = "2022.9.1"
 extras = ["complete"]
 requires_python = ">=3.8"
 summary = "Parallel PyData with Task Scheduling"
 dependencies = [
     "bokeh>=2.4.2",
-    "dask==2022.9.2",
-    "distributed==2022.9.2",
+    "dask==2022.9.1",
+    "distributed==2022.9.1",
     "jinja2",
     "numpy>=1.18",
     "pandas>=1.0",
@@ -311,16 +311,16 @@ summary = "Distribution utilities"
 
 [[package]]
 name = "distributed"
-version = "2022.9.1+26.g172bbc43"
+version = "2022.9.1+29.g0922e5c2"
 requires_python = ">=3.8"
 git = "https://github.com/gjoseph92/distributed.git"
-ref = "172bbc43648c467d2bb77940d4559f06d5d6deb4"
-revision = "172bbc43648c467d2bb77940d4559f06d5d6deb4"
+ref = "0922e5c293474e89acac16623fd1741013e30453"
+revision = "0922e5c293474e89acac16623fd1741013e30453"
 summary = "Distributed scheduler for Dask"
 dependencies = [
     "click>=6.6",
     "cloudpickle>=1.5.0",
-    "dask==2022.9.2",
+    "dask==2022.9.1",
     "jinja2",
     "locket>=1.0.0",
     "msgpack>=0.6.0",
@@ -973,7 +973,7 @@ summary = "World timezone definitions, modern and historical"
 
 [[package]]
 name = "pyupgrade"
-version = "2.38.2"
+version = "3.0.0"
 requires_python = ">=3.7"
 summary = "A tool to automatically upgrade syntax for newer versions."
 dependencies = [
@@ -1143,8 +1143,8 @@ dependencies = [
 
 [[package]]
 name = "tokenize-rt"
-version = "4.2.1"
-requires_python = ">=3.6.1"
+version = "5.0.0"
+requires_python = ">=3.7"
 summary = "A wrapper around the stdlib `tokenize` which roundtrips."
 
 [[package]]
@@ -1271,7 +1271,7 @@ summary = "Backport of pathlib-compatible object wrapper for zip files"
 
 [metadata]
 lock_version = "4.0"
-content_hash = "sha256:f4c987ebfa620e097bc7e3805e2342734026cb89e855e78a0cd8c65d46bac155"
+content_hash = "sha256:d1774fb71ea2980b10c726d9523b1ed0b2fff389e4833d17a532fd35f29b33de"
 
 [metadata.files]
 "aiobotocore 2.4.0" = [
@@ -1573,9 +1573,9 @@ content_hash = "sha256:f4c987ebfa620e097bc7e3805e2342734026cb89e855e78a0cd8c65d4
     {url = "https://files.pythonhosted.org/packages/60/48/a60f593447e8f0894ebb7f6e6c1f25dafc5e89c5879fdc9360ae93ff83f0/commonmark-0.9.1.tar.gz", hash = "sha256:452f9dc859be7f06631ddcb328b6919c67984aca654e5fefb3914d54691aed60"},
     {url = "https://files.pythonhosted.org/packages/b1/92/dfd892312d822f36c55366118b95d914e5f16de11044a27cf10a7d71bbbf/commonmark-0.9.1-py2.py3-none-any.whl", hash = "sha256:da2f38c92590f83de410ba1a3cbceafbc74fee9def35f9251ba9a971d6d66fd9"},
 ]
-"dask 2022.9.2" = [
-    {url = "https://files.pythonhosted.org/packages/37/09/3c6047dc0d6fabe9f5fc5d5347d79eb72a9a10fa7b798518aa90569895f0/dask-2022.9.2.tar.gz", hash = "sha256:2e214f97af5195ce08f4a3be198b2fca2de709c23e06966bfa3298851ac91507"},
-    {url = "https://files.pythonhosted.org/packages/59/11/03d8cdb285db33d08c4688850d619f8151c2ce23012100ff398f9dbd35d1/dask-2022.9.2-py3-none-any.whl", hash = "sha256:42ee25ade79a1af006b57f0eabe207edfddc1eee23b075e77306a31990541351"},
+"dask 2022.9.1" = [
+    {url = "https://files.pythonhosted.org/packages/8f/db/a8854bb3df98786cf12b551f8fc2a320f2ee90fee19864253254008f38b1/dask-2022.9.1.tar.gz", hash = "sha256:d2f94ed0db1e79eccee86422c91b5398ec8f515e328f132a8c55358478578221"},
+    {url = "https://files.pythonhosted.org/packages/c9/72/91824b1d5c4a9594b2a2909139839b16b3782538002ee22a8a3087907c45/dask-2022.9.1-py3-none-any.whl", hash = "sha256:bdb72c14cc497a069ad8cd9b3902b98bcc725f8f18ce4526c95177bde3fb1fdd"},
 ]
 "debugpy 1.6.3" = [
     {url = "https://files.pythonhosted.org/packages/0d/54/3449fc5750a8780335ec86797d12294eb05409092ebf4539d513958eabc4/debugpy-1.6.3-cp38-cp38-win_amd64.whl", hash = "sha256:86d784b72c5411c833af1cd45b83d80c252b77c3bfdb43db17c441d772f4c734"},
@@ -2345,9 +2345,9 @@ content_hash = "sha256:f4c987ebfa620e097bc7e3805e2342734026cb89e855e78a0cd8c65d4
     {url = "https://files.pythonhosted.org/packages/31/da/2d48d3499b59c7f3c5d5e1c79fcee5537c320c8ab7b7a0cd2db578bc34b3/pytz-2022.4.tar.gz", hash = "sha256:48ce799d83b6f8aab2020e369b627446696619e79645419610b9facd909b3174"},
     {url = "https://files.pythonhosted.org/packages/d8/66/309545413162bc8271c73e622499a41cdc37217b499febe26155ff9f93ed/pytz-2022.4-py2.py3-none-any.whl", hash = "sha256:2c0784747071402c6e99f0bafdb7da0fa22645f06554c7ae06bf6358897e9c91"},
 ]
-"pyupgrade 2.38.2" = [
-    {url = "https://files.pythonhosted.org/packages/2a/2e/15742fe9d036cfaae267e07eacb9ae1a2d25caed15dc7970206335ef8676/pyupgrade-2.38.2-py2.py3-none-any.whl", hash = "sha256:41bb9a9fd48fe57163b0dacffff433d6d5a63a0f7c2402918917b5f1a533342b"},
-    {url = "https://files.pythonhosted.org/packages/8e/12/9dabfccd5d91f10d248d16123eb46749a6d4d6d961fc07b1b0d4564230ba/pyupgrade-2.38.2.tar.gz", hash = "sha256:a5d778c9de0b53975c6a9eac2d0df5adfad244a9f7d7993d8a114223ebbda367"},
+"pyupgrade 3.0.0" = [
+    {url = "https://files.pythonhosted.org/packages/19/89/e23287208aaa6508af3a232e586432ac913212196d54cfe2438cb54d6525/pyupgrade-3.0.0-py2.py3-none-any.whl", hash = "sha256:f9ba6cb58713e7249f4f0486e425969618e953062a5fc805da9d21602a2d1441"},
+    {url = "https://files.pythonhosted.org/packages/1f/57/3c2b278d2bc929df25af5eeddad7a6e2b3dbe76303b96f58ebebd1ce72d1/pyupgrade-3.0.0.tar.gz", hash = "sha256:6ec1e2762d887cab94a5714b2ea7e944843d8c2de36c449d443e52ffac8ab14f"},
 ]
 "pywin32 304" = [
     {url = "https://files.pythonhosted.org/packages/05/6b/9f8421a9a2ab5f33cbb9fd2f282ac971e584f6a83d44f6672bd17f1d68b2/pywin32-304-cp310-cp310-win32.whl", hash = "sha256:3c7bacf5e24298c86314f03fa20e16558a4e4138fc34615d7de4070c23e65af3"},
@@ -2546,9 +2546,9 @@ content_hash = "sha256:f4c987ebfa620e097bc7e3805e2342734026cb89e855e78a0cd8c65d4
     {url = "https://files.pythonhosted.org/packages/1e/5a/576828164b5486f319c4323915b915a8af3fa4a654bbb6f8fc8e87b5cb17/tinycss2-1.1.1.tar.gz", hash = "sha256:b2e44dd8883c360c35dd0d1b5aad0b610e5156c2cb3b33434634e539ead9d8bf"},
     {url = "https://files.pythonhosted.org/packages/53/7b/5dba39bf0572f1f28e2844f08f74a73482a381de1d1feac3bbc6b808051e/tinycss2-1.1.1-py3-none-any.whl", hash = "sha256:fe794ceaadfe3cf3e686b22155d0da5780dd0e273471a51846d0a02bc204fec8"},
 ]
-"tokenize-rt 4.2.1" = [
-    {url = "https://files.pythonhosted.org/packages/2c/9c/d7c5d9e83bf5a2b52f9505ac3ce092c8788d10632ad8341b649a0906852a/tokenize_rt-4.2.1.tar.gz", hash = "sha256:0d4f69026fed520f8a1e0103aa36c406ef4661417f20ca643f913e33531b3b94"},
-    {url = "https://files.pythonhosted.org/packages/2f/e2/654a25ad594df2eb07f76e405f6f261d8fa9b5c06eb1e78549a086245455/tokenize_rt-4.2.1-py2.py3-none-any.whl", hash = "sha256:08a27fa032a81cf45e8858d0ac706004fcd523e8463415ddf1442be38e204ea8"},
+"tokenize-rt 5.0.0" = [
+    {url = "https://files.pythonhosted.org/packages/40/01/fb40ea8c465f680bf7aa3f5bee39c62ba8b7f52c38048c27aa95aff4f779/tokenize_rt-5.0.0.tar.gz", hash = "sha256:3160bc0c3e8491312d0485171dea861fc160a240f5f5766b72a1165408d10740"},
+    {url = "https://files.pythonhosted.org/packages/8d/12/4c7495f25b4c9131706f3aaffb185d4de32c02a6ee49d875e929c5b7c919/tokenize_rt-5.0.0-py2.py3-none-any.whl", hash = "sha256:c67772c662c6b3dc65edf66808577968fb10badfc2042e3027196bed4daf9e5a"},
 ]
 "toml 0.10.2" = [
     {url = "https://files.pythonhosted.org/packages/44/6f/7120676b6d73228c96e17f1f794d8ab046fc910d781c8d151120c3f1569e/toml-0.10.2-py2.py3-none-any.whl", hash = "sha256:806143ae5bfb6a3c6e736a764057db0e6a0e05e338b5630894a5f779cabb4f9b"},
