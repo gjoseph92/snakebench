@@ -25,6 +25,7 @@ class TestRun(msgspec.Struct):
     commit_subject: str
     commit_body: str
     branch: str
+    id: str
     # path: str
 
     setup_outcome: Outcome | None = None
