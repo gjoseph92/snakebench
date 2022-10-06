@@ -88,8 +88,9 @@ jobs:
           AWS_DEFAULT_REGION: us-east-2 # this is needed for boto for some reason
           GITHUB_RUN_ID: ${{ github.run_id }}
           GITHUB_RUN_ATTEMPT: ${{ github.run_attempt }}
+          BENCHMARKING: ${{ contains(github.event.head_commit.message, 'bench/') }}
         run: |
-          pdm run pytest -n 8 --dist loadscope --ignore=tests/test_test.py
+          pdm run pytest -n 4 --dist loadscope -m "not no_ci"
       - name: Upload benchmark results as artifact
         uses: actions/upload-artifact@v3
         if: always()

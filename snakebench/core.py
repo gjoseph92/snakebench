@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import os
+import uuid
 from types import ModuleType
 
 import pytest
@@ -26,7 +27,7 @@ else:
 
 # Set in test.yml
 MATRIX_ID = os.environ.get("MATRIX_ID", "0")
-RUN_ID = os.environ.get("GITHUB_RUN_ID", "0")
+RUN_ID = os.environ.get("GITHUB_RUN_ID") or f"local-{uuid.uuid4().hex[:8]}"
 RUN_ATTEMPT = os.environ.get("GITHUB_RUN_ATTEMPT", "0")
 
 
@@ -84,6 +85,7 @@ def test_run_benchmark(
     results_filename,
     commit_info: CommitInfo,
     request: pytest.FixtureRequest,
+    test_id: str,
 ):
     node = request.node
     run = TestRun(
@@ -92,6 +94,7 @@ def test_run_benchmark(
         commit_subject=commit_info.subject,
         commit_body=commit_info.body,
         branch=commit_info.branch,
+        id=test_id,
         ci_run_url=WORKFLOW_URL,
         ci_run_id=RUN_ID,
         ci_run_attempt=RUN_ATTEMPT,

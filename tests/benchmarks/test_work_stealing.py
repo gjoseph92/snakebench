@@ -9,7 +9,11 @@ from dask import delayed, utils
 from tornado.ioloop import PeriodicCallback
 
 from snakebench.clusters import CLUSTER_KWARGS, setup_test_run_from_client
+from snakebench.skip import skip_bench
 from snakebench.utils_test import slowdown
+
+# Not a useful benchmarking signal here currently
+pytestmark = skip_bench("Not a useful benchmarking signal here currently")
 
 
 def test_trivial_workload_should_not_cause_work_stealing(small_client):
@@ -19,6 +23,7 @@ def test_trivial_workload_should_not_cause_work_stealing(small_client):
     small_client.gather(futs)
 
 
+@pytest.mark.skip("find a way to make this faster so we don't have to wait for scaling")
 @pytest.mark.xfail(
     distributed.__version__ == "2022.6.0",
     reason="https://github.com/dask/distributed/issues/6624",

@@ -12,7 +12,7 @@ def test_quickstart_csv(small_client):
             "RatecodeID": "UInt8",
         },
         blocksize="16 MiB",
-    ).persist()
+    )
 
     result = ddf.groupby("passenger_count").tip_amount.mean().compute()
 

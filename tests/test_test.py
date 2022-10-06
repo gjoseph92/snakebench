@@ -10,6 +10,8 @@ import dask.array as da
 import distributed
 import pytest
 
+pytestmark = pytest.mark.no_ci
+
 
 def test_benchmark_half(auto_benchmark_time):
     time.sleep(0.5)
