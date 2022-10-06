@@ -1,6 +1,7 @@
 import contextlib
 import uuid
 
+import pandas as pd
 import pytest
 from distributed.diagnostics.memory_sampler import MemorySampler
 
@@ -13,12 +14,19 @@ def benchmark_memory(test_run_benchmark: TestRun):
     def _benchmark_memory(client):
         sampler = MemorySampler()
         label = uuid.uuid4().hex[:8]
-        with sampler.sample(label, client=client, measure="process"):
+        measure = "process"
+        with sampler.sample(label, client=client, measure=measure):
             yield
 
-        df = sampler.to_pandas()
-        if test_run_benchmark:
-            test_run_benchmark.average_memory = df[label].mean()
-            test_run_benchmark.peak_memory = df[label].max()
+        series = sampler.to_pandas(align=True)[label]
+
+        test_run_benchmark.memory_measure = measure
+        test_run_benchmark.average_memory = series.mean()
+        test_run_benchmark.peak_memory = series.max()
+        test_run_benchmark.memory_samples = series.to_list()
+
+        idx = series.index
+        assert isinstance(idx, pd.TimedeltaIndex)
+        test_run_benchmark.memory_times = idx.total_seconds().to_list()
 
     return _benchmark_memory
