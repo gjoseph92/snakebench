@@ -53,7 +53,7 @@ def test_timeseries_of_size():
         timeseries("2000-01-01", "2000-01-06", freq="12h", partition_freq="1d"),
     ],
 )
-def test_slowdown_arr(obj):
+def test_slowdown(obj):
     slow = slowdown(obj, delay=0.2, jitter_factor=0.0)
 
     # Ensure the slow task gets fused into data generation
@@ -74,3 +74,11 @@ def test_slowdown_arr(obj):
         assert baseline + 1 <= elapsed <= baseline + 1.5
 
     assert slowdown(obj, delay=0) is obj
+
+
+def test_slowdown_non_negative():
+    # high probability some sleep values would be negative, since mean is centered very near 0
+    arr = slowdown(da.random.random(50, chunks=1), delay=0.000_01, jitter_factor=100_00)
+
+    with dask.config.set({"scheduler": "threads"}):
+        arr.compute()

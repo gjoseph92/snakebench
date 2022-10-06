@@ -87,7 +87,7 @@ def scaled_array_shape(
 
 def _slowdown_arr(arr: da.Array, *, delay: float, jitter_factor: float) -> da.Array:
     def slow(x: np.ndarray) -> np.ndarray:
-        time.sleep(random.normalvariate(delay, sigma=delay * jitter_factor))
+        time.sleep(max(random.normalvariate(delay, sigma=delay * jitter_factor), 0))
         # Do not return the input by reference, as it would trigger an edge case where
         # managed memory is double counted
         return x.copy()
@@ -99,7 +99,7 @@ def _slowdown_dataframe(
     df: dd.DataFrame, *, delay: float, jitter_factor: float
 ) -> dd.DataFrame:
     def slow(x: pd.DataFrame) -> pd.DataFrame:
-        time.sleep(random.normalvariate(delay, sigma=delay * jitter_factor))
+        time.sleep(max(random.normalvariate(delay, sigma=delay * jitter_factor), 0))
         # Do not return the input by reference, as it would trigger an edge case where
         # managed memory is double counted
         return x.copy()
