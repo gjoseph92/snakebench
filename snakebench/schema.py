@@ -7,6 +7,16 @@ import msgspec
 import numpy as np
 
 Outcome = Literal["passed", "failed", "skipped"]
+MemMeasure = Literal[
+    "managed",
+    "managed_in_memory",
+    "managed_spilled",
+    "process",
+    "unmanaged",
+    "unmanaged_old",
+    "unmanaged_recent",
+    "optimistic",
+]
 
 
 class TestRun(msgspec.Struct):
@@ -37,6 +47,11 @@ class TestRun(msgspec.Struct):
     # Memory data
     average_memory: float | None = None
     peak_memory: float | None = None
+    measure: MemMeasure | None = None
+
+    # Memory sample data
+    samples: list[float] | None = None
+    times: list[float] | None = None
 
     # Cluster data
     cluster_id: int | None = None
@@ -51,7 +66,7 @@ def enc_hook(obj: Any) -> Any:
     # For convenience, support encoding NumPy scalars
     if type(obj) in np.ScalarType:
         return obj.item()
-    raise TypeError(f"Encoding objects of type {type(obj)} is unsupported")
+    raise TypeError(f"Encoding objects of type {type(obj)} is unsupported: {obj!r}")
 
 
 encoder = msgspec.json.Encoder(enc_hook=enc_hook)
