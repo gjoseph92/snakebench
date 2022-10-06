@@ -384,6 +384,12 @@ requires_python = ">=3.7"
 summary = "File-system specification"
 
 [[package]]
+name = "graphviz"
+version = "0.20.1"
+requires_python = ">=3.7"
+summary = "Simple Python interface for Graphviz"
+
+[[package]]
 name = "heapdict"
 version = "1.0.1"
 summary = "a heap with decrease-key and increase-key operations"
@@ -1275,7 +1281,7 @@ summary = "Backport of pathlib-compatible object wrapper for zip files"
 
 [metadata]
 lock_version = "4.0"
-content_hash = "sha256:8864c44d7d53a7142cdecbf62d5cc40797f6c2662869e0dcc73c98bf2cb06293"
+content_hash = "sha256:6bf92bd1abca6de517fc323373676066652dd9dffe84a7ccc05545412f8d7e12"
 
 [metadata.files]
 "aiobotocore 2.4.0" = [
@@ -1705,6 +1711,10 @@ content_hash = "sha256:8864c44d7d53a7142cdecbf62d5cc40797f6c2662869e0dcc73c98bf2
 "fsspec 2022.8.2" = [
     {url = "https://files.pythonhosted.org/packages/19/4b/c755522aed160cbe69dc6c1f9e1641d39947e2ba3d6994c2e19b446b5594/fsspec-2022.8.2.tar.gz", hash = "sha256:7f12b90964a98a7e921d27fb36be536ea036b73bf3b724ac0b0bd7b8e39c7c18"},
     {url = "https://files.pythonhosted.org/packages/82/f3/30f7925f22f623ebac35b40d48151578ef7303d897764e1d95323727611b/fsspec-2022.8.2-py3-none-any.whl", hash = "sha256:6374804a2c0d24f225a67d009ee1eabb4046ad00c793c3f6df97e426c890a1d9"},
+]
+"graphviz 0.20.1" = [
+    {url = "https://files.pythonhosted.org/packages/a5/90/fb047ce95c1eadde6ae78b3fca6a598b4c307277d4f8175d12b18b8f7321/graphviz-0.20.1.zip", hash = "sha256:8c58f14adaa3b947daf26c19bc1e98c4e0702cdc31cf99153e6f06904d492bf8"},
+    {url = "https://files.pythonhosted.org/packages/de/5e/fcbb22c68208d39edff467809d06c9d81d7d27426460ebc598e55130c1aa/graphviz-0.20.1-py3-none-any.whl", hash = "sha256:587c58a223b51611c0cf461132da386edd896a029524ca61a1462b880bf97977"},
 ]
 "heapdict 1.0.1" = [
     {url = "https://files.pythonhosted.org/packages/5a/9b/d8963ae7e388270b695f3b556b6dc9adb70ae9618fba09aa1e7b1886652d/HeapDict-1.0.1.tar.gz", hash = "sha256:8495f57b3e03d8e46d5f1b2cc62ca881aca392fd5cc048dc0aa2e1a6d23ecdb6"},

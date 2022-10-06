@@ -10,6 +10,7 @@ from snakebench.utils_test import (
     arr_to_devnull,
     cluster_memory,
     scaled_array_shape,
+    slowdown,
     wait,
 )
 
@@ -30,9 +31,11 @@ def test_anom_mean(small_client):
 
     memory = cluster_memory(small_client)  # 76.66 GiB
     target_nbytes = memory // 2
-    data = da.random.random(
-        scaled_array_shape(target_nbytes, ("x", "10MiB")),
-        chunks=(1, parse_bytes("10MiB") // 8),
+    data = slowdown(
+        da.random.random(
+            scaled_array_shape(target_nbytes, ("x", "10MiB")),
+            chunks=(1, parse_bytes("10MiB") // 8),
+        )
     )
     print_size_info(memory, target_nbytes, data)
     # 38.32 GiB - 3925 10.00 MiB chunks
@@ -56,9 +59,11 @@ def test_basic_sum(small_client):
 
     memory = cluster_memory(small_client)  # 76.66 GiB
     target_nbytes = memory * 5
-    data = da.zeros(
-        scaled_array_shape(target_nbytes, ("100MiB", "x")),
-        chunks=(parse_bytes("100MiB") // 8, 1),
+    data = slowdown(
+        da.zeros(
+            scaled_array_shape(target_nbytes, ("100MiB", "x")),
+            chunks=(parse_bytes("100MiB") // 8, 1),
+        )
     )
     print_size_info(memory, target_nbytes, data)
     # 383.20 GiB - 3924 100.00 MiB chunks
@@ -78,7 +83,9 @@ def test_climatic_mean(small_client):
     target_nbytes = memory * 2
     chunks = (1, 1, 96, 21, 90, 144)
     shape = (28, "x", 96, 21, 90, 144)
-    data = da.random.random(scaled_array_shape(target_nbytes, shape), chunks=chunks)
+    data = slowdown(
+        da.random.random(scaled_array_shape(target_nbytes, shape), chunks=chunks)
+    )
     print_size_info(memory, target_nbytes, data)
     # 152.62 GiB - 784 199.34 MiB chunks
 
@@ -101,14 +108,14 @@ def test_vorticity(small_client):
     target_nbytes = int(memory * 0.85)
     shape = scaled_array_shape(target_nbytes, (5000, 5000, "x"))
 
-    u = da.random.random(shape, chunks=(5000, 5000, 1))
-    v = da.random.random(shape, chunks=(5000, 5000, 1))
+    u = slowdown(da.random.random(shape, chunks=(5000, 5000, 1)))
+    v = slowdown(da.random.random(shape, chunks=(5000, 5000, 1)))
     print_size_info(memory, target_nbytes, u, v)
     # Input 1: 65.19 GiB - 350 190.73 MiB chunks
     # Input 2: 65.19 GiB - 350 190.73 MiB chunks
 
-    dx = da.random.random((5001, 5000), chunks=(5001, 5000))
-    dy = da.random.random((5001, 5000), chunks=(5001, 5000))
+    dx = slowdown(da.random.random((5001, 5000), chunks=(5001, 5000)))
+    dy = slowdown(da.random.random((5001, 5000), chunks=(5001, 5000)))
 
     def pad_rechunk(arr):
         """
@@ -147,8 +154,12 @@ def test_double_diff(small_client):
     # TODO switch back to chunksizes in the `chunks=` argument everywhere
     #  when https://github.com/dask/dask/issues/9488 is fixed
     cs = int((parse_bytes("20 MiB") / 8) ** (1 / 2))
-    a = da.random.random(scaled_array_shape(memory, ("x", "x")), chunks=(cs, cs))
-    b = da.random.random(scaled_array_shape(memory, ("x", "x")), chunks=(cs, cs))
+    a = slowdown(
+        da.random.random(scaled_array_shape(memory, ("x", "x")), chunks=(cs, cs))
+    )
+    b = slowdown(
+        da.random.random(scaled_array_shape(memory, ("x", "x")), chunks=(cs, cs))
+    )
     print_size_info(memory, memory, a, b)
 
     diff = a[1:, 1:] - b[:-1, :-1]
@@ -156,6 +167,6 @@ def test_double_diff(small_client):
 
 
 def test_dot_product(small_client):
-    a = da.random.random((24 * 1024, 24 * 1024), chunks="128 MiB")  # 4.5 GiB
+    a = slowdown(da.random.random((24 * 1024, 24 * 1024), chunks="128 MiB"))  # 4.5 GiB
     b = (a @ a.T).sum().round(3)
     wait(b.persist(), small_client, 10 * 60)

@@ -1,5 +1,9 @@
 from __future__ import annotations
 
+import random
+import time
+from typing import TypeVar
+
 import dask
 import dask.array as da
 import dask.dataframe as dd
@@ -79,6 +83,50 @@ def scaled_array_shape(
     error = (actual_nbytes - target_nbytes) / actual_nbytes
     assert abs(error) < max_error, (error, actual_nbytes, target_nbytes, final)
     return final
+
+
+def _slowdown_arr(arr: da.Array, *, delay: float, jitter_factor: float) -> da.Array:
+    def slow(x: np.ndarray) -> np.ndarray:
+        time.sleep(random.normalvariate(delay, sigma=delay * jitter_factor))
+        # Do not return the input by reference, as it would trigger an edge case where
+        # managed memory is double counted
+        return x.copy()
+
+    return arr.map_blocks(slow, meta=arr)
+
+
+def _slowdown_dataframe(
+    df: dd.DataFrame, *, delay: float, jitter_factor: float
+) -> dd.DataFrame:
+    def slow(x: pd.DataFrame) -> pd.DataFrame:
+        time.sleep(random.normalvariate(delay, sigma=delay * jitter_factor))
+        # Do not return the input by reference, as it would trigger an edge case where
+        # managed memory is double counted
+        return x.copy()
+
+    s = df.map_partitions(slow, meta=df)
+    assert isinstance(s, dd.DataFrame)
+    return s
+
+
+T = TypeVar("T", da.Array, dd.DataFrame)
+
+
+def slowdown(obj: T, *, delay: float = 0.1, jitter_factor: float = 0.2) -> T:
+    """
+    Map a sleep over each chunk of an Array or DataFrame to simulate actual data-loading.
+
+    This *should* fuse with the prior data-creation tasks.
+    """
+    if delay <= 0:
+        return obj
+
+    if isinstance(obj, da.Array):
+        return _slowdown_arr(obj, delay=delay, jitter_factor=jitter_factor)
+    elif isinstance(obj, dd.DataFrame):
+        return _slowdown_dataframe(obj, delay=delay, jitter_factor=jitter_factor)
+
+    raise TypeError(f"Unexpected type {type(obj)}: {obj!r}")
 
 
 def wait(fs, client, timeout):
