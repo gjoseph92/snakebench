@@ -22,7 +22,7 @@ BRANCH_PATTERN="$1"
 shift
 CMD=( "$@" )
 
-branches=( $(git branch | grep "$BRANCH_PATTERN") )
+branches=( $(git branch | grep -E "$BRANCH_PATTERN") )
 echo "Applying command to:"
 printf '%s\n' "${branches[@]}"
 
