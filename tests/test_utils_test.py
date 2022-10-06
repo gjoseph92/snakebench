@@ -1,10 +1,15 @@
+import time
+
 import dask
+import dask.array as da
 import numpy as np
 import pytest
+from dask.core import istask
+from dask.datasets import timeseries
 from dask.sizeof import sizeof
 from dask.utils import parse_bytes
 
-from snakebench.utils_test import scaled_array_shape, timeseries_of_size
+from snakebench.utils_test import scaled_array_shape, slowdown, timeseries_of_size
 
 
 def test_scaled_array_shape():
@@ -39,3 +44,31 @@ def test_timeseries_of_size():
     assert sizeof_df(small_parts) == pytest.approx(parse_bytes("1mb"), rel=0.1)
     assert sizeof_df(big_parts) == pytest.approx(parse_bytes("1mb"), rel=0.1)
     assert big_parts.npartitions < small_parts.npartitions
+
+
+@pytest.mark.parametrize(
+    "obj",
+    [
+        da.random.random(5, chunks=1),
+        timeseries("2000-01-01", "2000-01-06", freq="12h", partition_freq="1d"),
+    ],
+)
+def test_slowdown_arr(obj):
+    slow = slowdown(obj, delay=0.2, jitter_factor=0.0)
+
+    # Ensure the slow task gets fused into data generation
+    [opt] = dask.optimize(slow)
+    dsk = opt.__dask_graph__().to_dict()
+    tasks = [k for k, v in dsk.items() if istask(v)]
+    assert len(tasks) == opt.npartitions
+
+    with dask.config.set({"scheduler": "sync"}):
+        start = time.perf_counter()
+        obj.compute()
+        baseline = time.perf_counter() - start
+
+        start = time.perf_counter()
+        slow.compute()
+        elapsed = time.perf_counter() - start
+
+        assert baseline + 1 <= elapsed <= baseline + 1.5
