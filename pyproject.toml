@@ -45,6 +45,7 @@ lint = [
 ]
 util = [
     "ipython>=8.5.0",
+    "graphviz>=0.20.1",
 ]
 
 
