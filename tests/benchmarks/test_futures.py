@@ -12,6 +12,7 @@ def test_single_future(small_client):
     small_client.submit(inc, 1).result()
 
 
+@skip_bench("high memory use is nonsensical, plus too much variation to be useful")
 def test_large_map(small_client):
     """What's the overhead of map these days?"""
     futures = small_client.map(inc, range(100_000))
