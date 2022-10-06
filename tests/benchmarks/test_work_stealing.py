@@ -9,6 +9,10 @@ from dask import delayed, utils
 from tornado.ioloop import PeriodicCallback
 
 from snakebench.clusters import CLUSTER_KWARGS, setup_test_run_from_client
+from snakebench.skip import skip_bench
+
+# Not a useful benchmarking signal here currently
+pytestmark = skip_bench("Not a useful benchmarking signal here currently")
 
 
 def test_trivial_workload_should_not_cause_work_stealing(small_client):

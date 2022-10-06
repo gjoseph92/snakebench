@@ -13,9 +13,12 @@ import sneks
 from distributed.client import Client
 
 from snakebench.clusters import CLUSTER_KWARGS, setup_test_run_from_client
+from snakebench.skip import skip_bench
 from snakebench.utils_test import wait
 
 N_WORKERS = 15
+
+pytestmark = skip_bench("Not a useful benchmarking signal here currently")
 
 
 @pytest.fixture(scope="module")

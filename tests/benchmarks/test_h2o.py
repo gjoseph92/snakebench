@@ -6,8 +6,9 @@ import dask.dataframe as dd
 import pandas as pd
 import pytest
 
-# Skip for now; slow and not that useful with small dataset
-pytestmark = pytest.mark.skip
+from snakebench.skip import skip_bench
+
+pytestmark = skip_bench("not that useful with small dataset")
 
 
 @pytest.fixture(
