@@ -112,7 +112,7 @@ def _slowdown_dataframe(
 T = TypeVar("T", da.Array, dd.DataFrame)
 
 
-def slowdown(obj: T, *, delay: float = 0.1, jitter_factor: float = 0.2) -> T:
+def slowdown(obj: T, *, delay: float = 0.0, jitter_factor: float = 0.2) -> T:
     """
     Map a sleep over each chunk of an Array or DataFrame to simulate actual data-loading.
 
