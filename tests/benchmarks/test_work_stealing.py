@@ -22,6 +22,7 @@ def test_trivial_workload_should_not_cause_work_stealing(small_client):
     small_client.gather(futs)
 
 
+@pytest.mark.skip("find a way to make this faster so we don't have to wait for scaling")
 @pytest.mark.xfail(
     distributed.__version__ == "2022.6.0",
     reason="https://github.com/dask/distributed/issues/6624",
