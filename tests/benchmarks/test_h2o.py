@@ -6,15 +6,14 @@ import dask.dataframe as dd
 import pandas as pd
 import pytest
 
-# Skip for now; slow and not that useful with small dataset
-pytestmark = pytest.mark.skip
+from snakebench.skip import skip_bench
 
 
 @pytest.fixture(
     scope="module",
     params=[
         # "s3://coiled-datasets/h2o-benchmark/N_1e7_K_1e2_single.csv",
-        "s3://coiled-datasets/h2o-benchmark/N_1e8_K_1e2_single.csv",
+        # "s3://coiled-datasets/h2o-benchmark/N_1e8_K_1e2_single.csv",
         # "s3://coiled-datasets/h2o-benchmark/N_1e9_K_1e2_single.csv",
         # "s3://coiled-datasets/h2o-benchmark/N_1e7_K_1e2_parquet/*.parquet",
         "s3://coiled-datasets/h2o-benchmark/N_1e8_K_1e2_parquet/*.parquet",
@@ -22,7 +21,7 @@ pytestmark = pytest.mark.skip
     ],
     ids=[
         # "0.5 GB (csv)",
-        "5 GB (csv)",
+        # "5 GB (csv)",
         # "50 GB (csv)",
         # "0.5 GB (parquet)",
         "5 GB (parquet)",
@@ -53,11 +52,13 @@ def ddf(request):
         )
 
 
+@skip_bench("too fast to be useful")
 def test_q1(ddf, small_client):
     ddf = ddf[["id1", "v1"]]
     ddf.groupby("id1", dropna=False, observed=True).agg({"v1": "sum"}).compute()
 
 
+@skip_bench("too fast to be useful")
 def test_q2(ddf, small_client):
     ddf = ddf[["id1", "id2", "v1"]]
     (
@@ -76,6 +77,7 @@ def test_q3(ddf, small_client):
     )
 
 
+@skip_bench("too fast to be useful")
 def test_q4(ddf, small_client):
     ddf = ddf[["id4", "v1", "v2", "v3"]]
     (

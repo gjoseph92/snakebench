@@ -16,6 +16,7 @@ from .core import (
 )
 from .memory import benchmark_memory
 from .s3 import s3_url
+from .skip import skip_bench
 from .time import auto_benchmark_time, benchmark_time
 
 __all__ = [
@@ -31,6 +32,7 @@ __all__ = [
     "test_id",
     "setup_test_run_from_client",
     "s3_url",
+    "skip_bench",
     "benchmark_time",
     "auto_benchmark_time",
     "benchmark_memory",

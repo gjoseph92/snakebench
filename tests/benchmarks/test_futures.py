@@ -3,6 +3,8 @@ import pytest
 from dask.distributed import as_completed, wait
 from distributed.utils_test import inc, slowdec, slowinc
 
+from snakebench import skip_bench
+
 
 @pytest.mark.skip("duration too short to measure effectively")
 def test_single_future(small_client):
@@ -16,6 +18,7 @@ def test_large_map(small_client):
     wait(futures)
 
 
+@skip_bench("too much variation to be useful")
 def test_large_map_first_work(small_client):
     """
     Large maps are fine, but it's pleasant to see work start immediately.
