@@ -9,6 +9,7 @@ from dask import delayed, utils
 from tornado.ioloop import PeriodicCallback
 
 from snakebench.clusters import CLUSTER_KWARGS, setup_test_run_from_client
+from snakebench.utils_test import slowdown
 
 
 def test_trivial_workload_should_not_cause_work_stealing(small_client):
@@ -37,7 +38,7 @@ def test_work_stealing_on_scaling_up(test_id, test_run_benchmark, benchmark_all)
             def func2(chunk):
                 return chunk
 
-            data = da.zeros((30, 30, 30), chunks=5)
+            data = slowdown(da.zeros((30, 30, 30), chunks=5))
             result = data.map_overlap(func1, depth=1, dtype=data.dtype)
             result = result.map_overlap(func2, depth=1, dtype=data.dtype)
             future = client.compute(result)

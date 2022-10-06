@@ -1,7 +1,7 @@
 from dask.sizeof import sizeof
 from dask.utils import format_bytes
 
-from snakebench.utils_test import cluster_memory, timeseries_of_size, wait
+from snakebench.utils_test import cluster_memory, slowdown, timeseries_of_size, wait
 
 
 def print_dataframe_info(df):
@@ -18,12 +18,14 @@ def print_dataframe_info(df):
 def test_basic_df_mean(small_client):
     memory = cluster_memory(small_client)  # 76.66 GiB
 
-    df = timeseries_of_size(
-        memory * 2,
-        start="2020-01-01",
-        freq="1200ms",
-        partition_freq="24h",
-        dtypes={i: float for i in range(1_000)},
+    df = slowdown(
+        timeseries_of_size(
+            memory * 2,
+            start="2020-01-01",
+            freq="1200ms",
+            partition_freq="24h",
+            dtypes={i: float for i in range(1_000)},
+        )
     )
     print_dataframe_info(df)
     # ~20,592,000 rows x 1000 columns, 153.58 GiB total, 286 549.87 MiB partitions
@@ -35,22 +37,26 @@ def test_basic_df_mean(small_client):
 def test_dataframe_align(small_client):
     memory = cluster_memory(small_client)  # 76.66 GiB
 
-    df = timeseries_of_size(
-        memory // 2,
-        start="2020-01-01",
-        freq="600ms",
-        partition_freq="12h",
-        dtypes={i: float for i in range(100)},
+    df = slowdown(
+        timeseries_of_size(
+            memory // 2,
+            start="2020-01-01",
+            freq="600ms",
+            partition_freq="12h",
+            dtypes={i: float for i in range(100)},
+        )
     )
     print_dataframe_info(df)
     # ~50,904,000 rows x 100 columns, 38.31 GiB total, 707 55.48 MiB partitions
 
-    df2 = timeseries_of_size(
-        memory // 4,
-        start="2010-01-01",
-        freq="600ms",
-        partition_freq="12h",
-        dtypes={i: float for i in range(100)},
+    df2 = slowdown(
+        timeseries_of_size(
+            memory // 4,
+            start="2010-01-01",
+            freq="600ms",
+            partition_freq="12h",
+            dtypes={i: float for i in range(100)},
+        )
     )
     print_dataframe_info(df2)
     # ~25,488,000 rows x 100 columns, 19.18 GiB total, 354 55.48 MiB partitions
@@ -62,12 +68,14 @@ def test_dataframe_align(small_client):
 def test_shuffle(small_client):
     memory = cluster_memory(small_client)  # 76.66 GiB
 
-    df = timeseries_of_size(
-        memory // 4,
-        start="2020-01-01",
-        freq="1200ms",
-        partition_freq="24h",
-        dtypes={i: float for i in range(100)},
+    df = slowdown(
+        timeseries_of_size(
+            memory // 4,
+            start="2020-01-01",
+            freq="1200ms",
+            partition_freq="24h",
+            dtypes={i: float for i in range(100)},
+        )
     )
     print_dataframe_info(df)
     # ~25,488,000 rows x 100 columns, 19.18 GiB total, 354 55.48 MiB partitions
