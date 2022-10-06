@@ -8,8 +8,6 @@ import pytest
 
 from snakebench.skip import skip_bench
 
-pytestmark = skip_bench("not that useful with small dataset")
-
 
 @pytest.fixture(
     scope="module",
@@ -54,11 +52,13 @@ def ddf(request):
         )
 
 
+@skip_bench("too fast to be useful")
 def test_q1(ddf, small_client):
     ddf = ddf[["id1", "v1"]]
     ddf.groupby("id1", dropna=False, observed=True).agg({"v1": "sum"}).compute()
 
 
+@skip_bench("too fast to be useful")
 def test_q2(ddf, small_client):
     ddf = ddf[["id1", "id2", "v1"]]
     (
@@ -77,6 +77,7 @@ def test_q3(ddf, small_client):
     )
 
 
+@skip_bench("too fast to be useful")
 def test_q4(ddf, small_client):
     ddf = ddf[["id4", "v1", "v2", "v3"]]
     (
