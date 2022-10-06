@@ -72,3 +72,5 @@ def test_slowdown_arr(obj):
         elapsed = time.perf_counter() - start
 
         assert baseline + 1 <= elapsed <= baseline + 1.5
+
+    assert slowdown(obj, delay=0) is obj
