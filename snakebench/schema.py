@@ -48,11 +48,11 @@ class TestRun(msgspec.Struct):
     # Memory data
     average_memory: float | None = None
     peak_memory: float | None = None
-    measure: MemMeasure | None = None
+    memory_measure: MemMeasure | None = None
 
     # Memory sample data
-    samples: list[float] | None = None
-    times: list[float] | None = None
+    memory_samples: list[float] | None = None
+    memory_times: list[float] | None = None
 
     # Cluster data
     cluster_id: int | None = None

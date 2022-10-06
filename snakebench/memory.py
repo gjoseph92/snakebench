@@ -20,13 +20,13 @@ def benchmark_memory(test_run_benchmark: TestRun):
 
         series = sampler.to_pandas(align=True)[label]
 
-        test_run_benchmark.measure = measure
+        test_run_benchmark.memory_measure = measure
         test_run_benchmark.average_memory = series.mean()
         test_run_benchmark.peak_memory = series.max()
-        test_run_benchmark.samples = series.to_list()
+        test_run_benchmark.memory_samples = series.to_list()
 
         idx = series.index
         assert isinstance(idx, pd.TimedeltaIndex)
-        test_run_benchmark.times = idx.total_seconds().to_list()
+        test_run_benchmark.memory_times = idx.total_seconds().to_list()
 
     return _benchmark_memory
