@@ -48,6 +48,8 @@ util = [
     "graphviz>=0.20.1",
 ]
 
+[tool.pdm.overrides]
+distributed = "git+https://github.com/gjoseph92/distributed.git@9b19304398bd33873d344612151e4c11d333a311"
 
 [tool.pyright]
 # Dask and distributed doesn't use `__all__` so pyright thinks nothing is properly exported
