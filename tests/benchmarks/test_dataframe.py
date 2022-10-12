@@ -100,6 +100,6 @@ def test_larger_shuffle(small_client):
     print_dataframe_info(df)
     # ~71,856,000 rows x 100 columns, 54.07 GiB total, 998 55.48 MiB partitions
 
-    shuf = df.shuffle("0", shuffle="p2p")
+    shuf = df.shuffle("0", shuffle="tasks")
     result = shuf.size
     wait(result.persist(), small_client, 20 * 60)
