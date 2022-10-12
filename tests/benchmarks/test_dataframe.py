@@ -83,3 +83,23 @@ def test_shuffle(small_client):
     shuf = df.shuffle(0, shuffle="tasks")
     result = shuf.size
     wait(result.persist(), small_client, 20 * 60)
+
+
+def test_larger_shuffle(small_client):
+    memory = cluster_memory(small_client)  # 76.66 GiB
+
+    df = slowdown(
+        timeseries_of_size(
+            int(memory * 0.75),
+            start="2020-01-01",
+            freq="1200ms",
+            partition_freq="24h",
+            dtypes={str(i): float for i in range(100)},
+        )
+    )
+    print_dataframe_info(df)
+    # ~71,856,000 rows x 100 columns, 54.07 GiB total, 998 55.48 MiB partitions
+
+    shuf = df.shuffle("0", shuffle="p2p")
+    result = shuf.size
+    wait(result.persist(), small_client, 20 * 60)
