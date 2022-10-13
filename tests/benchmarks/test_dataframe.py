@@ -92,13 +92,13 @@ def test_larger_shuffle(small_client):
         timeseries_of_size(
             int(memory * 0.75),
             start="2020-01-01",
-            freq="1200ms",
-            partition_freq="24h",
+            freq="1s",
+            partition_freq="1h",
             dtypes={str(i): float for i in range(100)},
         )
     )
     print_dataframe_info(df)
-    # ~71,856,000 rows x 100 columns, 54.07 GiB total, 998 55.48 MiB partitions
+    # ~76,352,400 rows x 100 columns, 57.50 GiB total, 21,209 2.78 MiB partitions
 
     shuf = df.shuffle("0", shuffle="p2p")
     result = shuf.size
