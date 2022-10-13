@@ -26,6 +26,9 @@ CLUSTER_KWARGS = dict(
     wait_for_workers=True,
     shutdown_on_close=True,
     environ=CLUSTER_ENV,
+    backend_options=dict(
+        send_prometheus_metrics=True,
+    ),
 )
 
 
