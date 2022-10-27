@@ -21,6 +21,10 @@ jobs:
         with:
           # NOTE: access token is necessary to make the new commit trigger a new workflow run; see
           # https://github.com/marketplace/actions/git-auto-commit#commits-made-by-this-action-do-not-trigger-new-workflow-runs
+          # using fine-grained PAT, this requires:
+          # - actions: read & write
+          # - contents: read & write
+          # - metadata: read
           token: ${{ secrets.GH_ACCESS_TOKEN }}
       - name: Set up PDM
         uses: pdm-project/setup-pdm@v2
