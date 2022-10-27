@@ -163,6 +163,8 @@ Pass `--reuse` to prevent clusters from shutting down on close. If you re-run a 
 
 This only really makes sense to do when driving tests locally.
 
+**Don't forget to manually clean up the clusters when you're done with them!**
+
 ### Driving actions locally
 
 [`act`](https://github.com/nektos/act) is very useful for testing and running GitHub actions locally. For this sort of thing, usually you don't need to run tests that actually create clusters, so you can change the `pytest` line `test.yaml` to `pdm run pytest tests/test_test.py` or something.
