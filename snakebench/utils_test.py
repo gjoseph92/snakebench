@@ -131,13 +131,10 @@ def slowdown(obj: T, *, delay: float = 0.1, jitter_factor: float = 0.2) -> T:
 
 def wait(fs, client, timeout):
     "Like `distributed.wait(fs)`, but if any tasks fail, raises its error."
-    try:
-        distributed.wait(fs, timeout=timeout)
-        for f in client.futures_of(fs):
-            if f.status in ("error", "cancelled"):
-                raise f.exception()
-    finally:
-        client.cancel(fs)
+    distributed.wait(fs, timeout=timeout)
+    for f in client.futures_of(fs):
+        if f.status in ("error", "cancelled"):
+            raise f.exception()
 
 
 def cluster_memory(client: distributed.Client) -> int:
