@@ -157,6 +157,12 @@ The test results will be written locally to `results-<commit>.json` files. (Note
 
 Currently, to visualize them, you'll need to manually update the `sha_to_url` function in the visualizations, and run [`http-server --cors`](https://www.npmjs.com/package/http-server) locally to serve the results files.
 
+### Reusing clusters
+
+Pass `--reuse` to prevent clusters from shutting down on close. If you re-run a test _without making a new commit_, the same cluster will be re-used.
+
+This only really makes sense to do when driving tests locally.
+
 ### Driving actions locally
 
 [`act`](https://github.com/nektos/act) is very useful for testing and running GitHub actions locally. For this sort of thing, usually you don't need to run tests that actually create clusters, so you can change the `pytest` line `test.yaml` to `pdm run pytest tests/test_test.py` or something.

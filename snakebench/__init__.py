@@ -11,6 +11,8 @@ from .core import (
     pytest_runtest_makereport,
     result_file_lock,
     results_filename,
+    reuse_cluster,
+    run_id,
     test_id,
     test_run_benchmark,
 )
@@ -33,6 +35,8 @@ __all__ = [
     "setup_test_run_from_client",
     "s3_url",
     "skip_bench",
+    "run_id",
+    "reuse_cluster",
     "benchmark_time",
     "auto_benchmark_time",
     "benchmark_memory",

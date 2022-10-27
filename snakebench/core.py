@@ -27,8 +27,19 @@ else:
 
 # Set in test.yml
 MATRIX_ID = os.environ.get("MATRIX_ID", "0")
-RUN_ID = os.environ.get("GITHUB_RUN_ID") or f"local-{uuid.uuid4().hex[:8]}"
 RUN_ATTEMPT = os.environ.get("GITHUB_RUN_ATTEMPT", "0")
+
+
+@pytest.fixture(scope="session")
+def reuse_cluster(request: pytest.FixtureRequest) -> bool:
+    return request.config.getoption("--reuse") is True
+
+
+@pytest.fixture(scope="session")
+def run_id(reuse_cluster: bool) -> str:
+    if reuse_cluster:
+        return "reuse"
+    return os.environ.get("GITHUB_RUN_ID") or f"local-{uuid.uuid4().hex[:8]}"
 
 
 @pytest.fixture(scope="session")
@@ -60,12 +71,14 @@ def pytest_runtest_makereport(item, call):
 
 
 @pytest.fixture(scope="module")
-def module_id(commit_info: CommitInfo, request: pytest.FixtureRequest) -> str:
+def module_id(
+    commit_info: CommitInfo, run_id: str, request: pytest.FixtureRequest
+) -> str:
     "Module-level unique identifier (commit + run ID + run attempt + matrix ID + module name)"
     mod: ModuleType = request.module
     parts = [
         commit_info.sha,
-        RUN_ID,
+        run_id,
         RUN_ATTEMPT,
         MATRIX_ID,
         mod.__name__.replace(".", "_"),
@@ -84,6 +97,7 @@ def test_run_benchmark(
     result_file_lock,
     results_filename,
     commit_info: CommitInfo,
+    run_id: str,
     request: pytest.FixtureRequest,
     test_id: str,
 ):
@@ -96,7 +110,7 @@ def test_run_benchmark(
         branch=commit_info.branch,
         id=test_id,
         ci_run_url=WORKFLOW_URL,
-        ci_run_id=RUN_ID,
+        ci_run_id=run_id,
         ci_run_attempt=RUN_ATTEMPT,
         # session_id=testrun_uid,
         # originalname=node.originalname,

@@ -24,7 +24,6 @@ CLUSTER_ENV: dict[str, str] = dict(
 CLUSTER_KWARGS = dict(
     account="dask-engineering",
     wait_for_workers=True,
-    shutdown_on_close=True,
     environ=CLUSTER_ENV,
     backend_options=dict(
         send_prometheus_metrics=True,
@@ -36,7 +35,7 @@ CLUSTER_KWARGS = dict(
 # Have a way to create the base and function-scoped fixtures given n_workers and args.
 
 
-def _client_coiled(module_id: str) -> Client:
+def _client_coiled(module_id: str, reuse: bool = False) -> Client:
     # So coiled logs can be displayed on test failure
     logging.getLogger("coiled").setLevel(logging.INFO)
 
@@ -46,11 +45,12 @@ def _client_coiled(module_id: str) -> Client:
         n_workers=N_WORKERS,
         worker_vm_types=["t3.large"],  # 2CPU, 8GiB
         scheduler_vm_types=["t3.large"],
+        shutdown_on_close=not reuse,
         **CLUSTER_KWARGS,
     )
 
 
-def _client_local(module_id: str) -> Client:
+def _client_local(module_id: str, reuse: bool = False) -> Client:
     print(f"Creating local cluster {module_id}...")
     # TODO mock/monkeypatch and dask config set!!
     environ.update(CLUSTER_ENV)
@@ -60,7 +60,7 @@ def _client_local(module_id: str) -> Client:
 
 @pytest.fixture(scope="module")
 def _small_client_base(
-    module_id, request: pytest.FixtureRequest
+    module_id: str, reuse_cluster: bool, request: pytest.FixtureRequest
 ) -> Iterator[tuple[Client, int]]:
     "Create a per-module client. Do not use this fixture directly."
     n_workers = None
@@ -70,7 +70,7 @@ def _small_client_base(
         backend = _client_coiled
         n_workers = N_WORKERS
 
-    with backend(module_id) as client:
+    with backend(module_id, reuse=reuse_cluster) as client:
         if n_workers is None:
             cluster = client.cluster
             assert isinstance(cluster, Cluster)
