@@ -4,7 +4,6 @@ from time import sleep
 from typing import Any
 
 import numpy as np
-import pytest
 from dask.distributed import as_completed
 
 from snakebench import skip_bench
@@ -20,7 +19,7 @@ from snakebench.utils_test import wait
 inc = partial(add, 1)
 
 
-@pytest.mark.skip("duration too short to measure effectively")
+@skip_bench("duration too short to measure effectively")
 def test_single_future(small_client):
     """How quickly can we run a simple computation?"""
     small_client.submit(inc, 1).result()
@@ -44,6 +43,7 @@ def test_large_map_first_work(small_client):
         return
 
 
+@skip_bench("too short to be useful")
 def test_memory_efficient(small_client):
     """
     We hope that we pipeline xs->ys->zs without keeping all of the xs in memory
