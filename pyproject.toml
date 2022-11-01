@@ -38,6 +38,7 @@ test = [
     # Coiled needs this for `pkg_resources`, which is sometimes---but not always, i.e. on GitHub---a site package.
     # We shouldn't have to put it explicitly; that's an upstream bug.
     "setuptools>=65.3.0",
+    "coiled>=0.2.40",
 ]
 lint = [
     "pyright>=1.1.270",
