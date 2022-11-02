@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import logging
+from contextlib import ExitStack
 from os import environ
 from typing import Iterator, cast
 
@@ -8,6 +9,7 @@ import dask.config
 import pytest
 import sneks
 from coiled import Cluster as CoiledCluster
+from dask_pyspy import pyspy, pyspy_on_scheduler
 from distributed.client import Client
 from distributed.deploy.cluster import Cluster
 
@@ -106,7 +108,11 @@ def setup_test_run_from_client(client: Client, test_run_benchmark: TestRun) -> N
 
 @pytest.fixture
 def small_client(
-    _small_client_base: tuple[Client, int], test_run_benchmark: TestRun, benchmark_all
+    _small_client_base: tuple[Client, int],
+    test_run_benchmark: TestRun,
+    test_id: str,
+    benchmark_all,
+    request: pytest.FixtureRequest,
 ) -> Iterator[Client]:
     "Per-test fixture to get a client, with automatic benchmarking."
     client, n_workers = _small_client_base
@@ -121,5 +127,14 @@ def small_client(
 
     print(client)
     setup_test_run_from_client(client, test_run_benchmark)
-    with benchmark_all(client):
+
+    with ExitStack() as ctxs:
+        if request.config.getoption("--pyspy") is True:
+            ctxs.enter_context(pyspy(f"profiles-{test_id}", native=True))
+        if request.config.getoption("--pyspy-scheduler") is True:
+            ctxs.enter_context(
+                pyspy_on_scheduler(f"profile-{test_id}.json", native=True)
+            )
+        ctxs.enter_context(benchmark_all(client))
+
         yield client
