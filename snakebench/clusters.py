@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import logging
+from contextlib import ExitStack
 from os import environ
 from typing import Iterator, cast
 
@@ -111,6 +112,7 @@ def small_client(
     test_run_benchmark: TestRun,
     test_id: str,
     benchmark_all,
+    request: pytest.FixtureRequest,
 ) -> Iterator[Client]:
     "Per-test fixture to get a client, with automatic benchmarking."
     client, n_workers = _small_client_base
@@ -125,5 +127,10 @@ def small_client(
 
     print(client)
     setup_test_run_from_client(client, test_run_benchmark)
-    with pyspy(f"profiles-{test_id}", native=True), benchmark_all(client):
+
+    with ExitStack() as ctxs:
+        if request.config.getoption("--pyspy") is True:
+            ctxs.enter_context(pyspy(f"profiles-{test_id}", native=True))
+        ctxs.enter_context(benchmark_all(client))
+
         yield client
