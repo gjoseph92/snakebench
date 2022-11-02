@@ -167,7 +167,14 @@ This only really makes sense to do when driving tests locally.
 
 ### Profiling
 
-You can profile workers using the `--pyspy` flag. This will create a directory per test, and write profiles from each worker into it.
+You can run [py-spy](https://github.com/benfred/py-spy) on the cluster to profile workers and the scheduler, via [dask-pyspy](https://github.com/gjoseph92/dask-pyspy).
+
+* `--pyspy`: profile all workers. This will create a `profile-{test_id}` directory per test, and write profiles from each worker into it in [speedscope](https://www.speedscope.app/) format.
+* `--pyspy-scheduler`: profile scheduler. This will create a `profile-{test_id}.json` per test in [speedscope](https://www.speedscope.app/) format.
+
+These flags can be combined.
+
+If run on GitHub actions, the profiles are uploaded as artifacts. (Profiling does not run automatically though; you'd have to modify `test.yaml` to add it in the case you want to benchmark.)
 
 ### Driving actions locally
 

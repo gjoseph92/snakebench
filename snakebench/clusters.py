@@ -9,7 +9,7 @@ import dask.config
 import pytest
 import sneks
 from coiled import Cluster as CoiledCluster
-from dask_pyspy import pyspy
+from dask_pyspy import pyspy, pyspy_on_scheduler
 from distributed.client import Client
 from distributed.deploy.cluster import Cluster
 
@@ -131,6 +131,10 @@ def small_client(
     with ExitStack() as ctxs:
         if request.config.getoption("--pyspy") is True:
             ctxs.enter_context(pyspy(f"profiles-{test_id}", native=True))
+        if request.config.getoption("--pyspy-scheduler") is True:
+            ctxs.enter_context(
+                pyspy_on_scheduler(f"profile-{test_id}.json", native=True)
+            )
         ctxs.enter_context(benchmark_all(client))
 
         yield client

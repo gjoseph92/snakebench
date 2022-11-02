@@ -105,9 +105,9 @@ jobs:
         if: always()
         with:
           name: profiles-${{ matrix.repeat }}
-          path: profiles-*
-          # ^ NOTE: upload the directory rather than individual files just to preserve the meaningful filename,
-          # which is handy for telling them apart in your downloads folder.
+          path: |
+            profiles-*
+            profile-*.json
     outputs:
       short_sha: ${{ steps.short-sha.outputs.short_sha }}
 
