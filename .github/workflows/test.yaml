@@ -100,6 +100,14 @@ jobs:
         with:
           name: results-${{ matrix.repeat }}
           path: results-${{ env.SHORT_SHA }}.json
+      - name: Upload profiles as artifact
+        uses: actions/upload-artifact@v3
+        if: always()
+        with:
+          name: profiles-${{ matrix.repeat }}
+          path: profiles-*
+          # ^ NOTE: upload the directory rather than individual files just to preserve the meaningful filename,
+          # which is handy for telling them apart in your downloads folder.
     outputs:
       short_sha: ${{ steps.short-sha.outputs.short_sha }}
 
@@ -125,6 +133,7 @@ jobs:
           aws --version
       - name: Download results artifacts
         uses: actions/download-artifact@v3
+        # TODO some way to not download profiles; they could be somewhat large and slow to download
       - name: Combine and upload benchmark results to bucket
         shell: bash
         env:
