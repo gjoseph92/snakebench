@@ -45,8 +45,8 @@ def _client_coiled(module_id: str, reuse: bool = False) -> Client:
     return sneks.get_client(
         name=module_id,
         n_workers=N_WORKERS,
-        worker_vm_types=["t3.large"],  # 2CPU, 8GiB
-        scheduler_vm_types=["t3.large"],
+        worker_vm_types=["t3.medium"],  # 2CPU, 4GiB
+        scheduler_vm_types=["r6i.2xlarge"],  # 8CPU, 64GiB
         shutdown_on_close=not reuse,
         **CLUSTER_KWARGS,
     )
