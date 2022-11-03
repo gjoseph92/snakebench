@@ -42,7 +42,7 @@ def _client_coiled(module_id: str, reuse: bool = False) -> Client:
     logging.getLogger("coiled").setLevel(logging.INFO)
 
     print(f"Creating cluster {module_id}...")
-    return sneks.get_client(
+    c = sneks.get_client(
         name=module_id,
         n_workers=N_WORKERS,
         worker_vm_types=["t3.medium"],  # 2CPU, 4GiB
@@ -50,6 +50,10 @@ def _client_coiled(module_id: str, reuse: bool = False) -> Client:
         shutdown_on_close=not reuse,
         **CLUSTER_KWARGS,
     )
+    import os
+
+    c.run_on_scheduler(os.system, "pip install dask-pyspy")
+    return c
 
 
 def _client_local(module_id: str, reuse: bool = False) -> Client:
