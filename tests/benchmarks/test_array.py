@@ -6,6 +6,7 @@ import pytest
 import xarray as xr
 from dask.utils import format_bytes, parse_bytes
 
+from snakebench.skip import skip_bench
 from snakebench.utils_test import (
     arr_to_devnull,
     cluster_memory,
@@ -54,6 +55,7 @@ def test_anom_mean(small_client):
     wait(anom_mean.persist(), small_client, 60 * 60)
 
 
+@skip_bench("don't need")
 def test_basic_sum(small_client):
     # From https://github.com/dask/distributed/pull/4864
 
@@ -101,6 +103,7 @@ def test_climatic_mean(small_client):
     wait(arr_clim.persist(), small_client, 15 * 60)
 
 
+@skip_bench("don't need")
 def test_vorticity(small_client):
     # From https://github.com/dask/distributed/issues/6571
 
@@ -166,6 +169,7 @@ def test_double_diff(small_client):
     wait(arr_to_devnull(diff).persist(), small_client, 10 * 60)
 
 
+@skip_bench("don't need")
 def test_dot_product(small_client):
     a = slowdown(da.random.random((24 * 1024, 24 * 1024), chunks="128 MiB"))  # 4.5 GiB
     b = (a @ a.T).sum().round(3)
