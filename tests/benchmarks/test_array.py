@@ -51,7 +51,7 @@ def test_anom_mean(small_client):
     anom = arr.groupby("day") - clim
     anom_mean = anom.mean(dim="time")
 
-    wait(anom_mean.persist(), small_client, 10 * 60)
+    wait(anom_mean.persist(), small_client, 60 * 60)
 
 
 def test_basic_sum(small_client):
