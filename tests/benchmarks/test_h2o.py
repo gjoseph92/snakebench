@@ -8,6 +8,8 @@ import pytest
 
 from snakebench.skip import skip_bench
 
+pytestmark = skip_bench("bad to run on large cluster")
+
 
 @pytest.fixture(
     scope="module",
