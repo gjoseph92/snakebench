@@ -269,14 +269,13 @@ summary = "Python parser for the CommonMark Markdown spec"
 
 [[package]]
 name = "dask"
-version = "2022.10.2+10.g101ecfd9"
+version = "2022.9.2+16.g287e94d6"
 requires_python = ">=3.8"
 git = "https://github.com/dask/dask.git"
-ref = "101ecfd"
-revision = "101ecfd9074b3cd296f7f77ea1b338f7f997b17c"
+ref = "287e94d6a8f9ececf4bdad52726c1ac4364392c6"
+revision = "287e94d6a8f9ececf4bdad52726c1ac4364392c6"
 summary = "Parallel PyData with Task Scheduling"
 dependencies = [
-    "click>=7.0",
     "cloudpickle>=1.1.1",
     "fsspec>=0.6.0",
     "packaging>=20.0",
@@ -293,21 +292,6 @@ summary = "Profile dask distributed clusters with py-spy"
 dependencies = [
     "distributed>=2.30.0",
     "py-spy<0.4.0,>=0.3.9",
-]
-
-[[package]]
-name = "dask"
-version = "2022.10.2"
-extras = ["complete"]
-requires_python = ">=3.8"
-summary = "Parallel PyData with Task Scheduling"
-dependencies = [
-    "bokeh<3,>=2.4.2",
-    "dask==2022.10.2",
-    "distributed==2022.10.2",
-    "jinja2",
-    "numpy>=1.18",
-    "pandas>=1.0",
 ]
 
 [[package]]
@@ -335,16 +319,16 @@ summary = "Distribution utilities"
 
 [[package]]
 name = "distributed"
-version = "2022.10.2+24.g88515db8"
+version = "2022.9.2+18.g21969668"
 requires_python = ">=3.8"
 git = "https://github.com/dask/distributed.git"
-ref = "88515db"
-revision = "88515db80393bc95aec5cc38146ec4f56d42dcf7"
+ref = "219696685517ceb83907d52437e7a0c2ffa528ff"
+revision = "219696685517ceb83907d52437e7a0c2ffa528ff"
 summary = "Distributed scheduler for Dask"
 dependencies = [
-    "click>=7.0",
+    "click>=6.6",
     "cloudpickle>=1.5.0",
-    "dask==2022.10.2",
+    "dask==2022.9.2",
     "jinja2",
     "locket>=1.0.0",
     "msgpack>=0.6.0",
@@ -1382,7 +1366,7 @@ summary = "Backport of pathlib-compatible object wrapper for zip files"
 
 [metadata]
 lock_version = "4.0"
-content_hash = "sha256:fa6e47541691458d7efad76a99d676b7ab1aa1860bad09044e554b729c1316ec"
+content_hash = "sha256:4712777562b41f36d611998f97ef1403ee0d1b75d5b71b56d1fdcbe33f887a04"
 
 [metadata.files]
 "aiobotocore 2.4.0" = [
@@ -1689,10 +1673,6 @@ content_hash = "sha256:fa6e47541691458d7efad76a99d676b7ab1aa1860bad09044e554b729
 "dask-pyspy 0.4.0" = [
     {url = "https://files.pythonhosted.org/packages/17/5a/0cb25ba2b9aab8832b700c74ac81825d4d8d499ab46fb7f6b37626121b33/dask_pyspy-0.4.0.tar.gz", hash = "sha256:f93dc8837e0a219e6d83b868760084f5223254831b59803777ab4901dc0341c3"},
     {url = "https://files.pythonhosted.org/packages/e2/f2/b43a3089d4a8e16ec3f4047e5a2b33eb26b99f10c3fa25c8485d14fcbb3d/dask_pyspy-0.4.0-py3-none-any.whl", hash = "sha256:6119d1154c3d592d3ba0d4c3f8a12ad265cd4b4df86541ec68102ff44d1f05d3"},
-]
-"dask 2022.10.2" = [
-    {url = "https://files.pythonhosted.org/packages/82/11/0fd77488d704b8eefc4b02793cb0480d4c44b0ddd1506961532e19471473/dask-2022.10.2.tar.gz", hash = "sha256:42cb43f601709575fa46ce09e74bea83fdd464187024f56954e09d9b428ceaab"},
-    {url = "https://files.pythonhosted.org/packages/98/f1/2d9dcd8dd04544a2f1c02ca321aef84e57a712ec27842370084875c12b2a/dask-2022.10.2-py3-none-any.whl", hash = "sha256:928003a97b890a14c8a09a01f15320d261053bda530a8bf191d84f33db4a63b8"},
 ]
 "debugpy 1.6.3" = [
     {url = "https://files.pythonhosted.org/packages/0d/54/3449fc5750a8780335ec86797d12294eb05409092ebf4539d513958eabc4/debugpy-1.6.3-cp38-cp38-win_amd64.whl", hash = "sha256:86d784b72c5411c833af1cd45b83d80c252b77c3bfdb43db17c441d772f4c734"},
