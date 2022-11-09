@@ -7,8 +7,8 @@ authors = [
 ]
 # NOTE: these are dependencies that will actually be installed on the cluster.
 dependencies = [
-    "distributed>=2022.9.0",
-    "dask[complete]>=2022.9.0",
+    "distributed @ git+https://github.com/dask/distributed.git@88515db",
+    "dask @ git+https://github.com/dask/dask.git@101ecfd",
     "pyarrow>=9.0.0",
     "bokeh>=2.4.3",
     "s3fs>=2022.8.2",
