@@ -1,6 +1,11 @@
 import dask.dataframe as dd
 import pandas as pd
 
+from snakebench.skip import skip_bench
+
+# Not a useful benchmarking signal here currently
+pytestmark = skip_bench("Not a useful benchmarking signal here currently")
+
 
 def test_quickstart_csv(small_client):
     ddf = dd.read_csv(
