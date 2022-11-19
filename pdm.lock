@@ -1377,7 +1377,7 @@ summary = "Backport of pathlib-compatible object wrapper for zip files"
 
 [metadata]
 lock_version = "4.0"
-content_hash = "sha256:9fe4f15ea06c7b219f76369454b745f2aedc4b36d6ca638455e046227e90ae83"
+content_hash = "sha256:4319b41b9e5d40e2623faf93f459e33113b69c0a8ce5abb21e72e36df2379772"
 
 [metadata.files]
 "aiobotocore 2.4.0" = [
