@@ -15,6 +15,15 @@ from snakebench.utils_test import (
 )
 
 
+@pytest.fixture(scope="module")
+def zarr_dataset():
+    s3_uri = (
+        "s3://coiled-runtime-ci/synthetic-zarr/"
+        "synth_random_int_array_2000_cubed.zarr"
+    )
+    return da.from_zarr(s3_uri)
+
+
 def print_size_info(memory: int, target_nbytes: int, *arrs: da.Array) -> None:
     print(
         f"Cluster memory: {format_bytes(memory)}, target data size: {format_bytes(target_nbytes)}"
@@ -170,3 +179,18 @@ def test_dot_product(small_client):
     a = slowdown(da.random.random((24 * 1024, 24 * 1024), chunks="128 MiB"))  # 4.5 GiB
     b = (a @ a.T).sum().round(3)
     wait(b.persist(), small_client, 10 * 60)
+
+
+@pytest.mark.parametrize("threshold", [50, 100, 200, 255])
+def test_filter_then_average(threshold, zarr_dataset, small_client):
+    """
+    Compute the mean for increasingly sparse boolean filters of an array
+    """
+    zarr_dataset[zarr_dataset > threshold].mean().compute()
+
+
+def test_sum_residuals(zarr_dataset, small_client):
+    """
+    Simnple test to that computes as reduction, the array op, the reduction again
+    """
+    (zarr_dataset - zarr_dataset.mean(axis=0)).sum()
