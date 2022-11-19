@@ -181,6 +181,7 @@ def test_dot_product(small_client):
     wait(b.persist(), small_client, 10 * 60)
 
 
+@pytest.mark.skip("Same logic each time")
 @pytest.mark.parametrize("threshold", [50, 100, 200, 255])
 def test_filter_then_average(threshold, zarr_dataset, small_client):
     """
