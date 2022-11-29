@@ -93,7 +93,7 @@ jobs:
           GITHUB_RUN_ID: ${{ github.run_id }}
           GITHUB_RUN_ATTEMPT: ${{ github.run_attempt }}
         run: |
-          pdm run pytest --pyspy -n 4 --dist loadscope -m "not no_ci"
+          pdm run pytest --pyspy --reuse tests/benchmarks/test_csv.py
       - name: Upload benchmark results as artifact
         uses: actions/upload-artifact@v3
         if: always()
