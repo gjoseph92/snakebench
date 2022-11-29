@@ -130,7 +130,9 @@ def small_client(
 
     with ExitStack() as ctxs:
         if request.config.getoption("--pyspy") is True:
-            ctxs.enter_context(pyspy(f"worker-profiles-{test_id}", native=True))
+            ctxs.enter_context(
+                pyspy(f"worker-profiles-{test_id}", native=True, workers=2)
+            )
         if request.config.getoption("--pyspy-scheduler") is True:
             ctxs.enter_context(
                 pyspy_on_scheduler(f"scheduler-profile-{test_id}.json", native=True)
