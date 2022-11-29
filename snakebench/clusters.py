@@ -16,7 +16,7 @@ from distributed.deploy.cluster import Cluster
 from snakebench.schema import TestRun
 from snakebench.utils_test import cluster_memory
 
-N_WORKERS = 10
+N_WORKERS = 5
 
 
 CLUSTER_ENV: dict[str, str] = dict(
@@ -45,7 +45,7 @@ def _client_coiled(module_id: str, reuse: bool = False) -> Client:
     return sneks.get_client(
         name=module_id,
         n_workers=N_WORKERS,
-        worker_vm_types=["m6i.large"],  # 2CPU, 8GiB
+        worker_vm_types=["m6i.xlarge"],  # 4CPU, 16GiB
         scheduler_vm_types=["m6i.xlarge"],  # 4CPU, 16GiB
         shutdown_on_close=not reuse,
         **CLUSTER_KWARGS,
