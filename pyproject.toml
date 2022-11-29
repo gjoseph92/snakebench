@@ -17,6 +17,7 @@ dependencies = [
     "prometheus-client>=0.15.0",
     "lz4>=4.0.2",
     "zarr>=2.13.3",
+    "scipy>=1.9.3",
 ]
 requires-python = ">=3.8.4"
 license = {text = "MIT"}
