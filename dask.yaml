@@ -1,1 +1,6 @@
 foo: bar # used in `test_dask_config`
+
+distributed:
+  comm:
+    tcp:
+      backend: asyncio
