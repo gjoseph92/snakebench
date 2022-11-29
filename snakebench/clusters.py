@@ -19,9 +19,7 @@ from snakebench.utils_test import cluster_memory
 N_WORKERS = 10
 
 
-CLUSTER_ENV: dict[str, str] = dict(
-    # DASK_DISTRIBUTED__SCHEDULER__WORKER_SATURATION="1.0",
-)
+CLUSTER_ENV: dict[str, str] = dict()
 
 CLUSTER_KWARGS = dict(
     account="dask-engineering",

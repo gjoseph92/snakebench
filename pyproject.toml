@@ -39,6 +39,7 @@ test = [
     "sneks-sync>=0.4",
     "pytest-xdist>=2.5.0",
     "coiled>=0.2.40",
+    "pytest-env>=0.8.1",
 ]
 lint = [
     "pyright>=1.1.270",
@@ -64,4 +65,7 @@ exclude = [
 addopts = "-vs"
 markers = [
     "no_ci: don't run these tests on CI; just for local development",
+]
+env = [
+    "DASK_CONFIG=dask.yaml"
 ]

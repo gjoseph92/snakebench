@@ -1,0 +1,5 @@
+foo: bar # used in `test_dask_config`
+
+# distributed:
+#   scheduler:
+#     worker-saturation: 1.0
