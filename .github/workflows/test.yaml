@@ -106,7 +106,7 @@ jobs:
         with:
           name: profiles-${{ matrix.repeat }}
           path: |
-            worker-profiles-*
+            worker-profiles-*/
             scheduler-profile-*.json
     outputs:
       short_sha: ${{ steps.short-sha.outputs.short_sha }}
