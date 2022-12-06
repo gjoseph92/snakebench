@@ -36,6 +36,11 @@ def reuse_cluster(request: pytest.FixtureRequest) -> bool:
 
 
 @pytest.fixture(scope="session")
+def local_cluster(request: pytest.FixtureRequest) -> bool:
+    return request.config.getoption("--local") is True
+
+
+@pytest.fixture(scope="session")
 def run_id(reuse_cluster: bool) -> str:
     if reuse_cluster:
         return "reuse"
