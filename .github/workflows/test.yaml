@@ -57,7 +57,7 @@ jobs:
       max-parallel: 2
       fail-fast: false
       matrix:
-        repeat: [1, 2, 3, 4]
+        repeat: [1]
     steps:
       - uses: actions/checkout@v3
         with:
