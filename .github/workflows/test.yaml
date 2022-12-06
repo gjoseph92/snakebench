@@ -5,6 +5,8 @@ on:
       - "**.py"
       - "pyproject.toml"
       - "pdm.lock"
+      - "dask.yaml"
+      - "conftest.py"
       - ".github/workflows/test.yaml"
 
 jobs:
