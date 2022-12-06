@@ -23,6 +23,11 @@ requires-python = ">=3.8.4"
 license = {text = "MIT"}
 [project.optional-dependencies]
 
+[tool.pdm.overrides]
+dask = "git+https://github.com/gjoseph92/dask.git@e357f31b09eee10d4b5e5025b79103cc8631b00f"
+distributed = "git+https://github.com/gjoseph92/distributed.git@a05ee758662e875b3ef13afa6f38f23bfe4b3ed7"
+
+
 [build-system]
 requires = ["pdm-pep517>=1.0.0"]
 build-backend = "pdm.pep517.api"
