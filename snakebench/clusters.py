@@ -157,11 +157,19 @@ def small_client(
     pyspy_native = sys.platform == "linux" or not local_cluster
     with ExitStack() as ctxs:
         if pyspy_workers:
-            ctxs.enter_context(pyspy(f"worker-profiles-{test_id}", native=pyspy_native))
+            ctxs.enter_context(
+                pyspy(
+                    f"worker-profiles-{test_id}",
+                    native=pyspy_native,
+                    subprocesses=not local_cluster,
+                )
+            )
         if pyspy_scheduler:
             ctxs.enter_context(
                 pyspy_on_scheduler(
-                    f"scheduler-profile-{test_id}.json", native=pyspy_native
+                    f"scheduler-profile-{test_id}.json",
+                    native=pyspy_native,
+                    subprocesses=not local_cluster,
                 )
             )
         ctxs.enter_context(benchmark_all(client))
