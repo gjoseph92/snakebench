@@ -58,7 +58,7 @@ def _client_local(module_id: str, reuse: bool = False) -> Client:
     environ.update(CLUSTER_ENV)
     dask.config.refresh()
     return Client(
-        name=module_id, scheduler_port=8786, silence_logs=False, memory_limit="3 GiB"
+        name=module_id, scheduler_port=8786, silence_logs=False, memory_limit="5 GiB"
     )
 
 
