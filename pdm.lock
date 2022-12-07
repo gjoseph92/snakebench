@@ -238,7 +238,7 @@ summary = "Extended pickling support for Python objects"
 
 [[package]]
 name = "coiled"
-version = "0.2.52"
+version = "0.2.53"
 requires_python = ">=3.7"
 summary = "UNKNOWN"
 dependencies = [
@@ -1310,8 +1310,8 @@ name = "sneks-sync"
 version = "0.4.0"
 requires_python = ">=3.8.4,<4.0"
 git = "https://github.com/gjoseph92/sneks.git"
-ref = "29401dd"
-revision = "29401ddf414cfe041192b33c01b2773f8d565317"
+ref = "5d6fb66851841cc9c94b25a206eb5d67b8cc69be"
+revision = "5d6fb66851841cc9c94b25a206eb5d67b8cc69be"
 summary = "Launch a Dask cluster from a virtual environment"
 dependencies = [
     "cloudpickle<3.0.0,>=2.1.0",
@@ -1546,7 +1546,7 @@ summary = "Backport of pathlib-compatible object wrapper for zip files"
 
 [metadata]
 lock_version = "4.1"
-content_hash = "sha256:658c38a50635996fd06a3037d64b0eb91a9c1419af4c131a4cabbcf211a90a47"
+content_hash = "sha256:ee68835f691abda90b969d0ee8dd86d867634e6e989c915d7c4e1458e2177cd9"
 
 [metadata.files]
 "aiobotocore 2.4.1" = [
@@ -1841,9 +1841,9 @@ content_hash = "sha256:658c38a50635996fd06a3037d64b0eb91a9c1419af4c131a4cabbcf21
     {url = "https://files.pythonhosted.org/packages/cf/26/cd6c4177273ee35f7a31245893489c68bc340988f12ca315b392f1f18a93/cloudpickle-2.2.0-py3-none-any.whl", hash = "sha256:7428798d5926d8fcbfd092d18d01a2a03daf8237d8fcdc8095d256b8490796f0"},
     {url = "https://files.pythonhosted.org/packages/f9/9a/4bbae686297e3af55e08292145dde750999d2652d9fb408e605776c53348/cloudpickle-2.2.0.tar.gz", hash = "sha256:3f4219469c55453cfe4737e564b67c2a149109dabf7f242478948b895f61106f"},
 ]
-"coiled 0.2.52" = [
-    {url = "https://files.pythonhosted.org/packages/25/f4/bf516fd81ac13a0eb3e89d4cc0775d40e54c3737dbb34a95aee0315c1311/coiled-0.2.52.tar.gz", hash = "sha256:9888889e89f527d855adb9028f25239981e5d27f33a29bb7023bbcf621e6846c"},
-    {url = "https://files.pythonhosted.org/packages/e2/4b/dde22a374f4025221a56ad805f6d2803de286c0dba8e6fda3884f4c49c8b/coiled-0.2.52-py3-none-any.whl", hash = "sha256:03f44c073cce0b1b0a9dc4dd357c6747b75997161e20732cc0f30f6854e3499b"},
+"coiled 0.2.53" = [
+    {url = "https://files.pythonhosted.org/packages/06/1b/e250e23ebf460766b581cb9759389a803f1a850a0c20cbac0093989d94fd/coiled-0.2.53-py3-none-any.whl", hash = "sha256:7d083cd05f3e41c1558f6c7dec8272fad9fa2b1f47f4aa240890feac270f7bda"},
+    {url = "https://files.pythonhosted.org/packages/82/93/8c7ed9ea0d7d7358bc4ef2777c5a4c2eb1d5be33eed6b3c8dcfd0e5fad5c/coiled-0.2.53.tar.gz", hash = "sha256:b50d875291b903faee6f6b772cfbba2f40037303cd6cd81c32bcae470b51cd82"},
 ]
 "colorama 0.4.6" = [
     {url = "https://files.pythonhosted.org/packages/d1/d6/3965ed04c63042e047cb6a3e6ed1a63a35087b6a609aa3a15ed8ac56c221/colorama-0.4.6-py2.py3-none-any.whl", hash = "sha256:4f1d9991f5acc0ca119f9d443620b77f9d6b33703e51011c16baf57afb285fc6"},
