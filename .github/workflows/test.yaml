@@ -29,7 +29,7 @@ jobs:
       - name: Set up PDM
         uses: pdm-project/setup-pdm@v2
         with:
-          python-version: 3.8  # Must match version on `benchmark` job
+          python-version: 3.9  # Must match version on `benchmark` job
           enable-pep582: false
       - name: PDM lock
         shell: bash
@@ -72,7 +72,7 @@ jobs:
       - name: Set up PDM
         uses: pdm-project/setup-pdm@v2
         with:
-          python-version: 3.8 # Must match version on `lock` job
+          python-version: 3.9 # Must match version on `lock` job
           enable-pep582: false
         # TODO cache virtual env, especially between `lock` job
       - name: Install dependencies
