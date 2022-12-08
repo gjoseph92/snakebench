@@ -274,7 +274,7 @@ summary = "Python parser for the CommonMark Markdown spec"
 
 [[package]]
 name = "dask"
-version = "2022.11.1"
+version = "2022.12.0"
 requires_python = ">=3.8"
 summary = "Parallel PyData with Task Scheduling"
 dependencies = [
@@ -299,14 +299,14 @@ dependencies = [
 
 [[package]]
 name = "dask"
-version = "2022.11.1"
+version = "2022.12.0"
 extras = ["complete"]
 requires_python = ">=3.8"
 summary = "Parallel PyData with Task Scheduling"
 dependencies = [
     "bokeh<3,>=2.4.2",
-    "dask==2022.11.1",
-    "distributed==2022.11.1",
+    "dask==2022.12.0",
+    "distributed==2022.12.0",
     "jinja2",
     "numpy>=1.18",
     "pandas>=1.0",
@@ -337,13 +337,13 @@ summary = "Distribution utilities"
 
 [[package]]
 name = "distributed"
-version = "2022.11.1"
+version = "2022.12.0"
 requires_python = ">=3.8"
 summary = "Distributed scheduler for Dask"
 dependencies = [
     "click>=7.0",
     "cloudpickle>=1.5.0",
-    "dask==2022.11.1",
+    "dask==2022.12.0",
     "jinja2",
     "locket>=1.0.0",
     "msgpack>=0.6.0",
@@ -353,7 +353,7 @@ dependencies = [
     "sortedcontainers!=2.0.0,!=2.0.1",
     "tblib>=1.6.0",
     "toolz>=0.10.0",
-    "tornado<6.2,>=6.0.3",
+    "tornado>=6.0.3",
     "urllib3",
     "zict>=0.1.3",
 ]
@@ -1207,11 +1207,11 @@ summary = "Python 2 and 3 compatibility utilities"
 [[package]]
 name = "sneks-sync"
 version = "0.4.0"
-requires_python = ">=3.8.4,<4.0.0"
+requires_python = ">=3.8.4,<4.0"
 summary = "Launch a Dask cluster from a virtual environment"
 dependencies = [
     "cloudpickle<3.0.0,>=2.1.0",
-    "coiled<0.3.0,>=0.2.7",
+    "coiled<1.0.0,>=0.2.7",
     "rich<13.0.0,>=12.4.4",
     "setuptools>=65.3.0",
     "tomli<3.0.0,>=2.0.1",
@@ -1382,12 +1382,12 @@ summary = "Module for decorators, wrappers and monkey patching."
 
 [[package]]
 name = "xarray"
-version = "2022.11.0"
+version = "2022.12.0"
 requires_python = ">=3.8"
 summary = "N-D labeled arrays and datasets in Python"
 dependencies = [
     "numpy>=1.20",
-    "packaging>=21.0",
+    "packaging>=21.3",
     "pandas>=1.3",
 ]
 
@@ -1429,8 +1429,8 @@ requires_python = ">=3.7"
 summary = "Backport of pathlib-compatible object wrapper for zip files"
 
 [metadata]
-lock_version = "4.0"
-content_hash = "sha256:364c8dac5edf85ce2822336f28cdd2c7e9346bc0f983c681c23811ce6e7d947d"
+lock_version = "4.1"
+content_hash = "sha256:a58ddf568cc223f735db372a5ffe1f123ed6b80c232f05c205bac621791b6329"
 
 [metadata.files]
 "aiobotocore 2.4.0" = [
@@ -1737,9 +1737,9 @@ content_hash = "sha256:364c8dac5edf85ce2822336f28cdd2c7e9346bc0f983c681c23811ce6
     {url = "https://files.pythonhosted.org/packages/60/48/a60f593447e8f0894ebb7f6e6c1f25dafc5e89c5879fdc9360ae93ff83f0/commonmark-0.9.1.tar.gz", hash = "sha256:452f9dc859be7f06631ddcb328b6919c67984aca654e5fefb3914d54691aed60"},
     {url = "https://files.pythonhosted.org/packages/b1/92/dfd892312d822f36c55366118b95d914e5f16de11044a27cf10a7d71bbbf/commonmark-0.9.1-py2.py3-none-any.whl", hash = "sha256:da2f38c92590f83de410ba1a3cbceafbc74fee9def35f9251ba9a971d6d66fd9"},
 ]
-"dask 2022.11.1" = [
-    {url = "https://files.pythonhosted.org/packages/06/e6/0ecc6e4d2fb0af64771fbcfe04eca98b14a62772bb4455ddb895cf047451/dask-2022.11.1.tar.gz", hash = "sha256:18e5c442778cdbb177041dadf9950546884c0f1ce1ac25c98aa2cade2a9d83f0"},
-    {url = "https://files.pythonhosted.org/packages/c8/73/b8da0c6c3fde1cd477b820522439e8993aa564ceab69afe6f50659680cf3/dask-2022.11.1-py3-none-any.whl", hash = "sha256:89e3772c30072c7dacd83846164eca6bc0a8b347df7bc0ab2ce69f7effdc03bd"},
+"dask 2022.12.0" = [
+    {url = "https://files.pythonhosted.org/packages/86/d0/3d6c5d62a39a7d237efe8235e92cbf622c64506bcc06d6b3d744f7647ae7/dask-2022.12.0.tar.gz", hash = "sha256:159acc4a65f2ea042b453f12dee66fd515a159f4b3b9ca0d08c18cae485a2be0"},
+    {url = "https://files.pythonhosted.org/packages/fc/08/ee0758d224b51fa72da4af14934f308b770a8fa7b384fee3163f86b0f7b1/dask-2022.12.0-py3-none-any.whl", hash = "sha256:3995d2b856920f90bc9bba7329cbe839fe0d45b4e674da22320f37a2d0e3e4f8"},
 ]
 "dask-pyspy 0.4.0" = [
     {url = "https://files.pythonhosted.org/packages/17/5a/0cb25ba2b9aab8832b700c74ac81825d4d8d499ab46fb7f6b37626121b33/dask_pyspy-0.4.0.tar.gz", hash = "sha256:f93dc8837e0a219e6d83b868760084f5223254831b59803777ab4901dc0341c3"},
@@ -1777,9 +1777,9 @@ content_hash = "sha256:364c8dac5edf85ce2822336f28cdd2c7e9346bc0f983c681c23811ce6
     {url = "https://files.pythonhosted.org/packages/58/07/815476ae605bcc5f95c87a62b95e74a1bce0878bc7a3119bc2bf4178f175/distlib-0.3.6.tar.gz", hash = "sha256:14bad2d9b04d3a36127ac97f30b12a19268f211063d8f8ee4f47108896e11b46"},
     {url = "https://files.pythonhosted.org/packages/76/cb/6bbd2b10170ed991cf64e8c8b85e01f2fb38f95d1bc77617569e0b0b26ac/distlib-0.3.6-py2.py3-none-any.whl", hash = "sha256:f35c4b692542ca110de7ef0bea44d73981caeb34ca0b9b6b2e6d7790dda8f80e"},
 ]
-"distributed 2022.11.1" = [
-    {url = "https://files.pythonhosted.org/packages/83/4a/cec3a04a3bc27ce586a720db3ed50c2299dc5f654b0c94e9701adf77a57c/distributed-2022.11.1.tar.gz", hash = "sha256:ca89a7d56588b0a95b8fabe783541f514cbe22d5b62a2e4260849c75b4475cea"},
-    {url = "https://files.pythonhosted.org/packages/87/d9/c968d9ff717c8fd452b0a2271cfc911e1639a0c67ef5dd3ddb82d9bfd4e1/distributed-2022.11.1-py3-none-any.whl", hash = "sha256:e167447cbd11eec2759cb19fd39ea8cd2d353373e099db51b107ab120b880f55"},
+"distributed 2022.12.0" = [
+    {url = "https://files.pythonhosted.org/packages/33/3c/364a53b518a63d4f35442fca0d1e2a02f6be12694d22f7f47f11d5551e86/distributed-2022.12.0.tar.gz", hash = "sha256:d93707757f7fa3b2b803e43f6c14c41c3e453e9714bca8bf3013d3bf083c18ce"},
+    {url = "https://files.pythonhosted.org/packages/3a/64/e9c008896c39a3d2d4f530c28545c30a4066ce0dd03edf2b74fdf3839965/distributed-2022.12.0-py3-none-any.whl", hash = "sha256:3544ac4b6857bbf65657895e52f0068b69ae88529223c9ba5e79c1024e6f9a66"},
 ]
 "entrypoints 0.4" = [
     {url = "https://files.pythonhosted.org/packages/35/a8/365059bbcd4572cbc41de17fd5b682be5868b218c3c5479071865cab9078/entrypoints-0.4-py3-none-any.whl", hash = "sha256:f174b5ff827504fd3cd97cc3f8649f3693f51538c7e4bdf3ef002c8429d42f9f"},
@@ -2999,9 +2999,9 @@ content_hash = "sha256:364c8dac5edf85ce2822336f28cdd2c7e9346bc0f983c681c23811ce6
     {url = "https://files.pythonhosted.org/packages/f9/3c/110e52b9da396a4ef3a0521552a1af9c7875a762361f48678c1ac272fd7e/wrapt-1.14.1-cp39-cp39-musllinux_1_1_x86_64.whl", hash = "sha256:34aa51c45f28ba7f12accd624225e2b1e5a3a45206aa191f6f9aac931d9d56fe"},
     {url = "https://files.pythonhosted.org/packages/fd/70/8a133c88a394394dd57159083b86a564247399440b63f2da0ad727593570/wrapt-1.14.1-cp310-cp310-manylinux_2_5_x86_64.manylinux1_x86_64.manylinux_2_17_x86_64.manylinux2014_x86_64.whl", hash = "sha256:257fd78c513e0fb5cdbe058c27a0624c9884e735bbd131935fd49e9fe719d310"},
 ]
-"xarray 2022.11.0" = [
-    {url = "https://files.pythonhosted.org/packages/47/26/53b4d9ce691f73ab17abaeb66c53dcda5a799ba1b1f32f21fb84440e7acf/xarray-2022.11.0.tar.gz", hash = "sha256:3008a302877f87a0f9043b1f01a4ad4e85b668bbdd38d488764098624632f527"},
-    {url = "https://files.pythonhosted.org/packages/ff/64/0e77f335d33bc30f8b35ea291b3408df262f46646c65d04215a2f3e427b6/xarray-2022.11.0-py3-none-any.whl", hash = "sha256:228ed50ab3f1f7e2ba66670ded05f0bee46c69c4f902f346947b5723479af97f"},
+"xarray 2022.12.0" = [
+    {url = "https://files.pythonhosted.org/packages/0b/43/b61d430c6b4071a687ff29855ba2a3134d064dd6864d9db3075ad51e010e/xarray-2022.12.0-py3-none-any.whl", hash = "sha256:eaf3e4c0b62faebf7965f272ce76bc2fc1c9d93c2b966a390e929ef082a796dd"},
+    {url = "https://files.pythonhosted.org/packages/f8/5c/4e160293ad96d5db5c140393eb8f5a529aa63cc6bc26ec9760bf8de4c326/xarray-2022.12.0.tar.gz", hash = "sha256:083d08e552a7647c7ece136dfa3a4b6a1379256beb55bbed8b8ddf05f1e14ec7"},
 ]
 "yarl 1.8.1" = [
     {url = "https://files.pythonhosted.org/packages/02/83/af04c6a34e9011e1620ae918e223869adcc5de855ae2e89fd77fabfee626/yarl-1.8.1-cp37-cp37m-manylinux_2_17_ppc64le.manylinux2014_ppc64le.whl", hash = "sha256:85cba594433915d5c9a0d14b24cfba0339f57a2fff203a5d4fd070e593307d0b"},
