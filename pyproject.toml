@@ -25,7 +25,7 @@ license = {text = "MIT"}
 
 [tool.pdm.overrides]
 dask = "git+https://github.com/gjoseph92/dask.git@8dd537bee337dc6eab13154e9ed8d0b519ddfc59"
-distributed = "git+https://github.com/gjoseph92/distributed.git@7b0abf9a7437f52ef5213e54f4d5d7365c64d516"
+distributed = "git+https://github.com/gjoseph92/distributed.git@aaf9695d578234531fe91dc1c3d7c9509353420e"
 
 
 [build-system]
