@@ -27,6 +27,7 @@ from .memory import benchmark_memory
 from .s3 import s3_url
 from .skip import skip_bench
 from .time import auto_benchmark_time, benchmark_time
+from .transfers import benchmark_transfers
 
 __all__ = [
     "pytest_runtest_makereport",
@@ -34,6 +35,7 @@ __all__ = [
     "commit_info",
     "small_client",
     "_small_client_base",
+    "benchmark_transfers",
     "results_filename",
     "result_file_lock",
     "test_run_benchmark",
