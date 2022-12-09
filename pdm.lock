@@ -359,11 +359,11 @@ summary = "Distribution utilities"
 
 [[package]]
 name = "distributed"
-version = "2022.12.0+16.g859b8271"
+version = "2022.12.0+18.ge52dce5c"
 requires_python = ">=3.8"
 git = "https://github.com/gjoseph92/distributed.git"
-ref = "859b8271ce2c141b81d0e838b851a0a252fd8a20"
-revision = "859b8271ce2c141b81d0e838b851a0a252fd8a20"
+ref = "e52dce5cd9e89df63da431711da1994aefe1cc07"
+revision = "e52dce5cd9e89df63da431711da1994aefe1cc07"
 summary = "Distributed scheduler for Dask"
 dependencies = [
     "click>=7.0",
@@ -1547,7 +1547,7 @@ summary = "Backport of pathlib-compatible object wrapper for zip files"
 
 [metadata]
 lock_version = "4.1"
-content_hash = "sha256:d657a66871d33672065112e917e622148ef99c5192f00dc7d5ab9789599827e2"
+content_hash = "sha256:2e027f1c857732f4b19861853349bf83e7b93ca0e36d3ee0c26ca320aaf2bc4c"
 
 [metadata.files]
 "aiobotocore 2.4.1" = [
