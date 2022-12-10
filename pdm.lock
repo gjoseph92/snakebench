@@ -238,7 +238,7 @@ summary = "Extended pickling support for Python objects"
 
 [[package]]
 name = "coiled"
-version = "0.2.53"
+version = "0.2.54"
 requires_python = ">=3.7"
 summary = "UNKNOWN"
 dependencies = [
@@ -359,11 +359,11 @@ summary = "Distribution utilities"
 
 [[package]]
 name = "distributed"
-version = "2022.12.0+18.ge52dce5c"
+version = "2022.12.0+20.gb6c76b32"
 requires_python = ">=3.8"
 git = "https://github.com/gjoseph92/distributed.git"
-ref = "e52dce5cd9e89df63da431711da1994aefe1cc07"
-revision = "e52dce5cd9e89df63da431711da1994aefe1cc07"
+ref = "b6c76b3292e34eeadc2be73bbbc8a5103e7690c2"
+revision = "b6c76b3292e34eeadc2be73bbbc8a5103e7690c2"
 summary = "Distributed scheduler for Dask"
 dependencies = [
     "click>=7.0",
@@ -1547,7 +1547,7 @@ summary = "Backport of pathlib-compatible object wrapper for zip files"
 
 [metadata]
 lock_version = "4.1"
-content_hash = "sha256:2e027f1c857732f4b19861853349bf83e7b93ca0e36d3ee0c26ca320aaf2bc4c"
+content_hash = "sha256:d3dc5a77c7f68e590e360b4351d9353322b25ac20adb9d5e9d03a7ba1c5be55c"
 
 [metadata.files]
 "aiobotocore 2.4.1" = [
@@ -1833,9 +1833,9 @@ content_hash = "sha256:2e027f1c857732f4b19861853349bf83e7b93ca0e36d3ee0c26ca320a
     {url = "https://files.pythonhosted.org/packages/cf/26/cd6c4177273ee35f7a31245893489c68bc340988f12ca315b392f1f18a93/cloudpickle-2.2.0-py3-none-any.whl", hash = "sha256:7428798d5926d8fcbfd092d18d01a2a03daf8237d8fcdc8095d256b8490796f0"},
     {url = "https://files.pythonhosted.org/packages/f9/9a/4bbae686297e3af55e08292145dde750999d2652d9fb408e605776c53348/cloudpickle-2.2.0.tar.gz", hash = "sha256:3f4219469c55453cfe4737e564b67c2a149109dabf7f242478948b895f61106f"},
 ]
-"coiled 0.2.53" = [
-    {url = "https://files.pythonhosted.org/packages/06/1b/e250e23ebf460766b581cb9759389a803f1a850a0c20cbac0093989d94fd/coiled-0.2.53-py3-none-any.whl", hash = "sha256:7d083cd05f3e41c1558f6c7dec8272fad9fa2b1f47f4aa240890feac270f7bda"},
-    {url = "https://files.pythonhosted.org/packages/82/93/8c7ed9ea0d7d7358bc4ef2777c5a4c2eb1d5be33eed6b3c8dcfd0e5fad5c/coiled-0.2.53.tar.gz", hash = "sha256:b50d875291b903faee6f6b772cfbba2f40037303cd6cd81c32bcae470b51cd82"},
+"coiled 0.2.54" = [
+    {url = "https://files.pythonhosted.org/packages/78/21/abe242d21ec89a7339cd0b38751c261ca04fdccbd8b80a1d7beab2385ca7/coiled-0.2.54-py3-none-any.whl", hash = "sha256:ac5c40b3b1baa0bce1fcdc1cd110ad5ebd34a3e2a5eba42a55d60934eccb9b4f"},
+    {url = "https://files.pythonhosted.org/packages/f0/16/1f72e68fe2baf9df177fea1be044a161e62ef6535d1ccb34fcd19feeb545/coiled-0.2.54.tar.gz", hash = "sha256:d384ddfb91d7388c55884037213ce11f53474b7235475eb3173b2a540dd4aa9b"},
 ]
 "colorama 0.4.6" = [
     {url = "https://files.pythonhosted.org/packages/d1/d6/3965ed04c63042e047cb6a3e6ed1a63a35087b6a609aa3a15ed8ac56c221/colorama-0.4.6-py2.py3-none-any.whl", hash = "sha256:4f1d9991f5acc0ca119f9d443620b77f9d6b33703e51011c16baf57afb285fc6"},
