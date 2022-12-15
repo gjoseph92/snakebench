@@ -1206,12 +1206,12 @@ summary = "Python 2 and 3 compatibility utilities"
 
 [[package]]
 name = "sneks-sync"
-version = "0.4.0"
-requires_python = ">=3.8.4,<4.0"
+version = "0.5.0"
+requires_python = ">=3.8.4,<4.0.0"
 summary = "Launch a Dask cluster from a virtual environment"
 dependencies = [
     "cloudpickle<3.0.0,>=2.1.0",
-    "coiled<1.0.0,>=0.2.7",
+    "coiled<0.3.0,>=0.2.7",
     "rich<13.0.0,>=12.4.4",
     "setuptools>=65.3.0",
     "tomli<3.0.0,>=2.0.1",
@@ -1430,7 +1430,7 @@ summary = "Backport of pathlib-compatible object wrapper for zip files"
 
 [metadata]
 lock_version = "4.1"
-content_hash = "sha256:a58ddf568cc223f735db372a5ffe1f123ed6b80c232f05c205bac621791b6329"
+content_hash = "sha256:8398102bf97410ea0c32fd775a3cccff3e75e8cab10ddc955b546db78aaaf33e"
 
 [metadata.files]
 "aiobotocore 2.4.0" = [
@@ -2802,9 +2802,9 @@ content_hash = "sha256:a58ddf568cc223f735db372a5ffe1f123ed6b80c232f05c205bac6217
     {url = "https://files.pythonhosted.org/packages/71/39/171f1c67cd00715f190ba0b100d606d440a28c93c7714febeca8b79af85e/six-1.16.0.tar.gz", hash = "sha256:1e61c37477a1626458e36f7b1d82aa5c9b094fa4802892072e49de9c60c4c926"},
     {url = "https://files.pythonhosted.org/packages/d9/5a/e7c31adbe875f2abbb91bd84cf2dc52d792b5a01506781dbcf25c91daf11/six-1.16.0-py2.py3-none-any.whl", hash = "sha256:8abb2f1d86890a2dfb989f9a77cfcfd3e47c2a354b01111771326f8aa26e0254"},
 ]
-"sneks-sync 0.4.0" = [
-    {url = "https://files.pythonhosted.org/packages/94/06/6a1cd547fdb4d21f7eaccd8813c23aa7e4e5e0b160cdef1ece58758b7d8d/sneks_sync-0.4.0.tar.gz", hash = "sha256:1086d030c467b75796d2931f5efab5baf836010b804a23e71ec3ffde734fca87"},
-    {url = "https://files.pythonhosted.org/packages/cd/ce/50d059192a1af9abf41410059af06071e0fd78550b00d29005772ef7fb41/sneks_sync-0.4.0-py3-none-any.whl", hash = "sha256:67d39c50443642b6389637494adc127b897582dc17e95dd266460df8ed76e85a"},
+"sneks-sync 0.5.0" = [
+    {url = "https://files.pythonhosted.org/packages/85/c7/95de783cadde28fa8b998e466666413eec7756857b7aa0c92b2549c76235/sneks_sync-0.5.0-py3-none-any.whl", hash = "sha256:c19247fc562b48a2b59096a1adf72bfc656d5229335d1f3003bb01d2be402fce"},
+    {url = "https://files.pythonhosted.org/packages/cc/d6/00be6b673a6a82eb09d1eaf5f9b5e07f4ef0de48b7d21284db5cc458befe/sneks_sync-0.5.0.tar.gz", hash = "sha256:d0d7b0491d468a79a99cd0b84b487904fc3cf853ff49c962dfb33131abb87886"},
 ]
 "sniffio 1.3.0" = [
     {url = "https://files.pythonhosted.org/packages/c3/a0/5dba8ed157b0136607c7f2151db695885606968d1fae123dc3391e0cfdbf/sniffio-1.3.0-py3-none-any.whl", hash = "sha256:eecefdce1e5bbfb7ad2eeaabf7c1eeb404d7757c379bd1f7e5cce9d8bf425384"},
