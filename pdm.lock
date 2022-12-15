@@ -337,8 +337,11 @@ summary = "Distribution utilities"
 
 [[package]]
 name = "distributed"
-version = "2022.12.0"
+version = "2022.12.0+18.g0563e7db"
 requires_python = ">=3.8"
+git = "https://github.com/gjoseph92/distributed.git"
+ref = "0563e7dbc84f3df5d8758edb99d596584986fd05"
+revision = "0563e7dbc84f3df5d8758edb99d596584986fd05"
 summary = "Distributed scheduler for Dask"
 dependencies = [
     "click>=7.0",
@@ -1430,7 +1433,7 @@ summary = "Backport of pathlib-compatible object wrapper for zip files"
 
 [metadata]
 lock_version = "4.1"
-content_hash = "sha256:a58ddf568cc223f735db372a5ffe1f123ed6b80c232f05c205bac621791b6329"
+content_hash = "sha256:dff66345aaacc7a7bc4acf586dd8070dc5be879b95b9322206f8f06d0099fbba"
 
 [metadata.files]
 "aiobotocore 2.4.0" = [
@@ -1776,10 +1779,6 @@ content_hash = "sha256:a58ddf568cc223f735db372a5ffe1f123ed6b80c232f05c205bac6217
 "distlib 0.3.6" = [
     {url = "https://files.pythonhosted.org/packages/58/07/815476ae605bcc5f95c87a62b95e74a1bce0878bc7a3119bc2bf4178f175/distlib-0.3.6.tar.gz", hash = "sha256:14bad2d9b04d3a36127ac97f30b12a19268f211063d8f8ee4f47108896e11b46"},
     {url = "https://files.pythonhosted.org/packages/76/cb/6bbd2b10170ed991cf64e8c8b85e01f2fb38f95d1bc77617569e0b0b26ac/distlib-0.3.6-py2.py3-none-any.whl", hash = "sha256:f35c4b692542ca110de7ef0bea44d73981caeb34ca0b9b6b2e6d7790dda8f80e"},
-]
-"distributed 2022.12.0" = [
-    {url = "https://files.pythonhosted.org/packages/33/3c/364a53b518a63d4f35442fca0d1e2a02f6be12694d22f7f47f11d5551e86/distributed-2022.12.0.tar.gz", hash = "sha256:d93707757f7fa3b2b803e43f6c14c41c3e453e9714bca8bf3013d3bf083c18ce"},
-    {url = "https://files.pythonhosted.org/packages/3a/64/e9c008896c39a3d2d4f530c28545c30a4066ce0dd03edf2b74fdf3839965/distributed-2022.12.0-py3-none-any.whl", hash = "sha256:3544ac4b6857bbf65657895e52f0068b69ae88529223c9ba5e79c1024e6f9a66"},
 ]
 "entrypoints 0.4" = [
     {url = "https://files.pythonhosted.org/packages/35/a8/365059bbcd4572cbc41de17fd5b682be5868b218c3c5479071865cab9078/entrypoints-0.4-py3-none-any.whl", hash = "sha256:f174b5ff827504fd3cd97cc3f8649f3693f51538c7e4bdf3ef002c8429d42f9f"},
