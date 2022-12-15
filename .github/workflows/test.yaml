@@ -29,15 +29,16 @@ jobs:
           # - metadata: read
           token: ${{ secrets.GH_ACCESS_TOKEN }}
       - name: Set up PDM
-        uses: pdm-project/setup-pdm@v2
+        uses: pdm-project/setup-pdm@v3
         with:
           python-version: 3.9  # Must match version on `benchmark` job
           enable-pep582: false
+          cache: true
       - name: PDM lock
         shell: bash
         run: |
           pdm install --check --dry-run || pdm lock -v
-      - name: Commit updated lockfile
+      - name: Commit updated lockfiled
         id: auto-commit
         uses: stefanzweifel/git-auto-commit-action@v4
         with:
@@ -72,10 +73,11 @@ jobs:
         # Ensure this will uniquely identify each job per matrix; used in cluster name
         run: echo "MATRIX_ID=${{ matrix.repeat }}" >> "$GITHUB_ENV"
       - name: Set up PDM
-        uses: pdm-project/setup-pdm@v2
+        uses: pdm-project/setup-pdm@v3
         with:
           python-version: 3.9 # Must match version on `lock` job
           enable-pep582: false
+          cache: true
         # TODO cache virtual env, especially between `lock` job
       - name: Install dependencies
         shell: bash
