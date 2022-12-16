@@ -33,7 +33,6 @@ jobs:
         with:
           python-version: 3.9  # Must match version on `benchmark` job
           enable-pep582: false
-          cache: true
       - name: PDM lock
         shell: bash
         run: |
@@ -77,7 +76,6 @@ jobs:
         with:
           python-version: 3.9 # Must match version on `lock` job
           enable-pep582: false
-          cache: true
         # TODO cache virtual env, especially between `lock` job
       - name: Install dependencies
         shell: bash
