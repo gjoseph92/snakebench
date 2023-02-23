@@ -37,7 +37,7 @@ CLUSTER_KWARGS = dict(
 # Have a way to create the base and function-scoped fixtures given n_workers and args.
 
 
-def _client_coiled(module_id: str, reuse: bool = False) -> Client:
+def _client_sneks(module_id: str, reuse: bool = False) -> Client:
     # So coiled logs can be displayed on test failure
     logging.getLogger("coiled").setLevel(logging.INFO)
 
@@ -50,6 +50,27 @@ def _client_coiled(module_id: str, reuse: bool = False) -> Client:
         shutdown_on_close=not reuse,
         **CLUSTER_KWARGS,
     )
+
+
+def _client_coiled(module_id: str, reuse: bool = False) -> Client:
+    # So coiled logs can be displayed on test failure
+    logging.getLogger("coiled").setLevel(logging.INFO)
+
+    print(f"Creating cluster {module_id}...")
+    client = CoiledCluster(
+        package_sync=True,
+        name=module_id,
+        n_workers=N_WORKERS,
+        worker_vm_types=["m6i.large"],  # 2CPU, 8GiB
+        scheduler_vm_types=["m6i.large"],  # 2CPU, 8GiB
+        shutdown_on_close=not reuse,
+        **CLUSTER_KWARGS,
+    ).get_client()
+    # HACK: make the client "own" the cluster. When the client closes, the cluster
+    # object will close too. Whether the actual Coiled cluster shuts down depends on the
+    # `shutdown_on_close` argument.
+    client._start_arg = None
+    return client
 
 
 def _client_local(module_id: str, reuse: bool = False) -> Client:
