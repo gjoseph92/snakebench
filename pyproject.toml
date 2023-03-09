@@ -7,8 +7,8 @@ authors = [
 ]
 # NOTE: these are dependencies that will actually be installed on the cluster.
 dependencies = [
-    "distributed>=2023.2.0",
-    "dask[complete]>=2023.2.0",
+    "distributed>=2023.3.0",
+    "dask[complete]>=2023.3.0",
     "pyarrow>=9.0.0",
     "s3fs>=2022.11.0",
     "xarray>=2022.12.0",

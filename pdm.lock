@@ -252,7 +252,7 @@ summary = "Composable style cycles"
 
 [[package]]
 name = "dask"
-version = "2023.2.0"
+version = "2023.3.0"
 requires_python = ">=3.8"
 summary = "Parallel PyData with Task Scheduling"
 dependencies = [
@@ -260,7 +260,7 @@ dependencies = [
     "cloudpickle>=1.1.1",
     "fsspec>=0.6.0",
     "packaging>=20.0",
-    "partd>=0.3.10",
+    "partd>=1.2.0",
     "pyyaml>=5.3.1",
     "toolz>=0.8.2",
 ]
@@ -277,17 +277,17 @@ dependencies = [
 
 [[package]]
 name = "dask"
-version = "2023.2.0"
+version = "2023.3.0"
 extras = ["complete"]
 requires_python = ">=3.8"
 summary = "Parallel PyData with Task Scheduling"
 dependencies = [
     "bokeh<3,>=2.4.2",
-    "dask==2023.2.0",
-    "distributed==2023.2.0",
-    "jinja2",
-    "numpy>=1.18",
-    "pandas>=1.0",
+    "dask==2023.3.0",
+    "distributed==2023.3.0",
+    "jinja2>=2.10.3",
+    "numpy>=1.21",
+    "pandas>=1.3",
 ]
 
 [[package]]
@@ -309,13 +309,13 @@ summary = "Distribution utilities"
 
 [[package]]
 name = "distributed"
-version = "2023.2.0"
+version = "2023.3.0"
 requires_python = ">=3.8"
 summary = "Distributed scheduler for Dask"
 dependencies = [
     "click>=7.0",
     "cloudpickle>=1.5.0",
-    "dask==2023.2.0",
+    "dask==2023.3.0",
     "jinja2>=2.10.3",
     "locket>=1.0.0",
     "msgpack>=1.0.0",
@@ -1169,7 +1169,7 @@ summary = "Backport of pathlib-compatible object wrapper for zip files"
 
 [metadata]
 lock_version = "4.1"
-content_hash = "sha256:6a82dd10f555af362471b4f0e87412f292f3a8b8dadfd29cb3c4f3a2716dcbe4"
+content_hash = "sha256:2386dccbace2c3b928d0f9e6266b4c724608cacbe5717cf349fa2fe322b51d09"
 
 [metadata.files]
 "aiobotocore 2.4.2" = [
@@ -1506,9 +1506,9 @@ content_hash = "sha256:6a82dd10f555af362471b4f0e87412f292f3a8b8dadfd29cb3c4f3a27
     {url = "https://files.pythonhosted.org/packages/34/45/a7caaacbfc2fa60bee42effc4bcc7d7c6dbe9c349500e04f65a861c15eb9/cycler-0.11.0.tar.gz", hash = "sha256:9c87405839a19696e837b3b818fed3f5f69f16f1eec1a1ad77e043dcea9c772f"},
     {url = "https://files.pythonhosted.org/packages/5c/f9/695d6bedebd747e5eb0fe8fad57b72fdf25411273a39791cde838d5a8f51/cycler-0.11.0-py3-none-any.whl", hash = "sha256:3a27e95f763a428a739d2add979fa7494c912a32c17c4c38c4d5f082cad165a3"},
 ]
-"dask 2023.2.0" = [
-    {url = "https://files.pythonhosted.org/packages/58/e4/6d816a3d3f75068eefb9341d042e6731d3973719b77c8f2f6f2f3dd1f269/dask-2023.2.0.tar.gz", hash = "sha256:c0716193e0e197bc541199e41770b4f2f7df6c137bb94e5b4812cfdc6cbe0a84"},
-    {url = "https://files.pythonhosted.org/packages/dc/03/0334ab094ceaf8c27e83f183ca661cd1fc76ed401d1dd3a054e268c87601/dask-2023.2.0-py3-none-any.whl", hash = "sha256:14dedb3ae0be51116365a52e9f39db6e6c866f5ea2244aaae62bd83a0dbaaa92"},
+"dask 2023.3.0" = [
+    {url = "https://files.pythonhosted.org/packages/05/a0/db4a8f9548101412f046442c557c89914ec7193be6338e11397b0661221b/dask-2023.3.0.tar.gz", hash = "sha256:6773a35efe255e85703574ab5bd27055cfd02536b965e2264f86d2c9128a96cd"},
+    {url = "https://files.pythonhosted.org/packages/16/94/47aa3c13f037824b2b8c351be6f6abc3b93884b338175ea1ef3faaedfc0d/dask-2023.3.0-py3-none-any.whl", hash = "sha256:4b355da5492fd8699017e786e281ad347528d11c868b645d102124df3621e9ee"},
 ]
 "dask-pyspy 0.4.0" = [
     {url = "https://files.pythonhosted.org/packages/17/5a/0cb25ba2b9aab8832b700c74ac81825d4d8d499ab46fb7f6b37626121b33/dask_pyspy-0.4.0.tar.gz", hash = "sha256:f93dc8837e0a219e6d83b868760084f5223254831b59803777ab4901dc0341c3"},
@@ -1541,9 +1541,9 @@ content_hash = "sha256:6a82dd10f555af362471b4f0e87412f292f3a8b8dadfd29cb3c4f3a27
     {url = "https://files.pythonhosted.org/packages/58/07/815476ae605bcc5f95c87a62b95e74a1bce0878bc7a3119bc2bf4178f175/distlib-0.3.6.tar.gz", hash = "sha256:14bad2d9b04d3a36127ac97f30b12a19268f211063d8f8ee4f47108896e11b46"},
     {url = "https://files.pythonhosted.org/packages/76/cb/6bbd2b10170ed991cf64e8c8b85e01f2fb38f95d1bc77617569e0b0b26ac/distlib-0.3.6-py2.py3-none-any.whl", hash = "sha256:f35c4b692542ca110de7ef0bea44d73981caeb34ca0b9b6b2e6d7790dda8f80e"},
 ]
-"distributed 2023.2.0" = [
-    {url = "https://files.pythonhosted.org/packages/75/f2/db610aa16edf42c95dfcbf513458a1bb1d17da97c28e167a623da19dd1d1/distributed-2023.2.0-py3-none-any.whl", hash = "sha256:26a359ec4cb16f50e421ddba18a26262e51f1c30bd12a9173207a02d14c992da"},
-    {url = "https://files.pythonhosted.org/packages/81/0f/a48b764149dac5d0fc01a352edd9af8b594e6eea63e52fbca9a3c296d247/distributed-2023.2.0.tar.gz", hash = "sha256:8b3c71273b3b346e6e106762b932c745237390c29d7257479073e95299d07dda"},
+"distributed 2023.3.0" = [
+    {url = "https://files.pythonhosted.org/packages/a2/1e/96d430d905fa3a43bd27fe16fa3832e5f7df11cdaf965fb86849dcb34454/distributed-2023.3.0-py3-none-any.whl", hash = "sha256:dd1f5854d1117a40c397f08f24e0d832d7e0ef15fba3266c85af4420c6a379ec"},
+    {url = "https://files.pythonhosted.org/packages/c2/56/35404987f2c842da7431b2b54b78a5b0b46e184af5900b5ecabae5167714/distributed-2023.3.0.tar.gz", hash = "sha256:d861846af558eaca0185bdca9de95a6504e8dc1402822c9e3f0692c71b7a78c6"},
 ]
 "entrypoints 0.4" = [
     {url = "https://files.pythonhosted.org/packages/35/a8/365059bbcd4572cbc41de17fd5b682be5868b218c3c5479071865cab9078/entrypoints-0.4-py3-none-any.whl", hash = "sha256:f174b5ff827504fd3cd97cc3f8649f3693f51538c7e4bdf3ef002c8429d42f9f"},
