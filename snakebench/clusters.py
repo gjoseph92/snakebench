@@ -93,7 +93,7 @@ def _small_client_base(
     if local_cluster:
         backend = _client_local
     else:
-        backend = _client_coiled
+        backend = _client_sneks
         n_workers = N_WORKERS
 
     with backend(module_id, reuse=reuse_cluster) as client:
