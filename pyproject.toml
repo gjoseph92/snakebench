@@ -17,7 +17,7 @@ dependencies = [
     "lz4>=4.0.2",
     "zarr>=2.13.3",
     "scipy>=1.9.3",
-    "sneks-sync>=0.6",
+    "sneks-sync>=0.6.1",
 ]
 requires-python = ">=3.8.4"
 license = {text = "MIT"}

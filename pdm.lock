@@ -1001,7 +1001,7 @@ summary = "Python 2 and 3 compatibility utilities"
 
 [[package]]
 name = "sneks-sync"
-version = "0.6.0"
+version = "0.6.1"
 requires_python = ">=3.8.4,<4.0.0"
 summary = "Launch a Dask cluster from a virtual environment"
 dependencies = [
@@ -1169,7 +1169,7 @@ summary = "Backport of pathlib-compatible object wrapper for zip files"
 
 [metadata]
 lock_version = "4.1"
-content_hash = "sha256:2386dccbace2c3b928d0f9e6266b4c724608cacbe5717cf349fa2fe322b51d09"
+content_hash = "sha256:76486fcd2b5d181d0248ba37fca127a6c129ba72c293383f9031ac3891e04d35"
 
 [metadata.files]
 "aiobotocore 2.4.2" = [
@@ -2600,9 +2600,9 @@ content_hash = "sha256:2386dccbace2c3b928d0f9e6266b4c724608cacbe5717cf349fa2fe32
     {url = "https://files.pythonhosted.org/packages/71/39/171f1c67cd00715f190ba0b100d606d440a28c93c7714febeca8b79af85e/six-1.16.0.tar.gz", hash = "sha256:1e61c37477a1626458e36f7b1d82aa5c9b094fa4802892072e49de9c60c4c926"},
     {url = "https://files.pythonhosted.org/packages/d9/5a/e7c31adbe875f2abbb91bd84cf2dc52d792b5a01506781dbcf25c91daf11/six-1.16.0-py2.py3-none-any.whl", hash = "sha256:8abb2f1d86890a2dfb989f9a77cfcfd3e47c2a354b01111771326f8aa26e0254"},
 ]
-"sneks-sync 0.6.0" = [
-    {url = "https://files.pythonhosted.org/packages/52/07/46734efb872b0fc4c3dca29c3bc1ebd1f1011b5af2a1ad7f8937fb5522e9/sneks_sync-0.6.0-py3-none-any.whl", hash = "sha256:62562f52a590de2720df910761d3507504be5e39986fa6493bedd92f1f9bb879"},
-    {url = "https://files.pythonhosted.org/packages/7e/fc/f84f4b33d6b32e05b6d7f4751fb39277d300202365a507d3ad4ca8ff2f54/sneks_sync-0.6.0.tar.gz", hash = "sha256:0647c5844f38bb3d2144689e07f179f7a2d8ec3153310bbd7ec098528a4fde84"},
+"sneks-sync 0.6.1" = [
+    {url = "https://files.pythonhosted.org/packages/66/2b/fd97625e43a27fc7586c0f92a831e1dc561f1b813fb88f1b7d5aaaf350e3/sneks_sync-0.6.1.tar.gz", hash = "sha256:70087457a589362836a7d41a846c01fb84cac519db729ed416983642afee8d18"},
+    {url = "https://files.pythonhosted.org/packages/d1/c0/d3146fff142259c8d198a62aeea588db4b6eda26145ae7b073127e250c95/sneks_sync-0.6.1-py3-none-any.whl", hash = "sha256:144cd444c83a2bb666f467840d47fdaf05f25f1259f3ca96771ede9cc1684579"},
 ]
 "sortedcontainers 2.4.0" = [
     {url = "https://files.pythonhosted.org/packages/32/46/9cb0e58b2deb7f82b84065f37f3bffeb12413f947f9388e4cac22c4621ce/sortedcontainers-2.4.0-py2.py3-none-any.whl", hash = "sha256:a163dcaede0f1c021485e957a39245190e74249897e2ae4b2aa38595db237ee0"},
