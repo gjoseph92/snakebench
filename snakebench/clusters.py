@@ -45,8 +45,8 @@ def _client_sneks(module_id: str, reuse: bool = False) -> Client:
     return sneks.get_client(
         name=module_id,
         n_workers=N_WORKERS,
-        worker_vm_types=["m6i.large"],  # 2CPU, 8GiB
-        scheduler_vm_types=["m6i.large"],  # 2CPU, 8GiB
+        worker_vm_types=["m7g.large"],  # 2CPU, 8GiB
+        scheduler_vm_types=["m7g.large"],  # 2CPU, 8GiB
         shutdown_on_close=not reuse,
         **CLUSTER_KWARGS,
     )
