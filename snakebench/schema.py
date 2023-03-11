@@ -50,6 +50,9 @@ class TestRun(msgspec.Struct):
     peak_memory: float | None = None
     memory_measure: MemMeasure | None = None
 
+    # Transfer data
+    total_transfer_per_worker: list[int] | None = None
+
     # Memory sample data
     memory_samples: list[float] | None = None
     memory_times: list[float] | None = None

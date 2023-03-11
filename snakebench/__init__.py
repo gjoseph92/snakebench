@@ -4,9 +4,16 @@
 
 from . import utils_test
 from .benchmark_all import benchmark_all
-from .clusters import _small_client_base, setup_test_run_from_client, small_client
+from .clusters import (
+    _small_client_base,
+    pyspy_scheduler,
+    pyspy_workers,
+    setup_test_run_from_client,
+    small_client,
+)
 from .commit_info import commit_info
 from .core import (
+    local_cluster,
     module_id,
     pytest_runtest_makereport,
     result_file_lock,
@@ -20,6 +27,7 @@ from .memory import benchmark_memory
 from .s3 import s3_url
 from .skip import skip_bench
 from .time import auto_benchmark_time, benchmark_time
+from .transfers import benchmark_transfers
 
 __all__ = [
     "pytest_runtest_makereport",
@@ -27,6 +35,7 @@ __all__ = [
     "commit_info",
     "small_client",
     "_small_client_base",
+    "benchmark_transfers",
     "results_filename",
     "result_file_lock",
     "test_run_benchmark",
@@ -37,6 +46,9 @@ __all__ = [
     "skip_bench",
     "run_id",
     "reuse_cluster",
+    "local_cluster",
+    "pyspy_workers",
+    "pyspy_scheduler",
     "benchmark_time",
     "auto_benchmark_time",
     "benchmark_memory",

@@ -161,3 +161,12 @@ def test_join_big_small(small_client, mem_mult):
     df_small_pd = df_small.astype({"x2": "int"}).compute()
 
     dd.merge(df_big, df_small_pd, on="x2", how="inner").compute()
+
+
+def test_filter(small_client):
+    """How fast can we filter a DataFrame?"""
+    memory = cluster_memory(small_client)
+    df = timeseries_of_size(memory)
+    name = df.head(1).name.iloc[0]  # Get first name that appears
+    result = df[df.name == name]
+    wait(result, small_client, 10 * 60)

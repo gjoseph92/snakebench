@@ -5,6 +5,8 @@ on:
       - "**.py"
       - "pyproject.toml"
       - "pdm.lock"
+      - "dask.yaml"
+      - "conftest.py"
       - ".github/workflows/test.yaml"
 
 jobs:
@@ -27,15 +29,15 @@ jobs:
           # - metadata: read
           token: ${{ secrets.GH_ACCESS_TOKEN }}
       - name: Set up PDM
-        uses: pdm-project/setup-pdm@v2
+        uses: pdm-project/setup-pdm@v3
         with:
-          python-version: 3.8  # Must match version on `benchmark` job
+          python-version: 3.9  # Must match version on `benchmark` job
           enable-pep582: false
       - name: PDM lock
         shell: bash
         run: |
           pdm install --check --dry-run || pdm lock -v
-      - name: Commit updated lockfile
+      - name: Commit updated lockfiled
         id: auto-commit
         uses: stefanzweifel/git-auto-commit-action@v4
         with:
@@ -70,9 +72,9 @@ jobs:
         # Ensure this will uniquely identify each job per matrix; used in cluster name
         run: echo "MATRIX_ID=${{ matrix.repeat }}" >> "$GITHUB_ENV"
       - name: Set up PDM
-        uses: pdm-project/setup-pdm@v2
+        uses: pdm-project/setup-pdm@v3
         with:
-          python-version: 3.8 # Must match version on `lock` job
+          python-version: 3.9 # Must match version on `lock` job
           enable-pep582: false
         # TODO cache virtual env, especially between `lock` job
       - name: Install dependencies
@@ -106,8 +108,8 @@ jobs:
         with:
           name: profiles-${{ matrix.repeat }}
           path: |
-            profiles-*
-            profile-*.json
+            worker-profiles-*/
+            scheduler-profile-*.json
     outputs:
       short_sha: ${{ steps.short-sha.outputs.short_sha }}
 
