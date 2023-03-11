@@ -36,7 +36,7 @@ WORKER_VM_TYPES = ["c6i.large"]
 SCHEDULER_VM_TYPES = ["t3.large"]
 
 
-# TODO find some way to generalize this pattern
+# TODO find a way to generalize this pattern
 # Have a way to create the base and function-scoped fixtures given n_workers and args.
 
 
