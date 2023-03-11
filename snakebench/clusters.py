@@ -1,6 +1,8 @@
 from __future__ import annotations
 
 import logging
+import os
+import sys
 from contextlib import ExitStack
 from os import environ
 from typing import Iterator, cast
@@ -19,9 +21,7 @@ from snakebench.utils_test import cluster_memory
 N_WORKERS = 10
 
 
-CLUSTER_ENV: dict[str, str] = dict(
-    # DASK_DISTRIBUTED__SCHEDULER__WORKER_SATURATION="1.0",
-)
+CLUSTER_ENV: dict[str, str] = dict()
 
 CLUSTER_KWARGS = dict(
     account="dask-engineering",
@@ -32,12 +32,15 @@ CLUSTER_KWARGS = dict(
     ),
 )
 
+WORKER_VM_TYPES = ["c6i.large"]
+SCHEDULER_VM_TYPES = ["t3.large"]
+
 
 # TODO find some way to generalize this pattern
 # Have a way to create the base and function-scoped fixtures given n_workers and args.
 
 
-def _client_coiled(module_id: str, reuse: bool = False) -> Client:
+def _client_sneks(module_id: str, reuse: bool = False) -> Client:
     # So coiled logs can be displayed on test failure
     logging.getLogger("coiled").setLevel(logging.INFO)
 
@@ -45,11 +48,32 @@ def _client_coiled(module_id: str, reuse: bool = False) -> Client:
     return sneks.get_client(
         name=module_id,
         n_workers=N_WORKERS,
-        worker_vm_types=["c6i.large"],  # 2CPU, 8GiB
-        scheduler_vm_types=["t3.large"],  # 4CPU, 16GiB
+        worker_vm_types=WORKER_VM_TYPES,
+        scheduler_vm_types=SCHEDULER_VM_TYPES,
         shutdown_on_close=not reuse,
         **CLUSTER_KWARGS,
     )
+
+
+def _client_coiled(module_id: str, reuse: bool = False) -> Client:
+    # So coiled logs can be displayed on test failure
+    logging.getLogger("coiled").setLevel(logging.INFO)
+
+    print(f"Creating cluster {module_id}...")
+    client = CoiledCluster(
+        package_sync=True,
+        name=module_id,
+        n_workers=N_WORKERS,
+        worker_vm_types=WORKER_VM_TYPES,
+        scheduler_vm_types=SCHEDULER_VM_TYPES,
+        shutdown_on_close=not reuse,
+        **CLUSTER_KWARGS,
+    ).get_client()
+    # HACK: make the client "own" the cluster. When the client closes, the cluster
+    # object will close too. Whether the actual Coiled cluster shuts down depends on the
+    # `shutdown_on_close` argument.
+    client._start_arg = None
+    return client
 
 
 def _client_local(module_id: str, reuse: bool = False) -> Client:
@@ -62,14 +86,17 @@ def _client_local(module_id: str, reuse: bool = False) -> Client:
 
 @pytest.fixture(scope="module")
 def _small_client_base(
-    module_id: str, reuse_cluster: bool, request: pytest.FixtureRequest
+    module_id: str,
+    local_cluster: bool,
+    reuse_cluster: bool,
+    request: pytest.FixtureRequest,
 ) -> Iterator[tuple[Client, int]]:
     "Create a per-module client. Do not use this fixture directly."
     n_workers = None
-    if request.config.getoption("--local"):
+    if local_cluster:
         backend = _client_local
     else:
-        backend = _client_coiled
+        backend = _client_sneks
         n_workers = N_WORKERS
 
     with backend(module_id, reuse=reuse_cluster) as client:
@@ -106,13 +133,36 @@ def setup_test_run_from_client(client: Client, test_run_benchmark: TestRun) -> N
     test_run_benchmark.cluster_memory = cluster_memory(client)
 
 
+def _validate_pyspy_permissions(local_cluster) -> None:
+    if local_cluster and sys.platform != "linux" and os.geteuid() != 0:
+        raise RuntimeError("Using py-spy locally requires running tests with sudo")
+
+
+@pytest.fixture(scope="session")
+def pyspy_workers(local_cluster: bool, request: pytest.FixtureRequest) -> bool:
+    if request.config.getoption("--pyspy") is True:
+        _validate_pyspy_permissions(local_cluster)
+        return True
+    return False
+
+
+@pytest.fixture(scope="session")
+def pyspy_scheduler(local_cluster: bool, request: pytest.FixtureRequest) -> bool:
+    if request.config.getoption("--pyspy-scheduler") is True:
+        _validate_pyspy_permissions(local_cluster)
+        return True
+    return False
+
+
 @pytest.fixture
 def small_client(
     _small_client_base: tuple[Client, int],
     test_run_benchmark: TestRun,
+    local_cluster: bool,
+    pyspy_workers: bool,
+    pyspy_scheduler: bool,
     test_id: str,
     benchmark_all,
-    request: pytest.FixtureRequest,
 ) -> Iterator[Client]:
     "Per-test fixture to get a client, with automatic benchmarking."
     client, n_workers = _small_client_base
@@ -128,12 +178,23 @@ def small_client(
     print(client)
     setup_test_run_from_client(client, test_run_benchmark)
 
+    pyspy_native = sys.platform == "linux" or not local_cluster
     with ExitStack() as ctxs:
-        if request.config.getoption("--pyspy") is True:
-            ctxs.enter_context(pyspy(f"profiles-{test_id}", native=True))
-        if request.config.getoption("--pyspy-scheduler") is True:
+        if pyspy_workers:
             ctxs.enter_context(
-                pyspy_on_scheduler(f"profile-{test_id}.json", native=True)
+                pyspy(
+                    f"worker-profiles-{test_id}",
+                    native=pyspy_native,
+                    subprocesses=not local_cluster,
+                )
+            )
+        if pyspy_scheduler:
+            ctxs.enter_context(
+                pyspy_on_scheduler(
+                    f"scheduler-profile-{test_id}.json",
+                    native=pyspy_native,
+                    subprocesses=not local_cluster,
+                )
             )
         ctxs.enter_context(benchmark_all(client))
 
