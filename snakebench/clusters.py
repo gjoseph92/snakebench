@@ -32,6 +32,9 @@ CLUSTER_KWARGS = dict(
     ),
 )
 
+WORKER_VM_TYPES = ["t4g.large"]  # 2CPU, 8GiB
+SCHEDULER_VM_TYPES = ["t4g.large"]  # 2CPU, 8GiB
+
 
 # TODO find some way to generalize this pattern
 # Have a way to create the base and function-scoped fixtures given n_workers and args.
@@ -45,8 +48,8 @@ def _client_sneks(module_id: str, reuse: bool = False) -> Client:
     return sneks.get_client(
         name=module_id,
         n_workers=N_WORKERS,
-        worker_vm_types=["c7g.large"],  # 2CPU, 8GiB
-        scheduler_vm_types=["t4g.large"],  # 2CPU, 8GiB
+        worker_vm_types=WORKER_VM_TYPES,
+        scheduler_vm_types=SCHEDULER_VM_TYPES,
         shutdown_on_close=not reuse,
         **CLUSTER_KWARGS,
     )
@@ -61,8 +64,8 @@ def _client_coiled(module_id: str, reuse: bool = False) -> Client:
         package_sync=True,
         name=module_id,
         n_workers=N_WORKERS,
-        worker_vm_types=["m6i.large"],  # 2CPU, 8GiB
-        scheduler_vm_types=["m6i.large"],  # 2CPU, 8GiB
+        worker_vm_types=WORKER_VM_TYPES,
+        scheduler_vm_types=SCHEDULER_VM_TYPES,
         shutdown_on_close=not reuse,
         **CLUSTER_KWARGS,
     ).get_client()
