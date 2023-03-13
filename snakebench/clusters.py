@@ -32,7 +32,7 @@ CLUSTER_KWARGS = dict(
     ),
 )
 
-WORKER_VM_TYPES = ["c6i.large"]
+WORKER_VM_TYPES = ["t3.large"]
 SCHEDULER_VM_TYPES = ["t3.large"]
 
 
