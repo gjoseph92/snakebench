@@ -1,7 +1,7 @@
 import dask.dataframe as dd
 import pytest
 from dask.sizeof import sizeof
-from dask.utils import format_bytes
+from dask.utils import format_bytes, parse_bytes
 
 from snakebench.utils_test import cluster_memory, slowdown, timeseries_of_size, wait
 
@@ -173,7 +173,8 @@ def test_filter(small_client):
 
 
 def test_spill_no_transfer(small_client):
-    memory = cluster_memory(small_client)  # 76.66 GiB
+    # memory = cluster_memory(small_client)  # 76.66 GiB
+    memory = parse_bytes("14.33 GiB")
 
     df = slowdown(
         timeseries_of_size(
