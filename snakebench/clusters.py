@@ -32,7 +32,7 @@ CLUSTER_KWARGS = dict(
     ),
 )
 
-WORKER_VM_TYPES = ["m6i.large"]  # 2CPU, 8GiB
+WORKER_VM_TYPES = ["m6id.large"]  # 2CPU, 8GiB
 SCHEDULER_VM_TYPES = ["m6i.large"]  # 2CPU, 8GiB
 
 
