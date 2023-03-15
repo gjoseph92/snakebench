@@ -1,1 +1,8 @@
 foo: bar # used in `test_dask_config`
+
+distributed:
+  worker:
+   memory:
+    target: False
+    spill: False
+    pause: False
