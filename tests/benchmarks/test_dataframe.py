@@ -170,3 +170,22 @@ def test_filter(small_client):
     name = df.head(1).name.iloc[0]  # Get first name that appears
     result = df[df.name == name]
     wait(result, small_client, 10 * 60)
+
+
+def test_spill_no_transfer(small_client):
+    memory = cluster_memory(small_client)  # 76.66 GiB
+
+    df = slowdown(
+        timeseries_of_size(
+            memory * 4,
+            start="2020-01-01",
+            freq="1200ms",
+            partition_freq="48h",
+            dtypes={str(i): float for i in range(100)},
+        )
+    )
+
+    print_dataframe_info(df)
+    normd = df.assign(norm=df["0"] - df["0"].mean())
+    result = normd.size
+    wait(result.persist(), small_client, 20 * 60)
