@@ -18,7 +18,7 @@ from distributed.deploy.cluster import Cluster
 from snakebench.schema import TestRun
 from snakebench.utils_test import cluster_memory
 
-N_WORKERS = 10
+N_WORKERS = 2
 
 
 CLUSTER_ENV: dict[str, str] = dict()
